@@ -1,0 +1,60 @@
+.body-component-wrapper{
+    width: 100vw;
+    height: 80vh;
+    /*background-color: red;*/
+ /*margin: 5%;*/
+}
+
+.big-picture{
+width: 300px;
+    height: 300px;
+}
+
+.product-container-big{
+    margin: 20px;
+
+}
+/*///////////////////////*/
+.body-component-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Высота на весь экран */
+}
+
+.product-container-big {
+    width: 60%; /* 20% с обеих сторон для отступов */
+    margin: 0 20%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Тень */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Выравнивание содержимого по центру */
+
+    /* Дополнительные стили для внешнего вида */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 20px;
+    margin-top: 10px; /* Отступ от h2 */
+}
+
+.big-picture {
+    width: 400px;
+    height: 400px;
+    object-fit: cover; /* Сохранение пропорций изображения */
+    margin-top: 10px; /* Отступ от h3 */
+}
+
+.instructions-text {
+    font-size: 16px;
+    margin-top: 10px; /* Отступ от изображения */
+    line-height: 1.5; /* Междустрочный интервал */
+}
+

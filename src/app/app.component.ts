@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import {HeaderComponent} from "../../components/header/header.component";
+
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-root',
@@ -11,5 +12,5 @@ import {HeaderComponent} from "../../components/header/header.component";
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title:string = 'free meal';
+  title: string = 'free meal';
 }

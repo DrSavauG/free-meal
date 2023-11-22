@@ -1,4 +1,4 @@
-import {Products} from "../src/app/models/products";
+import {Products} from "../models/products";
 export const products:Products = {
   meals: [
     {

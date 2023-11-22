@@ -1,5 +1,5 @@
 import {Component} from "@angular/core";
-import {Products} from "../../src/app/models/products";
+import {Products} from "../../models/products";
 
 @Component({
   selector: 'header-component',

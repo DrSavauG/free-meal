@@ -1,8 +1,9 @@
-import {Products} from "../models/mock-products";
-export const products:Products = {
+import { Products } from "../models/mock-products";
+
+export const products: Products = {
   meals: [
     {
-        "idMeal": "53024",
+      "idMeal": "53024",
       "strMeal": "Rogaliki (Polish Croissant Cookies)",
       "strDrinkAlternate": null,
       "strCategory": "Dessert",

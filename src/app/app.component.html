@@ -1,5 +1,6 @@
 <header-component><h1>{{title | titlecase}}</h1></header-component>
 <body-component
-[products]="products"
+  [products]="(products$ | async)"
 >
 </body-component>
+

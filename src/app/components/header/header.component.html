@@ -3,11 +3,13 @@
         <div class="header-navbar-left">
             <h2>{{header | titlecase}}</h2>
         </div>
-        <div class="header-navbar-center">
-            <label>                {{userInput}}
-                <input [(ngModel)]="userInput" type="text" class="header-input" autocomplete="off" placeholder="Search for a Meal...">
-            </label>
-        </div>
+      <section class="search-section">
+          <input id="search-input" class="form-control" type="text"
+                 [formControl]="searchControl"
+                 placeholder="Ex: chicken, banana, meat..."
+          >
+          <button type="button" class="btn btn-primary" (click)="onSearch()">Search</button>
+      </section>
         <div class="header-navbar-right">
             <button class="button">
             </button>

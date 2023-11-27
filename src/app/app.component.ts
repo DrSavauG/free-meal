@@ -7,6 +7,7 @@ import { BodyComponent } from "./components/body/body.component";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpService } from "./services/products.service.service";
 import { Product } from "./models/mock-products";
+import { Observable } from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -18,22 +19,12 @@ import { Product } from "./models/mock-products";
 })
 export class AppComponent implements OnInit {
   title: string = 'free meal';
-  products: Product[] = [];
-  url: string = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=53024';
-
-  // www.themealdb.com/api/json/v1/1/random.php
-
+  products$: Observable<Product[]>;
 
   constructor(private httpService: HttpService) {
   }
 
   ngOnInit(): void {
-
-    this.httpService.getData(this.url).subscribe((data) => {
-      console.log(data);
-      this.products = data;
-      //todo отисаться от observable
-      //todo использовать т
-    });
+    this.products$ = this.httpService.getData();
   }
 }

@@ -19,12 +19,12 @@ import { Observable } from "rxjs";
 })
 export class AppComponent implements OnInit {
   title: string = 'free meal';
-  products$: Observable<Product[]>;
+  products$: Observable<Product[]> = this.httpService.products$;
 
   constructor(private httpService: HttpService) {
   }
 
   ngOnInit(): void {
-    this.products$ = this.httpService.getRandomData();
+    this.httpService.getRandomData().subscribe();
   }
 }

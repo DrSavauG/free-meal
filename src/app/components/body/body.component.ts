@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 
 import { Product } from "../../models/mock-products";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
-import { HttpService } from "../../services/products.service.service";
+import { HttpService } from "../../services/products.service";
 
 
 @Component({

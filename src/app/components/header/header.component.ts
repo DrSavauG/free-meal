@@ -1,6 +1,7 @@
-import {Component} from "@angular/core";
+import { Component } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+import { FormControl, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
+import { HttpService } from "../../services/products.service";
 
 @Component({
   selector: 'header-component',
@@ -9,13 +10,26 @@ import { FormsModule } from "@angular/forms";
   standalone: true,
   imports: [
     TitleCasePipe,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
-
-
 })
-export class HeaderComponent{
-  header:string  = 'free meal';
-  userInput: string | undefined;
+
+
+export class HeaderComponent {
+  constructor(
+    private httpService: HttpService
+  ) {}
+
+  header: string = 'free meal';
+  searchControl = new FormControl<string>('', [Validators.required, Validators.minLength(1)]);
+    onSearch() {
+      const searchUserInput = this.searchControl.value;
+      if(searchUserInput) {
+          this.httpService.getSearchData(searchUserInput).subscribe((items) => {
+              console.log(items);
+          });
+      }
+    }
 }
 

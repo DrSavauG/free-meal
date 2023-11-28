@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
 import { BodyComponent } from "./components/body/body.component";
 import { HttpClientModule } from "@angular/common/http";
-import { HttpService } from "./services/products.service.service";
+import { HttpService } from "./services/products.service";
 import { Product } from "./models/mock-products";
 import { Observable } from "rxjs";
 
@@ -25,6 +25,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.products$ = this.httpService.getData();
+    this.products$ = this.httpService.getRandomData();
   }
 }

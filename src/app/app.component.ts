@@ -5,7 +5,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./components/header/header.component";
 import { BodyComponent } from "./components/body/body.component";
 import { HttpClientModule } from "@angular/common/http";
-import { HttpService } from "./services/products.service.service";
+import { HttpService } from "./services/products.service";
 import { Product } from "./models/mock-products";
 import { Observable } from "rxjs";
 
@@ -19,12 +19,12 @@ import { Observable } from "rxjs";
 })
 export class AppComponent implements OnInit {
   title: string = 'free meal';
-  products$: Observable<Product[]>;
+  products$: Observable<Product[]> = this.httpService.products$;
 
   constructor(private httpService: HttpService) {
   }
 
   ngOnInit(): void {
-    this.products$ = this.httpService.getData();
+    this.httpService.getRandomData().subscribe();
   }
 }

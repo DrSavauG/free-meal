@@ -7,7 +7,7 @@ import { BodyComponent } from "./components/body/body.component";
 import { HttpClientModule } from "@angular/common/http";
 import { HttpService } from "./services/products.service";
 import { Product } from "./models/mock-products";
-import { Observable } from "rxjs";
+import { map, Observable, concat, of } from "rxjs";
 
 @Component({
   selector: 'app-root',
@@ -26,5 +26,14 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.products$ = this.httpService.getRandomData();
+  }
+  onSearchResult(result: Product[]): void {
+  // onSearchResult(result: Observable<Product[]>): void {
+    // Обработка результатов поиска
+    // @ts-ignore
+    console.log(111,result);
+    // this.products$ = this.products$.pipe(concat(result))
+    console.log('onSearchResul11111t',this.products$);
+    this.products$ = of(result);
   }
 }

@@ -15,7 +15,7 @@ import { Observable } from "rxjs";
   imports: [CommonModule, RouterOutlet, HeaderComponent, BodyComponent, HttpClientModule],
   providers: [HttpService],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.css'
 })
 export class AppComponent implements OnInit {
   title: string = 'free meal';

@@ -16,7 +16,7 @@ import { FooterComponent } from "./components/footer/footer.component";
   imports: [CommonModule, RouterOutlet, HeaderComponent, BodyComponent, HttpClientModule, FooterComponent],
   providers: [HttpService],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
   title: string = 'free meal';

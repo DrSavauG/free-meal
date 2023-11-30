@@ -8,7 +8,7 @@ import { HttpService } from "../../services/products.service";
 @Component({
   selector: 'body-component',
   templateUrl: './body.component.html',
-  styleUrl: './body.component.css',
+  styleUrl: './body.component.scss',
   standalone: true,
   providers: [HttpService],
 

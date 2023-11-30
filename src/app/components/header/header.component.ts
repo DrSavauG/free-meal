@@ -6,7 +6,7 @@ import { HttpService } from "../../services/products.service";
 @Component({
   selector: 'header-component',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  styleUrl: './header.component.scss',
   standalone: true,
   imports: [
     TitleCasePipe,

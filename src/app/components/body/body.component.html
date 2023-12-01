@@ -1,25 +1,38 @@
 <div class="body-component-wrapper">
   <div *ngFor="let product of products" class="product-container-big">
     <h2>{{product.strMeal}}</h2>
-    <h3>{{product.strCategory}}</h3>
+    <!--    <h3>{{product.category}}</h3>-->
     <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture">
-    <p class="instructions-text">{{product.strInstructions}}</p>
-    <button
-      class="button-show-more"
-      (click)="isShowMore=!isShowMore"
-      [ngClass]="{
+
+    <div class="description-wrapper">
+      <button class="description">{{product.strCategory}}</button>
+      <button class="description">{{product.strArea}}</button>
+
+
+      <button
+        class="button-show-more"
+        (click)="isShowMore=!isShowMore"
+        [ngClass]="{
                 'button-show-more':isShowMore,
                 'button-show-less':!isShowMore
                 }"
-    >
-      {{isShowMore ? "Hide" : "Show"}}Details
-    </button>
+      >
+
+        {{isShowMore ? "Hide" : "Show"}}Details
+      </button>
+<!-- todo дописать запуск новый запрос при click       (click)="tryAnother($event)"-->
+      <button
+        class="description">
+        Next
+      </button>
+    </div>
+
     <div *ngIf="isShowMore" class="body-show-more">
-      <p>{{product.strSource}}</p>
-      <p>{{product.strIngredient1}}</p>
-      <p>{{product.strIngredient2}}</p>
-      <p>{{product.strIngredient3}}</p>
-      <p>{{product.strIngredient4}}</p>
+      <p class="instructions-text">{{product.strInstructions}}</p>
+
+      <!--      <p>{{product.strIngredient2}}</p>-->
+      <!--      <p>{{product.strIngredient3}}</p>-->
+      <!--      <p>{{product.strIngredient4}}</p>-->
 
     </div>
   </div>

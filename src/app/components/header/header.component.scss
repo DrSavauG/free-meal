@@ -1,5 +1,7 @@
+@import "../../../styles/variables";
+
 h2 {
-    color: tomato;
+    color: red;
 
 }
 .form-control{
@@ -29,7 +31,7 @@ outline: none;
 .header-component-wrapper {
     border-radius: 0;
     margin-bottom: 0;
-    background: #23220d;
+    background: $bg-color-dark;
     /*padding: 15px 0 0;*/
     border: none;
 }
@@ -39,7 +41,7 @@ outline: none;
     padding-left: 15px;
     margin-right: auto;
     margin-left: auto;
-    width: 750px;
+    //width: 750px;
     display: flex;
     justify-content: space-between;
     /**/

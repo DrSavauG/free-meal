@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Product, Products } from "../models/mock-products";
+
 import { BehaviorSubject, map, Observable, tap } from "rxjs";
+
+import { Product, Products } from "../models/mock-products";
 import { environment } from "../../environments/environment";
 
 @Injectable({
@@ -16,7 +18,7 @@ export class HttpService {
 
     constructor(private http: HttpClient) {
     }
-    getRandomData(): Observable<Product[]> {
+    public getRandomData(): Observable<Product[]> {
         return this.http.get<Products>(this.apiUrlRandom).pipe(map((response) => response.meals)).pipe(
             tap((response) => {
                 this.productsSubject.next(response);
@@ -26,7 +28,7 @@ export class HttpService {
         );
     }
 
-    getSearchData(search: string): Observable<Product[]> {
+    public getSearchData(search: string): Observable<Product[]> {
         const getUrl = `${this.URL}${search}`;
         return this.http.get<Products>(getUrl).pipe(map((response) => response.meals)).pipe(
             tap((response) => this.productsSubject.next(response))
@@ -34,5 +36,5 @@ export class HttpService {
     }
 }
 
-export class ProductsServiceService {
+export class ProductsService {
 }

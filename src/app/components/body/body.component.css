@@ -1,10 +1,3 @@
-.body-component-wrapper{
-    width: 100vw;
-    height: 80vh;
-    /*background-color: red;*/
- /*margin: 5%;*/
-}
-
 .big-picture{
 width: 300px;
     height: 300px;
@@ -14,23 +7,21 @@ width: 300px;
     margin: 20px;
 
 }
-/*///////////////////////*/
 .body-component-wrapper {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Высота на весь экран */
+  width: 100vw;
+  height: 80vh;
 }
 
 .product-container-big {
-    width: 60%; /* 20% с обеих сторон для отступов */
-    margin: 0 20%;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Тень */
+    width: 60%;
+    margin-top:20%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
-    align-items: center; /* Выравнивание содержимого по центру */
-
-    /* Дополнительные стили для внешнего вида */
+    align-items: center;
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -42,19 +33,26 @@ h2 {
 
 h3 {
     font-size: 20px;
-    margin-top: 10px; /* Отступ от h2 */
+    margin-top: 10px;
 }
 
 .big-picture {
     width: 400px;
     height: 400px;
-    object-fit: cover; /* Сохранение пропорций изображения */
-    margin-top: 10px; /* Отступ от h3 */
+    object-fit: cover;
+    margin-top: 10px;
 }
 
 .instructions-text {
     font-size: 16px;
-    margin-top: 10px; /* Отступ от изображения */
-    line-height: 1.5; /* Междустрочный интервал */
+    margin-top: 10px;
+    line-height: 1.5;
 }
 
+.button-show-more{
+    background-color: wheat;
+}
+.button-show-less{
+    background-color: #cbf5b3;
+
+}

@@ -1,20 +1,26 @@
 import { Component, Input } from "@angular/core";
 
-import { Products } from "../../models/products";
-import { products as data } from "../../data/products";
+import { Product } from "../../models/mock-products";
+import { NgClass, NgForOf, NgIf } from "@angular/common";
+import { HttpService } from "../../services/products.service";
 
 
 @Component({
-    selector: 'body-component',
-    templateUrl: './body.component.html',
-    styleUrl: './body.component.css',
-    standalone: true,
+  selector: 'body-component',
+  templateUrl: './body.component.html',
+  styleUrl: './body.component.css',
+  standalone: true,
+  providers: [HttpService],
 
+
+  imports: [
+    NgForOf,
+    NgIf,
+    NgClass
+  ]
 })
 export class BodyComponent {
-    bodyComponent: string = 'body-component';
-    // products: Products = data;
-    @Input() product: Products | undefined;
-    products: Products = data;
-
+  bodyComponent: string = 'body-component';
+  @Input() products: Product[] | null;
+  isShowMore: boolean = false;
 }

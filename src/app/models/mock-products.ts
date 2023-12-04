@@ -4,7 +4,7 @@ export interface Products {
 export interface Product{
   idMeal:string,
   strMeal: string,
-  strDrinkAlternate: null,
+  strDrinkAlternate: null | string,
   strCategory: string,
   strArea: string,
   strInstructions: string,

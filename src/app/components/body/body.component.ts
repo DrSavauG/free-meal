@@ -1,8 +1,9 @@
-import { Component, Input } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 
-import { HttpService } from "../../services/products.service";
+import { Observable } from "rxjs";
 
+import { HttpService } from "../../services/products.service";
 import { Product } from "../../models/mock-products";
 
 @Component({
@@ -18,7 +19,17 @@ import { Product } from "../../models/mock-products";
     NgClass
   ]
 })
-export class BodyComponent {
-  @Input() products: Product[] | null;
+
+export class BodyComponent implements OnInit{
   public isShowMore: boolean = false;
+  public products$: Observable<Product[]> = this.httpService.products$;
+  public productsArray : Product[] = [];
+
+  constructor(private httpService: HttpService) {
+  }
+
+  public ngOnInit(): void {
+    this.httpService.getRandomData().subscribe(data=>this.productsArray = data
+    );
+  }
 }

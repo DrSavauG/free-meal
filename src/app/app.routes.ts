@@ -1,3 +1,7 @@
 import { Routes } from '@angular/router';
 
-export const routes: Routes = [];
+import { BodyComponent } from "./components/body/body.component";
+
+export const routes: Routes = [
+  {path: '', component: BodyComponent}
+];

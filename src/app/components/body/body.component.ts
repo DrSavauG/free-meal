@@ -1,7 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
-
-import { Observable } from "rxjs";
+import { Router } from "@angular/router";
 
 import { HttpService } from "../../services/products.service";
 import { Product } from "../../models/mock-products";
@@ -21,15 +20,17 @@ import { Product } from "../../models/mock-products";
 })
 
 export class BodyComponent implements OnInit{
-  public isShowMore: boolean = false;
-  public products$: Observable<Product[]> = this.httpService.products$;
   public productsArray : Product[] = [];
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService,private router: Router) {
   }
 
   public ngOnInit(): void {
     this.httpService.getRandomData().subscribe(data=>this.productsArray = data
     );
+  }
+
+  public redirectToBigBody():void {
+    this.router.navigate(['id']);
   }
 }

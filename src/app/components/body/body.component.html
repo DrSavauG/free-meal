@@ -5,31 +5,19 @@
     <div class="description-wrapper">
       <button class="description">{{product.strCategory}}</button>
       <button class="description">{{product.strArea}}</button>
+        <button
+          class="description"
+                  (click)="redirectToBigBody()"
+        >
+          <!--        todo сделать редирект на новый компонет, по id -->
+          Show details
+        </button>
       <button
-        class="button-show-more"
-        (click)="isShowMore=!isShowMore"
-        [ngClass]="{
-                'button-show-more':isShowMore,
-                'button-show-less':!isShowMore
-                }"
+        class="description"
+        (click)="ngOnInit()"
       >
-
-        {{isShowMore ? "Hide" : "Show"}}Details
-      </button>
-<!-- todo дописать запуск новый запрос при click       (click)="tryAnother($event)"-->
-      <button
-        class="description">
         Next
       </button>
-    </div>
-
-    <div *ngIf="isShowMore" class="body-show-more">
-      <p class="instructions-text">{{product.strInstructions}}</p>
-
-      <!--      <p>{{product.strIngredient2}}</p>-->
-      <!--      <p>{{product.strIngredient3}}</p>-->
-      <!--      <p>{{product.strIngredient4}}</p>-->
-
     </div>
   </div>
 </div>

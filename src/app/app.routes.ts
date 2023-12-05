@@ -5,5 +5,6 @@ import { BigBodyComponent } from "./components/big-body/big-body.component";
 
 export const routes: Routes = [
   {path: '', component: BodyComponent},
-  {path: 'id', component: BigBodyComponent}
+  {path: 'id', component: BigBodyComponent},
+  {path: 'item/:id', component: BigBodyComponent}
 ];

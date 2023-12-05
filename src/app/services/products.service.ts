@@ -11,7 +11,7 @@ import { environment } from "../../environments/environment";
 })
 export class HttpService {
 
-    private readonly URL: string = environment.URL;
+    private readonly apiItemIdUrl: string = environment.apiItemIdUrl;
     private readonly apiUrlRandom: string = environment.apiUrlRandom;
     private productsSubject = new BehaviorSubject<Product[]>([]);
     public products$: Observable<Product[]> = this.productsSubject.asObservable();
@@ -28,8 +28,9 @@ export class HttpService {
         );
     }
 
-    public getSearchData(search: string): Observable<Product[]> {
-        const getUrl = `${this.URL}${search}`;
+    public getSearchData(idMeals: string): Observable<Product[]> {
+        const getUrl:string = `${this.apiItemIdUrl}${idMeals}`;
+        console.log(getUrl);
         return this.http.get<Products>(getUrl).pipe(map((response) => response.meals)).pipe(
             tap((response) => this.productsSubject.next(response))
         );

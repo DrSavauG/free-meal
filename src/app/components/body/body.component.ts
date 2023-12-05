@@ -30,7 +30,7 @@ export class BodyComponent implements OnInit{
     );
   }
 
-  public redirectToBigBody():void {
-    this.router.navigate(['id']);
+  public redirectToBigBody(idMeal: string):void {
+    this.router.navigate(['/item',idMeal]);
   }
 }

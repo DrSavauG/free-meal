@@ -1,7 +1,14 @@
 @import "../../../styles/variables";
 
 .footer-wrapper {
+  display: flex;
     height: $footer-height;
     background-color: $bg-color-dark;
   //margin-top: -80px;
+}
+.letter-wrapper{
+  width:90%;
+  display: inline-flex;
+  justify-content: space-between;
+
 }

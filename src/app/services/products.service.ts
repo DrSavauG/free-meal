@@ -23,8 +23,6 @@ export class HttpService {
         return this.http.get<Products>(this.apiUrlRandom).pipe(map((response) => response.meals)).pipe(
             tap((response) => {
                 this.productsSubject.next(response);
-
-              //  this.productsSubject.subscribe((asd )=>)
             })
         );
     }

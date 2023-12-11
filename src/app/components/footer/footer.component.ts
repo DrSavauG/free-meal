@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from "@angular/router";
 
 import { HttpService } from "../../services/products.service";
+import { LetterComponent } from "../letter/letter.component";
 
 @Component({
   selector: 'footer-component',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, LetterComponent],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
 
 export class FooterComponent {
-  public abc: string[] = ['a', 'b', 'c'];
+  private abcString:string = 'abcdefghijklmnopqrstuvwxyz';
+  public abc: string[] = this.abcString.split('');
 
   constructor(private httpService: HttpService, private router: Router) {
   }

@@ -7,6 +7,7 @@ import { Product } from "../../models/mock-products";
 import { ProductCardComponent } from "../product-card/product-card.component";
 import { Observable } from "rxjs";
 import { ProductSmallComponent } from "../product-small/product-small.component";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'app-big-body',
@@ -18,6 +19,8 @@ import { ProductSmallComponent } from "../product-small/product-small.component"
 
 export class BigBodyComponent implements OnInit {
   public productsArray$: Observable<Product[]> | null = null;
+  private readonly apiItemIdUrl: string = environment.apiItemIdUrl;
+
 
   constructor(private httpService: HttpService, private route: ActivatedRoute) {
   }
@@ -28,7 +31,8 @@ export class BigBodyComponent implements OnInit {
     const idMeal:string = this.route.snapshot.params['id'];
 
     if(idMeal) {
-    this.productsArray$ = this.httpService.getSearchData(idMeal);
+      const getUrl: string = `${this.apiItemIdUrl}${idMeal}`;
+    this.productsArray$ = this.httpService.getHttpRequest(getUrl);
     }
   }
 }

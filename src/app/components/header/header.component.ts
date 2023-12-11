@@ -25,13 +25,13 @@ export class HeaderComponent {
   public header: string = 'free meal';
   public searchControl: FormControl<string | null> = new FormControl<string>('', [Validators.required, Validators.minLength(1)]);
 
-  public onSearch(): void {
-    const searchUserInput:string|null = this.searchControl.value;
-    if(searchUserInput) {
-      this.httpService.getSearchData(searchUserInput).subscribe((items) => {
-        console.log(items);
-      });
-    }
-  }
+  // public onSearch(): void {
+  //   const searchUserInput:string|null = this.searchControl.value;
+  //   if(searchUserInput) {
+  //     this.httpService.getSearchData(searchUserInput).subscribe((items) => {
+  //       console.log(items);
+  //     });
+  //   }
+  // }
 }
 

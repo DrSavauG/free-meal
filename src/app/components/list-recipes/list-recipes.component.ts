@@ -7,6 +7,7 @@ import { Product } from "../../models/mock-products";
 import { HttpService } from "../../services/products.service";
 import { map, Observable, of, switchMap } from "rxjs";
 import { ProductSmallComponent } from "../product-small/product-small.component";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: 'list-recipes',
@@ -16,9 +17,10 @@ import { ProductSmallComponent } from "../product-small/product-small.component"
   styleUrl: './list-recipes.component.scss'
 })
 export class ListRecipesComponent implements OnInit {
+  private readonly apiItemsLetterUrl: string = environment.apiItemsLetterUrl;
+
   public productsArray$: Observable<Product[]> | null = null;
   public placeholderImage:string = '../../../assets/images/404 3.png';
-
 
   constructor(private httpService: HttpService, private route: ActivatedRoute) {
   }
@@ -29,7 +31,7 @@ export class ListRecipesComponent implements OnInit {
   public  loadProducts(): void {
     this.productsArray$ = this.route.params.pipe(
       map((params) => params['letter']),
-      switchMap((letter) => (letter ? this.httpService.searchByLetter(letter) : of([])))
+      switchMap((letter) => (letter ? this.httpService.getHttpRequest(`${this.apiItemsLetterUrl}${letter}`) : of([])))
     );
   }
 

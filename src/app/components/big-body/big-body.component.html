@@ -1,4 +1,6 @@
 <div class="body-component-wrapper">
+<!--  TODO-->
+<!--  <app-product-card *ngFor="let product of productsArray" [product]="product"></app-product-card>-->
   <div *ngFor="let product of productsArray" class="product-container-big">
     <h2>{{product.strMeal}}</h2>
     <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture">

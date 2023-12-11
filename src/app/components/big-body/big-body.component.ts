@@ -18,8 +18,10 @@ export class BigBodyComponent implements OnInit {
 
   constructor(private httpService: HttpService, private route: ActivatedRoute) {
   }
-
   public ngOnInit(): void {
+    this.loadProducts();
+  }
+  public loadProducts(): void {
     const idMeal:string = this.route.snapshot.params['id'];
     if(idMeal) {
       this.httpService.getSearchData(idMeal).subscribe(data => {

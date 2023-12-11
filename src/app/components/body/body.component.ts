@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
-import { Router } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 
 import { HttpService } from "../../services/products.service";
 import { Product } from "../../models/mock-products";
@@ -15,7 +15,8 @@ import { Product } from "../../models/mock-products";
   imports: [
     NgForOf,
     NgIf,
-    NgClass
+    NgClass,
+    RouterLink
   ]
 })
 

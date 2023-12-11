@@ -1,5 +1,6 @@
 <div class="body-component-wrapper">
-  <div *ngFor="let product of productsArray" class="product-container-big">
+  <ng-container *ngIf="(productsArray$ | async)!==null;">
+  <div *ngFor="let product of productsArray$ | async" class="product-container-big">
     <h2>{{product.strMeal}}</h2>
     <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture">
     <div class="description-wrapper">
@@ -8,11 +9,12 @@
       <a class="description" [routerLink]="['/item', product?.idMeal]">Show details</a>
       <button
         class="description"
-        (click)="ngOnInit()"
+        (click)="loadProducts()"
       >
         Next
       </button>
     </div>
   </div>
+  </ng-container>
 </div>
 

@@ -24,6 +24,9 @@ export class ListRecipesComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    this.loadProducts();
+  }
+  public  loadProducts(): void {
     this.productsArray$ = this.route.params.pipe(
       map((params) => params['letter']),
       switchMap((letter) => (letter ? this.httpService.getLetterSearchData(letter) : of([])))

@@ -1,26 +1,23 @@
-import { Component, Input } from "@angular/core";
+import { Component } from "@angular/core";
 
-import { Product } from "../../models/mock-products";
-import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { HttpService } from "../../services/products.service";
-
+import { ProductRandomComponent } from "../product-random/product-random.component";
 
 @Component({
   selector: 'body-component',
   templateUrl: './body.component.html',
-  styleUrl: './body.component.css',
+  styleUrl: './body.component.scss',
   standalone: true,
   providers: [HttpService],
 
-
   imports: [
-    NgForOf,
-    NgIf,
-    NgClass
+    ProductRandomComponent
   ]
 })
+
 export class BodyComponent {
-  bodyComponent: string = 'body-component';
-  @Input() products: Product[] | null;
-  isShowMore: boolean = false;
+
+  constructor() {
+  }
+
 }

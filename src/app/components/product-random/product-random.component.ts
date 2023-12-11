@@ -14,10 +14,10 @@ import { HttpService } from "../../services/products.service";
   styleUrl: './product-random.component.scss'
 })
 
-
 export class ProductRandomComponent implements OnInit {
   public productsArray$: Observable<Product[]> | null = null;
-  public placeholderImage:string = '../../../assets/images/404 3.png';
+  public placeholderImage: string = '../../../assets/images/404 3.png';
+
   constructor(private httpService: HttpService) {
   }
 
@@ -27,5 +27,11 @@ export class ProductRandomComponent implements OnInit {
 
   public loadProducts(): void {
     this.productsArray$ = this.httpService.getRandomData();
+  }
+
+  public handleImageError(event: Event): void {
+    if(event.target instanceof HTMLImageElement) {
+      event.target.src = this.placeholderImage;
+    }
   }
 }

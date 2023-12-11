@@ -1,4 +1,27 @@
 <div class="body-component-wrapper">
-    <app-product-random></app-product-random>
+  <div *ngFor="let product of products" class="product-container-big">
+    <h2>{{product.strMeal}}</h2>
+    <h3>{{product.strCategory}}</h3>
+    <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture">
+    <p class="instructions-text">{{product.strInstructions}}</p>
+    <button
+      class="button-show-more"
+      (click)="isShowMore=!isShowMore"
+      [ngClass]="{
+                'button-show-more':isShowMore,
+                'button-show-less':!isShowMore
+                }"
+    >
+      {{isShowMore ? "Hide" : "Show"}}Details
+    </button>
+    <div *ngIf="isShowMore" class="body-show-more">
+      <p>{{product.strSource}}</p>
+      <p>{{product.strIngredient1}}</p>
+      <p>{{product.strIngredient2}}</p>
+      <p>{{product.strIngredient3}}</p>
+      <p>{{product.strIngredient4}}</p>
+
+    </div>
+  </div>
 </div>
 

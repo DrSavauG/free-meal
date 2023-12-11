@@ -1,3 +1,3 @@
 <div class="body-component-wrapper">
-  <product-card *ngFor="let product of productsArray" [product]="product"></product-card>
+  <product-card *ngFor="let product of productsArray$ | async" [product]="product"></product-card>
 </div>

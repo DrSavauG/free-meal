@@ -6,11 +6,12 @@ import { Product } from "../../models/mock-products";
 
 import { HttpService } from "../../services/products.service";
 import { map, Observable, of, switchMap } from "rxjs";
+import { ProductSmallComponent } from "../product-small/product-small.component";
 
 @Component({
   selector: 'list-recipes',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProductSmallComponent],
   templateUrl: './list-recipes.component.html',
   styleUrl: './list-recipes.component.scss'
 })

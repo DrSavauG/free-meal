@@ -4,11 +4,12 @@ import { ActivatedRoute } from "@angular/router";
 
 import { HttpService } from "../../services/products.service";
 import { Product } from "../../models/mock-products";
+import { ProductCardComponent } from "../product-card/product-card.component";
 
 @Component({
   selector: 'app-big-body',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ProductCardComponent],
   templateUrl: './big-body.component.html',
   styleUrl: './big-body.component.scss'
 })

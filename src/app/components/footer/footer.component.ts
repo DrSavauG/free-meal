@@ -14,13 +14,9 @@ import { LetterComponent } from "../letter/letter.component";
 })
 
 export class FooterComponent {
-  private abcString:string = 'abcdefghijklmnopqrstuvwxyz';
+  private abcString: string = 'abcdefghijklmnopqrstuvwxyz';
   public abc: string[] = this.abcString.split('');
 
   constructor(private httpService: HttpService, private router: Router) {
-  }
-
-  public redirectListRecipes(letter: string): void {
-    this.router.navigate(['/items', letter]);
   }
 }

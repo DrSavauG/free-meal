@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Product } from "../../models/mock-products";
-import { Router, RouterLink } from "@angular/router";
+import { RouterLink } from "@angular/router";
 import { Observable } from "rxjs";
 import { HttpService } from "../../services/products.service";
 
@@ -15,15 +15,16 @@ import { HttpService } from "../../services/products.service";
 })
 
 
-
-export class ProductRandomComponent implements OnInit{
+export class ProductRandomComponent implements OnInit {
   public productsArray$: Observable<Product[]> | null = null;
-  constructor(private httpService: HttpService,private router: Router) {
+  public placeholderImage:string = '../../../assets/images/404 3.png';
+  constructor(private httpService: HttpService) {
   }
 
   public ngOnInit(): void {
     this.loadProducts();
   }
+
   public loadProducts(): void {
     this.productsArray$ = this.httpService.getRandomData();
   }

@@ -1,6 +1,4 @@
 import { Component } from "@angular/core";
-import { AsyncPipe, NgClass, NgForOf, NgIf } from "@angular/common";
-import { RouterLink } from "@angular/router";
 
 import { HttpService } from "../../services/products.service";
 import { ProductRandomComponent } from "../product-random/product-random.component";
@@ -13,11 +11,6 @@ import { ProductRandomComponent } from "../product-random/product-random.compone
   providers: [HttpService],
 
   imports: [
-    NgForOf,
-    NgIf,
-    NgClass,
-    RouterLink,
-    AsyncPipe,
     ProductRandomComponent
   ]
 })

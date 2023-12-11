@@ -1,10 +1,18 @@
-<div *ngFor="let product of productsArray$ | async" class="product-container-big">
-  <h2>{{ product.strMeal }}</h2>
-  <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture">
-  <div class="description-wrapper">
-    <button class="description">{{ product.strCategory }}</button>
-    <button class="description">{{ product.strArea }}</button>
-    <a class="description" [routerLink]="['/item', product?.idMeal]">Show details</a>
-    <button class="description" (click)="loadProducts()">Next</button>
+
+<ng-container *ngIf="(productsArray$ | async)!==null; else placeholder">
+  <div *ngFor="let product of productsArray$ | async" class="product-container-big">
+    <h2>{{ product.strMeal }}</h2>
+    <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture">
+    <div class="description-wrapper">
+      <button class="description">{{ product.strCategory }}</button>
+      <button class="description">{{ product.strArea }}</button>
+      <a class="description" [routerLink]="['/item', product?.idMeal]">Show details</a>
+      <button class="description" (click)="loadProducts()">Next</button>
+    </div>
   </div>
-</div>
+
+</ng-container>
+
+<ng-template #placeholder>
+  <img [src]="placeholderImage" alt="Placeholder" class="big-picture" />
+</ng-template>

@@ -1,10 +1,9 @@
-import { Component, OnInit } from "@angular/core";
+import { Component } from "@angular/core";
 import { AsyncPipe, NgClass, NgForOf, NgIf } from "@angular/common";
-import { Router, RouterLink } from "@angular/router";
+import { RouterLink } from "@angular/router";
 
 import { HttpService } from "../../services/products.service";
-import { Product } from "../../models/mock-products";
-import { Observable } from "rxjs";
+import { ProductRandomComponent } from "../product-random/product-random.component";
 
 @Component({
   selector: 'body-component',
@@ -18,21 +17,14 @@ import { Observable } from "rxjs";
     NgIf,
     NgClass,
     RouterLink,
-    AsyncPipe
+    AsyncPipe,
+    ProductRandomComponent
   ]
 })
 
-export class BodyComponent implements OnInit{
-  public productsArray$: Observable<Product[]> | null = null;
+export class BodyComponent {
 
-
-  constructor(private httpService: HttpService,private router: Router) {
+  constructor() {
   }
 
-  public ngOnInit(): void {
-    this.loadProducts();
-  }
-  public loadProducts(): void {
-    this.productsArray$ = this.httpService.getRandomData();
-  }
 }

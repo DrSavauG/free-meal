@@ -1,0 +1,8 @@
+<div class="footer-wrapper">
+  <div  *ngFor="let letter of abc" class="letter-wrapper">
+    <div class="letter-container">
+      <button (click)="redirectListRecipes(letter)" class="letter-link">{{ letter }}</button>
+    </div>
+  </div>
+</div>
+

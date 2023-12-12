@@ -1,8 +1,9 @@
 <div class="body-component-wrapper">
-  <ng-container *ngIf="(productsArray$ | async)!==null; else placeholder">
-    <app-product-small *ngFor="let product of productsArray$ | async" [product]="product"></app-product-small>
-  </ng-container>
-  <ng-template #placeholder>
+  @if ((productsArray$ | async)!==null) {
+    @for (product of productsArray$ | async; track product) {
+      <app-product-small [product]="product"></app-product-small>
+    }
+  } @else {
     <img [src]="placeholderImage" alt="Placeholder" class="big-picture" />
-  </ng-template>
+  }
 </div>

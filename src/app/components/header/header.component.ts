@@ -13,7 +13,7 @@ import { HttpService } from "../../services/products.service";
     TitleCasePipe,
     FormsModule,
     ReactiveFormsModule
-  ],
+],
 })
 
 export class HeaderComponent {

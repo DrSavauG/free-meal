@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
-import { map, Observable, tap } from "rxjs";
+import { map, Observable } from "rxjs";
 
 import { Product, Products } from "../models/mock-products";
-import { environment } from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'

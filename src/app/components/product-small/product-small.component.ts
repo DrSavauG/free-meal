@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Product } from "../../models/mock-products";
@@ -8,8 +8,9 @@ import { Product } from "../../models/mock-products";
   standalone: true,
   imports: [CommonModule],
   templateUrl: './product-small.component.html',
-  styleUrl: './product-small.component.scss'
+  styleUrl: './product-small.component.scss',
+  inputs:[ "product"],
 })
 export class ProductSmallComponent {
-  @Input() product: Product;
+  product: Product;
 }

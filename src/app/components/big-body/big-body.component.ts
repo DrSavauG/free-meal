@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
 
@@ -27,7 +27,7 @@ export class BigBodyComponent implements OnInit {
   public ngOnInit(): void {
     this.loadProducts();
   }
-  public loadProducts(): void {
+  private loadProducts(): void {
     const idMeal:string = this.route.snapshot.params['id'];
 
     if(idMeal) {

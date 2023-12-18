@@ -21,7 +21,6 @@ export class ProductRandomComponent implements OnInit {
   public placeholderImage: string = '../../../assets/images/404 3.png';
   private readonly apiUrlRandom: string = environment.apiUrlRandom;
 
-
   constructor(private httpService: HttpService) {
   }
 

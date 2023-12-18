@@ -1,5 +1,5 @@
 <div class="body-component-wrapper">
-  @for (product of productsArray$ | async; track product) {
+  @for (product of productsArray$ | async; track product.idMeal) {
     <product-card [product]="product"></product-card>
   }
 </div>

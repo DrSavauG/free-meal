@@ -21,8 +21,6 @@ export class ListRecipesComponent implements OnInit {
   private readonly apiItemsLetterUrl: string = environment.apiItemsLetterUrl;
 
   public productsArray$: Observable<Product[]> | null = null;
-  public placeholderImage:string = '../../../assets/images/404 3.png';
-
   constructor(private httpService: HttpService, private route: ActivatedRoute) {
   }
 

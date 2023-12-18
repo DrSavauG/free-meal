@@ -12,7 +12,7 @@ import { Product } from "../../models/mock-products";
   inputs:[ "product"],
 })
 export class ProductSmallComponent {
-  product: Product;
+  product: Product | null = null;
   private placeholderImage: string = '../../../assets/images/404 3.png';
   public handleImageError(event: Event): void {
     if(event.target instanceof HTMLImageElement) {

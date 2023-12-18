@@ -11,5 +11,5 @@ import { RouterLink } from "@angular/router";
   inputs: ['letter']
 })
 export class LetterComponent {
-  letter: string;
+  letter: string | null = null;
 }

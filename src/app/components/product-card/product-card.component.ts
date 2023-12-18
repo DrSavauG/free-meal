@@ -15,7 +15,7 @@ import { Product } from "../../models/mock-products";
 
 export class ProductCardComponent {
   private placeholderImage: string = '../../../assets/images/404 3.png';
-   product: Product;
+  product: Product | null = null;
 
   public handleImageError(event: Event): void {
     if(event.target instanceof HTMLImageElement) {

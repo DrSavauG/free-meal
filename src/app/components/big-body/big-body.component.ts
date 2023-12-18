@@ -14,7 +14,8 @@ import { environment } from "../../../environments/environment";
   standalone: true,
   imports: [CommonModule, ProductCardComponent, ProductSmallComponent],
   templateUrl: './big-body.component.html',
-  styleUrl: './big-body.component.scss'
+  styleUrl: './big-body.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class BigBodyComponent implements OnInit {

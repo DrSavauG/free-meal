@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
 
@@ -14,7 +14,8 @@ import { environment } from "../../../environments/environment";
   standalone: true,
   imports: [CommonModule, ProductSmallComponent],
   templateUrl: './list-recipes.component.html',
-  styleUrl: './list-recipes.component.scss'
+  styleUrl: './list-recipes.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListRecipesComponent implements OnInit {
   private readonly apiItemsLetterUrl: string = environment.apiItemsLetterUrl;

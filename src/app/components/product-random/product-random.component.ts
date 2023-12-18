@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { Product } from "../../models/mock-products";
@@ -12,7 +12,8 @@ import { environment } from "../../../environments/environment";
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './product-random.component.html',
-  styleUrl: './product-random.component.scss'
+  styleUrl: './product-random.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class ProductRandomComponent implements OnInit {

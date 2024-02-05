@@ -1,4 +1,5 @@
 <div class="footer-wrapper">
-    <app-letter *ngFor="let letter of abc" [letter]="letter"></app-letter>
+  @for (letter of abc; track letter) {
+    <app-letter [letter]="letter"></app-letter>
+  }
 </div>
-

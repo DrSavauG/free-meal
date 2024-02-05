@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
 
 @Component({
@@ -7,9 +7,9 @@ import { RouterLink } from "@angular/router";
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './letter.component.html',
-  styleUrl: './letter.component.scss'
+  styleUrl: './letter.component.scss',
+  inputs: ['letter']
 })
 export class LetterComponent {
-  @Input() letter: string;
-
+  letter: string | null = null;
 }

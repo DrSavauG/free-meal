@@ -1,3 +1,5 @@
 <div class="body-component-wrapper">
-  <product-card *ngFor="let product of productsArray$ | async" [product]="product"></product-card>
+  @for (product of productsArray$ | async; track product.idMeal) {
+    <product-card [product]="product"></product-card>
+  }
 </div>

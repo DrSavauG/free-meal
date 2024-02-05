@@ -12,7 +12,7 @@ import { ProductRandomComponent } from "../product-random/product-random.compone
 
   imports: [
     ProductRandomComponent
-  ]
+]
 })
 
 export class BodyComponent {

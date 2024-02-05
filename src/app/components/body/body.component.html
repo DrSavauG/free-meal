@@ -1,24 +1,4 @@
 <div class="body-component-wrapper">
-  <div *ngFor="let product of productsArray" class="product-container-big">
-    <h2>{{product.strMeal}}</h2>
-    <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture">
-    <div class="description-wrapper">
-      <button class="description">{{product.strCategory}}</button>
-      <button class="description">{{product.strArea}}</button>
-        <button
-          class="description"
-                  (click)="redirectToBigBody(product.idMeal)"
-        >
-          <!--        todo сделать редирект на новый компонет, по id -->
-          Show details
-        </button>
-      <button
-        class="description"
-        (click)="ngOnInit()"
-      >
-        Next
-      </button>
-    </div>
-  </div>
+    <app-product-random></app-product-random>
 </div>
 

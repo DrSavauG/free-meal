@@ -1,9 +1,7 @@
-import { Component, OnInit } from "@angular/core";
-import { NgClass, NgForOf, NgIf } from "@angular/common";
-import { Router } from "@angular/router";
+import { Component } from "@angular/core";
 
 import { HttpService } from "../../services/products.service";
-import { Product } from "../../models/mock-products";
+import { ProductRandomComponent } from "../product-random/product-random.component";
 
 @Component({
   selector: 'body-component',
@@ -13,24 +11,13 @@ import { Product } from "../../models/mock-products";
   providers: [HttpService],
 
   imports: [
-    NgForOf,
-    NgIf,
-    NgClass
+    ProductRandomComponent
   ]
 })
 
-export class BodyComponent implements OnInit{
-  public productsArray : Product[] = [];
+export class BodyComponent {
 
-  constructor(private httpService: HttpService,private router: Router) {
+  constructor() {
   }
 
-  public ngOnInit(): void {
-    this.httpService.getRandomData().subscribe(data=>this.productsArray = data
-    );
-  }
-
-  public redirectToBigBody(idMeal: string):void {
-    this.router.navigate(['/item',idMeal]);
-  }
 }

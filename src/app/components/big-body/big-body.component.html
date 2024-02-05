@@ -1,10 +1,3 @@
 <div class="body-component-wrapper">
-  <div *ngFor="let product of productsArray" class="product-container-big">
-    <h2>{{product.strMeal}}</h2>
-    <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture">
-    <div class="description-wrapper">
-      <button class="description">{{product.strCategory}}</button>
-      <button class="description">{{product.strArea}}</button>
-    </div>
-  </div>
+  <product-card *ngFor="let product of productsArray$ | async" [product]="product"></product-card>
 </div>

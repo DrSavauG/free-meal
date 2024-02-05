@@ -1,6 +1,4 @@
-
-@if ((productsArray$ | async)!==null) {
-  @for (product of productsArray$ | async; track product) {
+  @for (product of productsArray$ | async; track product.idMeal) {
     <div class="product-container-big">
       <h2>{{ product.strMeal }}</h2>
       <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture"
@@ -13,7 +11,3 @@
         </div>
       </div>
     }
-  } @else {
-    <img [src]="placeholderImage" alt="Placeholder" class="big-picture" />
-  }
-  

@@ -1,6 +1,10 @@
 <div class="product-card-wrapper">
   <h2>{{product?.strMeal}}</h2>
-  <img [src]="product?.strMealThumb" [alt]="product?.strMeal" class="big-picture"
+  <img ngSrc="{{product?.strMealThumb}}"
+       [alt]="product?.strMeal"
+       class="big-picture"
+       [width]="getWidth"
+       [height]="getHeight"
        (error)="handleImageError($event)">
   <div class="description-wrapper">
     <button class="description">{{product?.strCategory}}</button>

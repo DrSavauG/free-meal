@@ -1,7 +1,11 @@
 <div class="products-list-container">
   <h2>{{ product?.strMeal }}</h2>
-  <img [src]="product?.strMealThumb" [alt]="product?.strMeal" class="big-picture"
-       (error)="handleImageError($event)">
+  <img ngSrc="{{product?.strMealThumb}}/preview"
+       [alt]="product?.strMeal" class="big-picture"
+       (error)="handleImageError($event)"
+       [width]="getWidth"
+       [height]="getHeight"
+  >
   <div class="description-wrapper">
     <button class="description">{{ product?.strCategory }}</button>
     <button class="description">{{ product?.strArea }}</button>

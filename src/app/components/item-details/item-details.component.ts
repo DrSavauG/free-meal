@@ -32,4 +32,12 @@ export class ItemDetailsComponent implements OnInit {
   public handleImageError(event: Event): void {
     this.imageHandlingService.handleImageError(event);
   }
+
+  public get getWidth(): number {
+    return 100;
+  }
+
+  public get getHeight(): number {
+    return 100;
+  }
 }

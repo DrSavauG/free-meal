@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 import { ImageHandlingService } from "../../services/image-handling.service";
 
@@ -8,7 +8,7 @@ import { Product } from "../../models/mock-products";
 @Component({
   selector: 'product-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,6 +23,13 @@ export class ProductCardComponent {
 
   public handleImageError(event: Event): void {
     this.imageHandlingService.handleImageError(event);
+  }
+
+  public get getWidth(): number {
+    return 500;
+  }
+  public get getHeight(): number {
+    return 500;
   }
 
 }

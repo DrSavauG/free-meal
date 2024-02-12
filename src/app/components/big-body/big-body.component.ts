@@ -7,11 +7,12 @@ import { Product } from "../../models/mock-products";
 import { ProductCardComponent } from "../product-card/product-card.component";
 import { Observable } from "rxjs";
 import { ProductSmallComponent } from "../product-small/product-small.component";
+import { ItemDetailsComponent } from "../item-details/item-details.component";
 
 @Component({
   selector: 'app-big-body',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent, ProductSmallComponent],
+  imports: [CommonModule, ProductCardComponent, ProductSmallComponent, ItemDetailsComponent],
   templateUrl: './big-body.component.html',
   styleUrl: './big-body.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

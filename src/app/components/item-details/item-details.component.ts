@@ -3,6 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Product } from "../../models/mock-products";
 import { IngredientsInterface } from "../../models/ingredient.interface";
 import { environment } from "../../../environments/environment";
+import { ConvertRecipeService } from "../../services/convert-recipe.service";
 
 @Component({
   selector: 'app-item-details',
@@ -15,26 +16,14 @@ export class ItemDetailsComponent implements OnInit {
   @Input() product: Product | null = null;
   ingredients: IngredientsInterface | null = null;
   private readonly urlImageIngredient: string = environment.urlImageIngredient;
+  private placeholderImage: string = '../../../assets/images/404 3.png';
 
+
+  constructor(private ConvertRecipeService: ConvertRecipeService) {
+  }
 
   ngOnInit(): void {
-    this.ingredients = this.createArrOfIngredients(this.product, this.urlImageIngredient);
+    this.ingredients = this.ConvertRecipeService.createArrOfIngredients(this.product, this.urlImageIngredient);
   }
 
-  private createArrOfIngredients(product: Product | null, urlImg: string): IngredientsInterface {
-    const result = [];
-    for (let i = 1; i < 21; i++) {
-      if(product) {
-        const strIngredient = 'strIngredient' + i as keyof Product;
-        const strMeasure = 'strMeasure' + i as keyof Product;
-        const ingredient = product[strIngredient];
-        const measure = product[strMeasure];
-        const srcSmall = `${urlImg}${ingredient}-Small.png`;
-        if(ingredient !== "") {
-          result.push({ingredient, measure, srcSmall});
-        }
-      }
-    }
-    return result;
-  }
 }

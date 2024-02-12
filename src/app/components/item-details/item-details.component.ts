@@ -18,15 +18,15 @@ export class ItemDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.ingredients = this.createIngredients(this.product,this.urlImageIngredient);
+    this.ingredients = this.createArrOfIngredients(this.product, this.urlImageIngredient);
   }
 
-  private createIngredients(product: Product|null,urlImg:string): IngredientsInterface {
-   const result = [];
+  private createArrOfIngredients(product: Product | null, urlImg: string): IngredientsInterface {
+    const result = [];
     for (let i = 1; i < 21; i++) {
       if(product) {
-        const strIngredient= 'strIngredient' + i as keyof Product;
-        const strMeasure= 'strMeasure' + i as keyof Product;
+        const strIngredient = 'strIngredient' + i as keyof Product;
+        const strMeasure = 'strMeasure' + i as keyof Product;
         const ingredient = product[strIngredient];
         const measure = product[strMeasure];
         const srcSmall = `${urlImg}${ingredient}-Small.png`;

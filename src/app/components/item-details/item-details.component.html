@@ -7,11 +7,13 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let item of ingredients">
-    <td><img [alt]="item.ingredient" width="100" height="100" ngSrc="{{item.srcSmall}}"></td>
-    <td>{{ item.ingredient }}</td>
-    <td>{{ item.measure }}</td>
-  </tr>
+    @for (item of ingredients; track item.ingredient) {
+      <tr>
+        <td><img [alt]="item.ingredient" width="100" height="100" ngSrc="{{item.srcSmall}}"></td>
+        <td>{{ item.ingredient }}</td>
+        <td>{{ item.measure }}</td>
+      </tr>
+    }
   </tbody>
 </table>
 

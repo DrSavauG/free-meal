@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { ImageHandlingService } from "../../services/image-handling.service";
+
 import { Product } from "../../models/mock-products";
 
 @Component({
@@ -13,10 +15,9 @@ import { Product } from "../../models/mock-products";
 })
 export class ProductSmallComponent {
   product: Product | null = null;
-  private placeholderImage: string = '../../../assets/images/404 3.png';
+  constructor(private imageHandlingService: ImageHandlingService) {
+  }
   public handleImageError(event: Event): void {
-    if(event.target instanceof HTMLImageElement) {
-      event.target.src = this.placeholderImage;
-    }
+    this.imageHandlingService.handleImageError(event);
   }
 }

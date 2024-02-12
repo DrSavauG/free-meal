@@ -24,8 +24,13 @@
 </table>
 
 @if (product?.strYoutube) {
-  <button>{{ product?.strYoutube }}</button>
+  <a href="{{ product?.strYoutube }}" target="_blank">
+    <button>Watch on YouTube</button>
+  </a>
+
 }
 @if (product?.strSource) {
-  <button>{{ product?.strSource }}</button>
+  <a href="{{ product?.strSource }}" target="_blank">
+    <button>Recipe source</button>
+  </a>
 }

@@ -9,9 +9,10 @@
       <input id="search-input" class="form-control" type="text"
              [formControl]="searchControl"
              placeholder="Ex: chicken, banana, meat..."
+             (input)="searchByLetter($event)"
       >
     </section>
-    <button type="button" class="button">Search</button>
+    <button type="button" class="button" (click)="onSearch()">Search</button>
   </div>
 </div>
 

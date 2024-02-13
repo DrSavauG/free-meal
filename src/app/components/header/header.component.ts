@@ -35,15 +35,6 @@ export class HeaderComponent {
     });
   }
 
-  protected onSearch(): void {
-    const searchUserInput: string | null = this.searchControl.value;
-    if(searchUserInput) {
-      this.httpService.getSearchData(searchUserInput).subscribe((items) => {
-        console.log(items);
-      });
-    }
-  }
-
   protected searchByLetter(event: Event): void {
     const {value} = event.target as HTMLInputElement;
     this.router.navigate(['/items', value]);

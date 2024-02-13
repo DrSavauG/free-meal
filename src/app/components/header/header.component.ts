@@ -15,7 +15,7 @@ import { HttpService } from "../../services/products.service";
     TitleCasePipe,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
   ],
 })
 
@@ -43,19 +43,10 @@ export class HeaderComponent {
       });
     }
   }
-  searchByLetter(event: Event): void {
+
+  protected searchByLetter(event: Event): void {
     const {value} = event.target as HTMLInputElement;
-    console.log(value);
-      if (value) {
-        this.httpService.getSearchByName(value).subscribe((items)=>
-        console.log(items));
-  //     this.categorias = this.categoriaArmazenadas.filter((categoria) =>
-  //       categoria.strCategory.toLowerCase().includes(value)
-  //     )
-    }
-        //   else {
-  //     this.categorias = [...this.categoriaArmazenadas]
-  //   }
+    this.router.navigate(['/items', value]);
   }
 }
 

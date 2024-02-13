@@ -25,11 +25,15 @@ export class ListRecipesComponent implements OnInit {
   public ngOnInit(): void {
     this.loadProducts();
   }
-  public  loadProducts(): void {
+
+  public loadProducts(): void {
     this.productsArray$ = this.route.params.pipe(
       map((params) => params['letter']),
-      switchMap((letter) => (letter ? this.httpService.searchByLetter(letter) : of([])))
+      switchMap((letter) => {
+        if(letter.length > 1) {
+          return this.httpService.getSearchByName(letter);
+        } else return letter ? this.httpService.searchByLetter(letter) : of([]);
+      })
     );
   }
-
 }

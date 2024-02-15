@@ -1,7 +1,7 @@
 <div class="products-list-container">
   <h2>{{ product?.strMeal }}</h2>
   <a [routerLink]="['/item', product?.idMeal]">
-  <img ngSrc="{{product?.strMealThumb}}/preview"
+  <img ngSrc="{{product?.strMealThumb}}"
        [alt]="product?.strMeal" class="big-picture"
        (error)="handleImageError($event)"
        [width]="getWidth"

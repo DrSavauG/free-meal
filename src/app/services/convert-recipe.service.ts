@@ -20,7 +20,7 @@ export class ConvertRecipeService {
         const ingredient = product[strIngredient];
         const measure = product[strMeasure];
         const urlImgSmall = `${urlImg}${ingredient}-Small.png`;
-        if(ingredient !== "") {
+        if(ingredient) {
           result.push({ingredient, measure, urlImgSmall});
         }
       }

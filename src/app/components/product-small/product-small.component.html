@@ -1,11 +1,13 @@
 <div class="products-list-container">
   <h2>{{ product?.strMeal }}</h2>
+  <a [routerLink]="['/item', product?.idMeal]">
   <img ngSrc="{{product?.strMealThumb}}/preview"
        [alt]="product?.strMeal" class="big-picture"
        (error)="handleImageError($event)"
        [width]="getWidth"
        [height]="getHeight"
   >
+    </a>
   <div class="description-wrapper">
     <button class="description">{{ product?.strCategory }}</button>
     <button class="description">{{ product?.strArea }}</button>

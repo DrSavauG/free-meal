@@ -14,6 +14,7 @@ export class HttpService {
   private readonly apiItemIdUrl: string = environment.apiItemIdUrl;
   private readonly apiItemsLetterUrl: string = environment.apiItemsLetterUrl;
   private readonly apiUrlRandom: string = environment.apiUrlRandom;
+  private readonly apiSearchByNameUrl: string = environment.apiSearchByNameUrl;
 
   constructor(private http: HttpClient) {
   }
@@ -38,6 +39,12 @@ export class HttpService {
     );
   }
 
+  public getSearchByName(letter: string): Observable<Product[]> {
+    const searchLetterUrl: string = `${this.apiSearchByNameUrl}${letter}`;
+    return this.http.get<Products>(searchLetterUrl).pipe(
+      map((response) => response.meals)
+    );
+  }
 }
 
 export class ProductsService {

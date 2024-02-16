@@ -15,7 +15,7 @@ import { HttpService } from "../../services/products.service";
     TitleCasePipe,
     FormsModule,
     ReactiveFormsModule,
-    RouterLink
+    RouterLink,
   ],
 })
 
@@ -29,19 +29,15 @@ export class HeaderComponent {
   public header: string = 'free meal';
   public searchControl: FormControl<string | null> = new FormControl<string>('', [Validators.required, Validators.minLength(1)]);
 
-  toMainPageAndReload() {
+  protected toMainPageAndReload() {
     this.router.navigate(['/']).then(() => {
       location.reload();
     });
   }
 
-  // public onSearch(): void {
-  //   const searchUserInput:string|null = this.searchControl.value;
-  //   if(searchUserInput) {
-  //     this.httpService.getSearchData(searchUserInput).subscribe((items) => {
-  //       console.log(items);
-  //     });
-  //   }
-  // }
+  protected searchByLetter(event: Event): void {
+    const {value} = event.target as HTMLInputElement;
+    this.router.navigate(['/items', value]);
+  }
 }
 

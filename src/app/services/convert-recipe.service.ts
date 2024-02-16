@@ -6,6 +6,7 @@ import { Product, ProductData, ProductIngredient, ProductRecipe } from "../model
   providedIn: 'root'
 })
 export class ConvertRecipeService {
+  private namesKeysIngredient = {ingredients: "strIngredient", measures: "strMeasure"};
 
   constructor() {
   }
@@ -22,8 +23,8 @@ export class ConvertRecipeService {
       }, {} as ProductIngredient);
 
     return {
-      ingredients: this.getData(productIngredient, "strIngredient"),
-      measures: this.getData(productIngredient, "strMeasure"),
+      ingredients: this.getData(productIngredient, this.namesKeysIngredient.ingredients),
+      measures: this.getData(productIngredient, this.namesKeysIngredient.measures),
     };
   }
 

@@ -1,36 +1,38 @@
-<p>{{ product?.strInstructions }}</p>
-
-<table>
-  <thead>
-  <tr>
-    <th>Ingredients</th>
-  </tr>
-  </thead>
-  <tbody>
-    @for (item of ingredients; track item.ingredient) {
+@if (product) {
+  <p>{{ product.strInstructions }}</p>
+  @if (productRecipe) {
+    <table>
+      <thead>
       <tr>
+        <th>Ingredients</th>
+        <th>Measures</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let ingredient of productRecipe.ingredients; let i = index">
         <td>
-          <img [alt]="item.ingredient"
-               ngSrc="{{item.urlImgSmall}}"
-               [width]="getWidth"
-               [height]="getHeight"
+          <img [alt]="ingredient"
+               ngSrc="{{urlImageIngredient}}{{ ingredient }}-Small.png"
+               width="100"
+               height="100"
                (error)="handleImageError($event)">
         </td>
-        <td>{{ item.ingredient }}</td>
-        <td>{{ item.measure }}</td>
+        <td>{{ ingredient }}</td>
+        <td>{{ productRecipe.measures[i] }}</td>
       </tr>
-    }
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  }
 
-@if (product?.strYoutube) {
-  <a href="{{ product?.strYoutube }}" target="_blank">
-    <button>Watch on YouTube</button>
-  </a>
+  @if (product.strYoutube) {
+    <a href="{{ product.strYoutube }}" target="_blank">
+      <button>Watch on YouTube</button>
+    </a>
 
-}
-@if (product?.strSource) {
-  <a href="{{ product?.strSource }}" target="_blank">
-    <button>Recipe source</button>
-  </a>
+  }
+  @if (product.strSource) {
+    <a href="{{ product.strSource }}" target="_blank">
+      <button>Recipe source</button>
+    </a>
+  }
 }

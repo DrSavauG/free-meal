@@ -25,11 +25,4 @@ export class ProductSmallComponent {
     this.imageHandlingService.handleImageError(event);
   }
 
-  public get getWidth(): number {
-    return 300;
-  }
-
-  public get getHeight(): number {
-    return 300;
-  }
 }

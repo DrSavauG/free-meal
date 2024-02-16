@@ -25,11 +25,4 @@ export class ProductCardComponent {
     this.imageHandlingService.handleImageError(event);
   }
 
-  public get getWidth(): number {
-    return 500;
-  }
-  public get getHeight(): number {
-    return 500;
-  }
-
 }

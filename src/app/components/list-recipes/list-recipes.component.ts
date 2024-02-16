@@ -5,7 +5,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Product } from "../../models/mock-products";
 
 import { HttpService } from "../../services/products.service";
-import { map, Observable, of, switchMap } from "rxjs";
+import { map, Observable, switchMap } from "rxjs";
 import { ProductSmallComponent } from "../product-small/product-small.component";
 
 @Component({
@@ -32,7 +32,11 @@ export class ListRecipesComponent implements OnInit {
       switchMap((letter) => {
         if(letter.length > 1) {
           return this.httpService.getSearchByName(letter);
-        } else return letter ? this.httpService.searchByLetter(letter) : of([]);
+        } else if(letter.length == 1) {
+          return this.httpService.searchByLetter(letter);
+        } else {
+          return this.httpService.getRandomData();
+        }
       })
     );
   }

@@ -30,9 +30,7 @@ export class HeaderComponent {
   public searchControl: FormControl<string | null> = new FormControl<string>('', [Validators.required, Validators.minLength(1)]);
 
   protected toMainPageAndReload() {
-    this.router.navigate(['/']).then(() => {
-      location.reload();
-    });
+    this.router.navigate(['/']);
   }
 
   protected searchByLetter(event: Event): void {

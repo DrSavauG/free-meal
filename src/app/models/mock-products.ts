@@ -5,22 +5,6 @@ export interface Products {
 export interface Product extends ProductData, ProductIngredient {
 }
 
-export const excludedKeys: Array<string> = [
-  'idMeal',
-  'strMeal',
-  'strDrinkAlternate',
-  'strCategory',
-  'strArea',
-  'strInstructions',
-  'strMealThumb',
-  'strTags',
-  'strYoutube',
-  'strSource',
-  'strImageSource',
-  'strCreativeCommonsConfirmed',
-  'dateModified'
-];
-
 export interface ProductData {
   idMeal: string,
   strMeal: string,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { excludedKeys, Product, ProductData, ProductIngredient, ProductRecipe } from "../models/mock-products";
+import { Product, ProductData, ProductIngredient, ProductRecipe } from "../models/mock-products";
 
 @Injectable({
   providedIn: 'root'
@@ -14,9 +14,8 @@ export class ConvertRecipeService {
     if(!product) {
       return null;
     }
-    const isExcludedKey = (key: string): key is keyof ProductData => excludedKeys.includes(key as keyof ProductData);
     const productIngredient: ProductIngredient = Object.keys(product)
-      .filter(key => !isExcludedKey(key))
+      .filter(key => !this.isExcludedKey(key))
       .reduce((obj, key) => {
         obj[key as keyof ProductIngredient] = <string>product[key as keyof Product];
         return obj;
@@ -28,10 +27,30 @@ export class ConvertRecipeService {
     };
   }
 
+  private isExcludedKey = (key: string): key is keyof ProductData => this.getExcludedKeys().includes(key as keyof ProductData);
+
   private getData(productIngredient: ProductIngredient, nameKey: string): string[] {
     return Object.keys(productIngredient)
       .filter(key => key.includes(nameKey))
       .map(key => productIngredient[key as keyof ProductIngredient])
       .filter(value => value);
+  }
+
+  private getExcludedKeys(): Array<string> {
+    return [
+      'idMeal',
+      'strMeal',
+      'strDrinkAlternate',
+      'strCategory',
+      'strArea',
+      'strInstructions',
+      'strMealThumb',
+      'strTags',
+      'strYoutube',
+      'strSource',
+      'strImageSource',
+      'strCreativeCommonsConfirmed',
+      'dateModified'
+    ];
   }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from "@angular/router";
+import { Router, RouterLink } from "@angular/router";
 
 import { Observable } from "rxjs";
 
@@ -22,7 +22,8 @@ export class ProductRandomComponent implements OnInit {
   public productsArray$: Observable<Product[]> | null = null;
 
   constructor(private httpService: HttpService,
-              private imageHandlingService: ImageHandlingService) {
+              private imageHandlingService: ImageHandlingService,
+              private router: Router) {
   }
 
   public ngOnInit(): void {
@@ -35,5 +36,12 @@ export class ProductRandomComponent implements OnInit {
 
   public handleImageError(event: Event): void {
     this.imageHandlingService.handleImageError(event);
+  }
+  protected searchByCategory(category: string): void {
+    this.router.navigate(['/category', category]);
+  }
+
+  protected searchByArea(area: string): void {
+    this.router.navigate(['/area', area]);
   }
 }

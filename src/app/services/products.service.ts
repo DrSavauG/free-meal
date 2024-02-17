@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 
 import { map, Observable } from "rxjs";
 
-import { Product, Products } from "../models/mock-products";
+import { Category, Categoryes, Product, Products } from "../models/mock-products";
 import { environment } from "../../environments/environment";
 
 @Injectable({
@@ -15,6 +15,9 @@ export class HttpService {
   private readonly apiItemsLetterUrl: string = environment.apiItemsLetterUrl;
   private readonly apiUrlRandom: string = environment.apiUrlRandom;
   private readonly apiSearchByNameUrl: string = environment.apiSearchByNameUrl;
+  private readonly apiSearchByCategory: string = environment.apiSearchByCategory;
+  private readonly apiSearchByArea: string = environment.apiSearchByArea;
+  private readonly apiSearchByIngredient: string = environment.apiSearchByIngredient;
 
   constructor(private http: HttpClient) {
   }
@@ -42,6 +45,27 @@ export class HttpService {
   public getSearchByName(letter: string): Observable<Product[]> {
     const searchLetterUrl: string = `${this.apiSearchByNameUrl}${letter}`;
     return this.http.get<Products>(searchLetterUrl).pipe(
+      map((response) => response.meals)
+    );
+  }
+
+  public getByCategory(category: string): Observable<Category[]> {
+    const searchUrl: string = `${this.apiSearchByCategory}${category}`;
+    return this.http.get<Categoryes>(searchUrl).pipe(
+      map((response) => response.meals)
+    );
+  }
+
+  public getByArea(category: string): Observable<Category[]> {
+    const searchUrl: string = `${this.apiSearchByArea}${category}`;
+    return this.http.get<Categoryes>(searchUrl).pipe(
+      map((response) => response.meals)
+    );
+  }
+
+  public getByIngredient(ingredient: string): Observable<Category[]> {
+    const searchUrl: string = `${this.apiSearchByIngredient}${ingredient}`;
+    return this.http.get<Categoryes>(searchUrl).pipe(
       map((response) => response.meals)
     );
   }

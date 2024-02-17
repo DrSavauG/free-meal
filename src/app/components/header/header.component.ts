@@ -29,7 +29,7 @@ export class HeaderComponent {
   public header: string = 'free meal';
   public searchControl: FormControl<string | null> = new FormControl<string>('', [Validators.required, Validators.minLength(1)]);
 
-  protected toMainPageAndReload() {
+  protected toMainPage() {
     this.router.navigate(['/']);
   }
 

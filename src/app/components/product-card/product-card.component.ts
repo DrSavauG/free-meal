@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Router } from "@angular/router";
 
 import { ImageHandlingService } from "../../services/image-handling.service";
 
@@ -18,11 +19,20 @@ import { Product } from "../../models/mock-products";
 export class ProductCardComponent {
   product: Product | null = null;
 
-  constructor(private imageHandlingService: ImageHandlingService) {
+  constructor(private imageHandlingService: ImageHandlingService,
+              private router: Router) {
   }
 
   public handleImageError(event: Event): void {
     this.imageHandlingService.handleImageError(event);
+  }
+
+  protected searchByCategory(category: string): void {
+    this.router.navigate(['/category', category]);
+  }
+
+  protected searchByArea(area: string): void {
+    this.router.navigate(['/area', area]);
   }
 
 }

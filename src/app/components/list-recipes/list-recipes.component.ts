@@ -4,9 +4,9 @@ import { ActivatedRoute } from "@angular/router";
 
 import { map, Observable, switchMap } from "rxjs";
 
-import { Category, Product } from "../../models/mock-products";
 import { HttpService } from "../../services/products.service";
 
+import { Category, Product } from "../../models/mock-products";
 import { ProductSmallComponent } from "../product-small/product-small.component";
 
 enum PageType {
@@ -27,13 +27,14 @@ enum PageType {
 export class ListRecipesComponent implements OnInit {
   public productsArray$: Observable<Category[] | Product[]> | null = null;
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute) {
+  constructor(private httpService: HttpService,
+              private route: ActivatedRoute,
+  ) {
   }
 
   ngOnInit(): void {
     this.route.url.subscribe(segments => {
-      const key = segments[0].path;
-      switch (key) {
+      switch (segments[0].path) {
         case PageType.Area:
           this.loadAreas();
           break;
@@ -77,7 +78,7 @@ export class ListRecipesComponent implements OnInit {
         } else if(items.length == 1) {
           return this.httpService.searchByLetter(items);
         } else {
-          return this.httpService.getRandomData();
+          return [];
         }
       })
     );

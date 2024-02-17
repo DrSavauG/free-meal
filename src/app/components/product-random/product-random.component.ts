@@ -23,7 +23,8 @@ export class ProductRandomComponent implements OnInit {
 
   constructor(private httpService: HttpService,
               private imageHandlingService: ImageHandlingService,
-              private router: Router) {
+              private router: Router,
+  ) {
   }
 
   public ngOnInit(): void {
@@ -37,6 +38,7 @@ export class ProductRandomComponent implements OnInit {
   public handleImageError(event: Event): void {
     this.imageHandlingService.handleImageError(event);
   }
+
   protected searchByCategory(category: string): void {
     this.router.navigate(['/category', category]);
   }

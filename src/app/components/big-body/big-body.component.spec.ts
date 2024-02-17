@@ -10,8 +10,8 @@ describe('BigBodyComponent', () => {
     await TestBed.configureTestingModule({
       imports: [BigBodyComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(BigBodyComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

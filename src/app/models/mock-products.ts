@@ -6,9 +6,9 @@ export interface Product extends ProductData, ProductIngredient {
 }
 
 export interface Category {
+  idMeal: string
   strMeal: string,
   strMealThumb: string,
-  idMeal: string
 }
 
 export interface Categoryes {

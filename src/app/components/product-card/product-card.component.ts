@@ -5,6 +5,7 @@ import { Router } from "@angular/router";
 import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { Product } from "../../models/mock-products";
+import { FavoritesService } from "../../services/favorites.service";
 
 @Component({
   selector: 'product-card',
@@ -20,7 +21,8 @@ export class ProductCardComponent {
   product: Product | null = null;
 
   constructor(private imageHandlingService: ImageHandlingService,
-              private router: Router) {
+              private router: Router,
+              private favoritesService: FavoritesService) {
   }
 
   public handleImageError(event: Event): void {
@@ -35,4 +37,9 @@ export class ProductCardComponent {
     this.router.navigate(['/area', area]);
   }
 
+  protected toggleFavorite(product: Product): void {
+    this.favoritesService.getFavoriteById(product.idMeal) ?
+      this.favoritesService.deleteFavorite(product.idMeal) :
+      this.favoritesService.setFavorite(product);
+  }
 }

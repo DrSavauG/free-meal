@@ -32,6 +32,12 @@ export const routes: Routes = [
       import('./components/list-recipes/list-recipes.component').then(
         (mod) => mod.ListRecipesComponent)
   },
+  {
+    path: 'favorites',
+    loadComponent: () =>
+      import('./components/list-recipes/list-recipes.component').then(
+        (mod) => mod.ListRecipesComponent)
+  },
   {path: 'item/:id', component: BigBodyComponent},
   {path: '**', component: BodyComponent},
 ];

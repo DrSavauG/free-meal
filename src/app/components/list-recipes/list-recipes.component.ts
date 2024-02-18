@@ -2,18 +2,20 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
 
-import { map, Observable, switchMap } from "rxjs";
+import { map, Observable, of, switchMap } from "rxjs";
 
 import { HttpService } from "../../services/products.service";
 
 import { Category, Product } from "../../models/mock-products";
 import { ProductSmallComponent } from "../product-small/product-small.component";
+import { FavoritesService } from "../../services/favorites.service";
 
 enum PageType {
   Area = 'area',
   Category = 'category',
   Ingredient = 'ingredient',
   Items = 'items',
+  Favorites = 'favorites',
 }
 
 @Component({
@@ -29,6 +31,7 @@ export class ListRecipesComponent implements OnInit {
 
   constructor(private httpService: HttpService,
               private route: ActivatedRoute,
+              private favoritesService: FavoritesService,
   ) {
   }
 
@@ -46,6 +49,9 @@ export class ListRecipesComponent implements OnInit {
           break;
         case PageType.Items:
           this.loadItems();
+          break;
+        case PageType.Favorites:
+          this.loadFavoritesItems();
           break;
       }
     });
@@ -82,5 +88,9 @@ export class ListRecipesComponent implements OnInit {
         }
       })
     );
+  }
+
+  private loadFavoritesItems() {
+    this.productsArray$ = of(this.favoritesService.getAllFavorites());
   }
 }

@@ -1,6 +1,6 @@
 <div class="products-list-container">
   @if (product) {
-    <h2>{{ product.strMeal }}</h2>
+    <h2>{{ product.strMeal | truncate }}</h2>
     <a [routerLink]="['/item', product.idMeal]">
       <img ngSrc="{{product.strMealThumb}}"
            [alt]="product.strMeal" class="big-picture"

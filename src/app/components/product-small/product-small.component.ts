@@ -5,11 +5,12 @@ import { Router, RouterLink } from "@angular/router";
 import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { Category, Product } from "../../models/mock-products";
+import { TruncatePipe } from "../../pipes/truncate.pipe";
 
 @Component({
   selector: 'app-product-small',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, RouterLink],
+  imports: [CommonModule, NgOptimizedImage, RouterLink, TruncatePipe],
   templateUrl: './product-small.component.html',
   styleUrl: './product-small.component.scss',
 })

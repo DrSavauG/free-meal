@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
 
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 
 import { ImageHandlingService } from "../../services/image-handling.service";
 import { HttpService } from "../../services/products.service";
@@ -21,15 +21,15 @@ import { environment } from "../../../environments/environment";
 
 
 export class IngredientCardComponent implements OnInit {
-  public ingredient: IngredientCard | null = null;
+  public ingredients$: Observable<IngredientCard[]> | null = null;
+  public readonly urlImageIngredient: string = environment.urlImageIngredient;
   protected nameIngredient: string | null = null;
   private ingredientArray$: Observable<IngredientCard[]> | null = null;
-  public readonly urlImageIngredient: string = environment.urlImageIngredient;
 
   constructor(private imageHandlingService: ImageHandlingService,
               private route: ActivatedRoute,
               private httpService: HttpService,
-              private cdr: ChangeDetectorRef) {
+  ) {
   }
 
   public ngOnInit(): void {
@@ -40,6 +40,7 @@ export class IngredientCardComponent implements OnInit {
     this.nameIngredient = this.route.snapshot.params['ingredient'];
     if(this.nameIngredient) {
       this.ingredientArray$ = this.httpService.getListAllIngredients();
+
       this.getIngredient(this.nameIngredient);
     }
   }
@@ -51,18 +52,16 @@ export class IngredientCardComponent implements OnInit {
   private getIngredient(name: string): void {
     if(this.ingredientArray$) {
       const capitalizeName = this.capitalizeFirstLetter(name);
-      this.ingredientArray$.subscribe(data => {
-        const ingredient = data.find(ingredient => ingredient.strIngredient === capitalizeName);
-        if(ingredient) {
-          this.ingredient = ingredient;
-          this.cdr.detectChanges();
-        }
-      });
+      this.ingredients$ = this.ingredientArray$.pipe(
+        map(ingredients => ingredients.filter(
+          ingredient => ingredient["strIngredient"] === capitalizeName)),
+      );
     }
   }
 
   private capitalizeFirstLetter(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
+
 
 }

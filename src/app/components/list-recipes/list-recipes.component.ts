@@ -45,8 +45,6 @@ export class ListRecipesComponent implements OnInit {
           this.loadAreas();
           break;
         case PageType.Category:
-          this.isLoadIngredient = false;
-
           this.loadCategories();
           break;
         case PageType.Ingredient: {
@@ -77,8 +75,6 @@ export class ListRecipesComponent implements OnInit {
   }
 
   public loadIngredient(): void {
-    console.log('loadIngredient');
-
     this.productsArray$ = this.route.params.pipe(
       map((params) => params[PageType.Ingredient]),
       switchMap((ingredient) => this.httpService.getByIngredient(ingredient)));

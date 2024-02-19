@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
 
@@ -28,7 +28,8 @@ export class IngredientCardComponent implements OnInit {
 
   constructor(private imageHandlingService: ImageHandlingService,
               private route: ActivatedRoute,
-              private httpService: HttpService) {
+              private httpService: HttpService,
+              private cdr: ChangeDetectorRef) {
   }
 
   public ngOnInit(): void {
@@ -49,13 +50,19 @@ export class IngredientCardComponent implements OnInit {
 
   private getIngredient(name: string): void {
     if(this.ingredientArray$) {
+      const capitalizeName = this.capitalizeFirstLetter(name);
       this.ingredientArray$.subscribe(data => {
-        const ingredient = data.find(ingredient => ingredient.strIngredient === name);
+        const ingredient = data.find(ingredient => ingredient.strIngredient === capitalizeName);
         if(ingredient) {
           this.ingredient = ingredient;
+          this.cdr.detectChanges();
         }
       });
     }
+  }
+
+  private capitalizeFirstLetter(str: string): string {
+    return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
 }

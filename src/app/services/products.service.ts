@@ -9,7 +9,7 @@ import {
   IngredientCard,
   IngredientsCards,
   Product,
-  Products
+  Products, StrArea, StrAreas, StrCategories, StrCategory
 } from "../models/mock-products";
 import { environment } from "../../environments/environment";
 
@@ -26,6 +26,8 @@ export class HttpService {
   private readonly apiSearchByArea: string = environment.apiSearchByArea;
   private readonly apiSearchByIngredient: string = environment.apiSearchByIngredient;
   private readonly apiListAllIngredients: string = environment.apiListAllIngredients;
+  private readonly apiListAllCategories: string = environment.apiListAllCategories;
+  private readonly apiListAllAreas: string = environment.apiListAllAreas;
 
 
   constructor(private http: HttpClient) {
@@ -82,6 +84,20 @@ export class HttpService {
   public getListAllIngredients(): Observable<IngredientCard[]> {
     const searchUrl: string = `${this.apiListAllIngredients}`;
     return this.http.get<IngredientsCards>(searchUrl).pipe(
+      map((response) => response.meals)
+    );
+  }
+
+  public getListAllCategories(): Observable<StrCategory[]> {
+    const searchUrl: string = `${this.apiListAllCategories}`;
+    return this.http.get<StrCategories>(searchUrl).pipe(
+      map((response) => response.meals)
+    );
+  }
+
+  public getListAllAreas(): Observable<StrArea[]> {
+    const searchUrl: string = `${this.apiListAllCategories}`;
+    return this.http.get<StrAreas>(searchUrl).pipe(
       map((response) => response.meals)
     );
   }

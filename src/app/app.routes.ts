@@ -38,6 +38,24 @@ export const routes: Routes = [
       import('./components/list-recipes/list-recipes.component').then(
         (mod) => mod.ListRecipesComponent)
   },
+  {
+    path: 'categories',
+    loadComponent: () =>
+      import('./components/categories/categories.component').then(
+        (mod) => mod.CategoriesComponent)
+  },
+  {
+    path: 'areas',
+    loadComponent: () =>
+      import('./components/areas/areas.component').then(
+        (mod) => mod.AreasComponent)
+  },
+  {
+    path: 'ingredients',
+    loadComponent: () =>
+      import('./components/ingredients/ingredients.component').then(
+        (mod) => mod.IngredientsComponent)
+  },
   {path: 'item/:id', component: BigBodyComponent},
   {path: '**', component: BodyComponent},
 ];

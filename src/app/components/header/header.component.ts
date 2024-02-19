@@ -35,7 +35,7 @@ export class HeaderComponent {
     this.router.navigate(['/favorites']);
   }
   protected goToCategories() {
-    this.router.navigate(['/favorites']);
+    this.router.navigate(['/categories']);
   }
 }
 

@@ -1,0 +1,15 @@
+<pre>1234567890</pre>
+<div class="category-component-wrapper">
+  <div class="category-component-header">
+
+  @for (category of categories; track category) {
+    <div >{{category}}</div>
+  }
+  </div>
+  <div class="category-component-body">
+    @for (product of productsArray$|async; track product) {
+      <div >{{product}}</div>
+    }
+  </div>
+
+</div>

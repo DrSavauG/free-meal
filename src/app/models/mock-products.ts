@@ -93,3 +93,18 @@ export interface IngredientsCards {
   meals: IngredientCard[]
 }
 
+export interface StrCategories {
+  meals: StrCategory[]
+}
+
+export interface StrCategory {
+  strCategory: string;
+}
+
+export interface StrAreas {
+  meals: StrArea[]
+}
+
+export interface StrArea {
+  strArea: string
+}

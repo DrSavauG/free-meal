@@ -8,4 +8,5 @@ export const environment = {
   apiSearchByCategory: 'https://www.themealdb.com/api/json/v1/1/filter.php?c=',
   apiSearchByArea: 'https://www.themealdb.com/api/json/v1/1/filter.php?a=',
   apiSearchByIngredient: 'https://www.themealdb.com/api/json/v1/1/filter.php?i=',
+  apiListAllIngredients: 'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
 };

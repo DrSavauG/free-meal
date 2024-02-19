@@ -1,0 +1,15 @@
+<div class="ingredient-card-wrapper">
+  @if (ingredient) {
+    <h2>{{ ingredient.strIngredient }}</h2>
+    <img ngSrc="{{urlImageIngredient}}{{ingredient.strIngredient}}.png"
+         [alt]="ingredient.strIngredient"
+         class="big-picture"
+         width="500"
+         height="500"
+         (error)="handleImageError($event)">
+    <div class="description-wrapper">
+      <h3>Description</h3>
+      <p>{{ ingredient.strDescription }}</p>
+    </div>
+  }
+</div>

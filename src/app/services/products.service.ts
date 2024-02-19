@@ -3,7 +3,14 @@ import { HttpClient } from "@angular/common/http";
 
 import { map, Observable } from "rxjs";
 
-import { Category, Categoryes, Product, Products } from "../models/mock-products";
+import {
+  Category,
+  Categoryes,
+  IngredientCard,
+  IngredientsCards,
+  Product,
+  Products
+} from "../models/mock-products";
 import { environment } from "../../environments/environment";
 
 @Injectable({
@@ -18,6 +25,8 @@ export class HttpService {
   private readonly apiSearchByCategory: string = environment.apiSearchByCategory;
   private readonly apiSearchByArea: string = environment.apiSearchByArea;
   private readonly apiSearchByIngredient: string = environment.apiSearchByIngredient;
+  private readonly apiListAllIngredients: string = environment.apiListAllIngredients;
+
 
   constructor(private http: HttpClient) {
   }
@@ -69,6 +78,14 @@ export class HttpService {
       map((response) => response.meals)
     );
   }
+
+  public getListAllIngredients(): Observable<IngredientCard[]> {
+    const searchUrl: string = `${this.apiListAllIngredients}`;
+    return this.http.get<IngredientsCards>(searchUrl).pipe(
+      map((response) => response.meals)
+    );
+  }
+
 }
 
 export class ProductsService {

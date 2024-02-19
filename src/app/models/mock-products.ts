@@ -82,4 +82,14 @@ export interface ProductRecipe {
   measures: string[];
 }
 
+export interface IngredientCard {
+  "idIngredient": string,
+  "strIngredient": string,
+  "strDescription": string | null,
+  "strType": string | null
+}
+
+export interface IngredientsCards {
+  meals: IngredientCard[]
+}
 

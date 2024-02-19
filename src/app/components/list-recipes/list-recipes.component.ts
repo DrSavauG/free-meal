@@ -9,6 +9,8 @@ import { HttpService } from "../../services/products.service";
 import { Category, Product } from "../../models/mock-products";
 import { ProductSmallComponent } from "../product-small/product-small.component";
 import { FavoritesService } from "../../services/favorites.service";
+import { ProductCardComponent } from "../product-card/product-card.component";
+import { IngredientCardComponent } from "../ingredient-card/ingredient-card.component";
 
 enum PageType {
   Area = 'area',
@@ -21,13 +23,14 @@ enum PageType {
 @Component({
   selector: 'list-recipes',
   standalone: true,
-  imports: [CommonModule, ProductSmallComponent],
+  imports: [CommonModule, ProductSmallComponent, ProductCardComponent, IngredientCardComponent],
   templateUrl: './list-recipes.component.html',
   styleUrl: './list-recipes.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListRecipesComponent implements OnInit {
   public productsArray$: Observable<Category[] | Product[]> | null = null;
+  protected isLoadIngredient: boolean = false;
 
   constructor(private httpService: HttpService,
               private route: ActivatedRoute,
@@ -42,10 +45,14 @@ export class ListRecipesComponent implements OnInit {
           this.loadAreas();
           break;
         case PageType.Category:
+          this.isLoadIngredient = false;
+
           this.loadCategories();
           break;
-        case PageType.Ingredient:
+        case PageType.Ingredient: {
+          this.isLoadIngredient = true;
           this.loadIngredient();
+        }
           break;
         case PageType.Items:
           this.loadItems();
@@ -70,6 +77,8 @@ export class ListRecipesComponent implements OnInit {
   }
 
   public loadIngredient(): void {
+    console.log('loadIngredient');
+
     this.productsArray$ = this.route.params.pipe(
       map((params) => params[PageType.Ingredient]),
       switchMap((ingredient) => this.httpService.getByIngredient(ingredient)));

@@ -1,1 +1,15 @@
-<p>ingredients works!</p>
+<pre>1234567890</pre>
+<div class="category-component-wrapper">
+  <div class="category-component-header">
+
+    @for (category of categories; track category) {
+      <div (click)="goToCategory(category)" >{{category}}</div>
+    }
+  </div>
+  <div class="category-component-body">
+    @for (product of productsArray$|async; track product.idIngredient) {
+      <div (click)="searchByIngredient(product.strIngredient)">{{product.strIngredient}}</div>
+    }
+  </div>
+
+</div>

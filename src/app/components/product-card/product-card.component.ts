@@ -38,6 +38,8 @@ export class ProductCardComponent {
   }
 
   protected toggleFavorite(product: Product): void {
+
+    this.favoritesService.getAllFavorites() ;
     this.favoritesService.getFavoriteById(product.idMeal) ?
       this.favoritesService.deleteFavorite(product.idMeal) :
       this.favoritesService.setFavorite(product);

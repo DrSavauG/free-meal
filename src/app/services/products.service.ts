@@ -96,7 +96,7 @@ export class HttpService {
   }
 
   public getListAllAreas(): Observable<StrArea[]> {
-    const searchUrl: string = `${this.apiListAllCategories}`;
+    const searchUrl: string = `${this.apiListAllAreas}`;
     return this.http.get<StrAreas>(searchUrl).pipe(
       map((response) => response.meals)
     );

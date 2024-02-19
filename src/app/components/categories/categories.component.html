@@ -2,13 +2,14 @@
 <div class="category-component-wrapper">
   <div class="category-component-header">
 
-  @for (category of categories; track category) {
-    <div >{{category}}</div>
-  }
+    @for (category of categories; track category) {
+      <div (click)="goToCategory(category)">{{ category }}</div>
+    }
   </div>
+
   <div class="category-component-body">
-    @for (product of productsArray$|async; track product) {
-      <div >{{product}}</div>
+    @for (product of productsArray$|async; track product.strCategory) {
+      <div (click)="searchByCategory(product.strCategory)">{{ product.strCategory }}</div>
     }
   </div>
 

@@ -1,18 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from "@angular/router";
+import { Router } from "@angular/router";
 
-import { map, Observable, switchMap } from "rxjs";
+import { Observable } from "rxjs";
 
 import { HttpService } from "../../services/products.service";
 
-import { IngredientCard, StrArea, StrCategory } from "../../models/mock-products";
+import { StrCategory } from "../../models/mock-products";
 
-enum PageType {
-  Area = 'area',
-  Categories = 'categories',
-  Ingredient = 'ingredients',
-}
 
 @Component({
   selector: 'app-categories',
@@ -22,44 +17,27 @@ enum PageType {
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent implements OnInit {
-  public categories = ['categories', 'area', 'ingredients'];
-  public productsArray$: Observable<StrCategory[] | StrArea[] | IngredientCard[]> | null = null;
+  public categories = ['categories', 'areas', 'ingredients'];
+  public productsArray$: Observable<StrCategory[]> | null = null;
 
   constructor(private httpService: HttpService,
-              private route: ActivatedRoute,
+              private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.route.url.subscribe(segments => {
-      console.log('segments[0].path', segments[0].path);
-
-      switch (segments[0].path) {
-        case PageType.Area:
-          this.loadStrAreas();
-          break;
-        case PageType.Categories:
-          this.loadStrCategories();
-          break;
-        case PageType.Ingredient:
-          console.log('aaaa', 11111);
-
-          this.loadIngredient();
-          break;
-      }
-    });
+    this.loadStrCategories();
   }
-
 
   private loadStrCategories() {
     this.productsArray$ = this.httpService.getListAllCategories();
   }
 
-  private loadStrAreas() {
-    this.productsArray$ = this.httpService.getListAllAreas();
+  public goToCategory(category: string) {
+    this.router.navigate([`/${category}`]);
   }
 
-  private loadIngredient() {
-    this.productsArray$ = this.httpService.getListAllIngredients();
+  protected searchByCategory(category: string): void {
+    this.router.navigate(['/category', category]);
   }
 }

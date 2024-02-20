@@ -6,12 +6,16 @@
       <div (click)="goToCategory(category)">{{category}}</div>
     }
   </div>
-  <pre>
-  </pre>
-  <div class="category-component-body">
-    @for (product of productsArray$|async; track product.strArea) {
-      <div (click)="searchByArea(product.strArea)">{{product.strArea}}</div>
-    }
-  </div>
+  <section class="category-input">
+    <input id="search-input" class="form-control" type="text"
+           placeholder="Filter"
+           (input)="filterByLetter($event)"
+    >
+  </section>
+<!--  <div class="category-component-body">-->
+<!--    @for (product of productsArray$|filter:filterLetter|async; track product.strArea) {-->
+<!--      <div (click)="searchByArea(product.strArea)">{{product.strArea}}</div>-->
+<!--    }-->
+<!--  </div>-->
 
 </div>

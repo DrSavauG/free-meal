@@ -7,18 +7,20 @@ import { Observable } from "rxjs";
 import { HttpService } from "../../services/products.service";
 
 import { StrCategory } from "../../models/mock-products";
+import { FilterPipe } from "../../pipes/filter.pipe";
 
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FilterPipe],
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent implements OnInit {
   public categories = ['categories', 'areas', 'ingredients'];
   public productsArray$: Observable<StrCategory[]> | null = null;
+  public filterLetter: string | null = null;
 
   constructor(private httpService: HttpService,
               private router: Router
@@ -39,5 +41,10 @@ export class CategoriesComponent implements OnInit {
 
   protected searchByCategory(category: string): void {
     this.router.navigate(['/category', category]);
+  }
+
+  protected filterByLetter(event: Event): void {
+    const {value} = event.target as HTMLInputElement;
+    this.filterLetter = value;
   }
 }

@@ -9,7 +9,7 @@ import {
   StrIngredient,
   StrIngredients,
   Product,
-  Products, StrArea, StrAreas, StrCategories, StrCategory
+  Products, StrArea, StrAreas, StrCategories, StrCategory, LabelData
 } from "../models/mock-products";
 import { environment } from "../../environments/environment";
 
@@ -81,24 +81,29 @@ export class HttpService {
     );
   }
 
-  public getListAllIngredients(): Observable<StrIngredient[]> {
+  public getListAllIngredients(): Observable<LabelData[]> {
     const searchUrl: string = `${this.apiListAllIngredients}`;
     return this.http.get<StrIngredients>(searchUrl).pipe(
-      map((response) => response.meals)
+      map((response) => response.meals.map(arr=>({
+        label:arr.strIngredient
+      })))
     );
   }
 
-  public getListAllCategories(): Observable<StrCategory[]> {
+  public getListAllCategories(): Observable<LabelData[]> {
     const searchUrl: string = `${this.apiListAllCategories}`;
     return this.http.get<StrCategories>(searchUrl).pipe(
-      map((response) => response.meals)
+      map((response) => response.meals.map(arr=>({
+        label:arr.strCategory
+      })))
     );
   }
-
-  public getListAllAreas(): Observable<StrArea[]> {
+  public getListAllAreas(): Observable<LabelData[]> {
     const searchUrl: string = `${this.apiListAllAreas}`;
     return this.http.get<StrAreas>(searchUrl).pipe(
-      map((response) => response.meals)
+      map((response) => response.meals.map(arr=>({
+        label:arr.strArea
+      })))
     );
   }
 

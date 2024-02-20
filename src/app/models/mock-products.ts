@@ -108,3 +108,7 @@ export interface StrAreas {
 export interface StrArea {
   strArea: string
 }
+
+export interface LabelData {
+  label: string
+}

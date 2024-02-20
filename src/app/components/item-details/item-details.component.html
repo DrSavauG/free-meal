@@ -12,11 +12,13 @@
       <tr *ngFor="let ingredient of productRecipe.ingredients; let i = index">
         <td>
           <a (click)="searchByingredient(ingredient)">
-            <img [alt]="ingredient"
-                 ngSrc="{{urlImageIngredient}}{{ ingredient }}-Small.png"
+            <img ngSrc="{{urlImageIngredient}}{{ ingredient }}-Small.png"
+                 [alt]="ingredient"
                  width="100"
                  height="100"
-                 (error)="handleImageError($event)">
+                 (error)="handleImageError($event)"
+                 fetchpriority="auto"
+            >
           </a>
         </td>
         <td>{{ ingredient }}</td>

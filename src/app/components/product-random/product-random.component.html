@@ -2,8 +2,11 @@
   <div class="product-container-big">
     <h2>{{ product.strMeal }}</h2>
     <a [routerLink]="['/item', product.idMeal]">
-      <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture"
-           (error)="handleImageError($event)">
+      <img ngSrc="{{product.strMealThumb}}" [alt]="product.strMeal" class="big-picture"
+           (error)="handleImageError($event)"
+           width="500"
+           height="500"
+           priority>
     </a>
 
     <div class="description-wrapper">

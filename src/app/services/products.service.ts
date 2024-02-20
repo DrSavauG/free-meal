@@ -6,8 +6,8 @@ import { map, Observable } from "rxjs";
 import {
   Category,
   Categoryes,
-  IngredientCard,
-  IngredientsCards,
+  StrIngredient,
+  StrIngredients,
   Product,
   Products, StrArea, StrAreas, StrCategories, StrCategory
 } from "../models/mock-products";
@@ -81,9 +81,9 @@ export class HttpService {
     );
   }
 
-  public getListAllIngredients(): Observable<IngredientCard[]> {
+  public getListAllIngredients(): Observable<StrIngredient[]> {
     const searchUrl: string = `${this.apiListAllIngredients}`;
-    return this.http.get<IngredientsCards>(searchUrl).pipe(
+    return this.http.get<StrIngredients>(searchUrl).pipe(
       map((response) => response.meals)
     );
   }

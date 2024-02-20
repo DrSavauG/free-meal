@@ -6,7 +6,7 @@ import { Observable } from "rxjs";
 
 import { HttpService } from "../../services/products.service";
 
-import { IngredientCard} from "../../models/mock-products";
+import { StrIngredient} from "../../models/mock-products";
 
 @Component({
   selector: 'app-ingredients',
@@ -18,7 +18,7 @@ import { IngredientCard} from "../../models/mock-products";
 export class IngredientsComponent implements OnInit{
   public categories = ['categories', 'areas', 'ingredients'];
 
-  public productsArray$: Observable< IngredientCard[]> | null = null;
+  public productsArray$: Observable< StrIngredient[]> | null = null;
 
   constructor(private httpService: HttpService,
               private router: Router) {

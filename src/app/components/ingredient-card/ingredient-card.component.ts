@@ -7,7 +7,7 @@ import { map, Observable } from "rxjs";
 import { ImageHandlingService } from "../../services/image-handling.service";
 import { HttpService } from "../../services/products.service";
 
-import { IngredientCard } from "../../models/mock-products";
+import { StrIngredient } from "../../models/mock-products";
 import { environment } from "../../../environments/environment";
 
 @Component({
@@ -21,10 +21,10 @@ import { environment } from "../../../environments/environment";
 
 
 export class IngredientCardComponent implements OnInit {
-  public ingredients$: Observable<IngredientCard[]> | null = null;
+  public ingredients$: Observable<StrIngredient[]> | null = null;
   public readonly urlImageIngredient: string = environment.urlImageIngredient;
   protected nameIngredient: string | null = null;
-  private ingredientArray$: Observable<IngredientCard[]> | null = null;
+  private ingredientArray$: Observable<StrIngredient[]> | null = null;
 
   constructor(private imageHandlingService: ImageHandlingService,
               private route: ActivatedRoute,

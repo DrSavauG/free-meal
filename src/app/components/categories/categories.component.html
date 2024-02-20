@@ -11,7 +11,7 @@
     >
   </section>
   <div class="category-component-body">
-    @for (product of productsArray$ | filter:filterLetter | async; track product.strCategory) {
+    @for (product of productsArray$ | filter:filterLetter, | async; track product.strCategory) {
       <div (click)="searchByCategory(product.strCategory)">{{ product.strCategory }}</div>
     }
   </div>

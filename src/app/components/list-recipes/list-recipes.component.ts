@@ -8,7 +8,7 @@ import { HttpService } from "../../services/products.service";
 import { FavoritesService } from "../../services/favorites.service";
 
 import { Category, Product } from "../../models/mock-products";
-import { PageType } from "../enums/enums";
+import { PageType } from "../../enums/enums";
 import { ProductSmallComponent } from "../product-small/product-small.component";
 import { ProductCardComponent } from "../product-card/product-card.component";
 import { IngredientCardComponent } from "../ingredient-card/ingredient-card.component";

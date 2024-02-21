@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 import { HttpService } from "../../services/products.service";
 
 import { LabelData } from "../../models/mock-products";
-import { PageType } from "../enums/enums";
+import { PageType } from "../../enums/enums";
 import { FilterPipe } from "../../pipes/filter.pipe";
 
 @Component({

@@ -39,8 +39,7 @@ export class IngredientCardComponent implements OnInit {
   private loadIngredients(): void {
     this.nameIngredient = this.route.snapshot.params['ingredient'];
     if(this.nameIngredient) {
-      this.ingredientArray$ = this.httpService.getListAllIngredients();
-
+      this.ingredientArray$ = this.httpService.getRawListAllIngredients();
       this.getIngredient(this.nameIngredient);
     }
   }

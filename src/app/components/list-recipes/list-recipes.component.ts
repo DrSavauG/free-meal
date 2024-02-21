@@ -5,20 +5,14 @@ import { ActivatedRoute } from "@angular/router";
 import { map, Observable, of, switchMap } from "rxjs";
 
 import { HttpService } from "../../services/products.service";
+import { FavoritesService } from "../../services/favorites.service";
 
 import { Category, Product } from "../../models/mock-products";
+import { PageType } from "../enums/enums";
 import { ProductSmallComponent } from "../product-small/product-small.component";
-import { FavoritesService } from "../../services/favorites.service";
 import { ProductCardComponent } from "../product-card/product-card.component";
 import { IngredientCardComponent } from "../ingredient-card/ingredient-card.component";
 
-enum PageType {
-  Area = 'area',
-  Category = 'category',
-  Ingredient = 'ingredient',
-  Items = 'items',
-  Favorites = 'favorites',
-}
 
 @Component({
   selector: 'list-recipes',

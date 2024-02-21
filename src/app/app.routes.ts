@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { PageType } from "./components/enums/enums";
 import { BodyComponent } from "./components/body/body.component";
 import { BigBodyComponent } from "./components/big-body/big-body.component";
 
@@ -7,55 +8,55 @@ import { BigBodyComponent } from "./components/big-body/big-body.component";
 export const routes: Routes = [
   {path: '', component: BodyComponent},
   {path: 'old-path', redirectTo: ''},
-  {path: 'id', component: BigBodyComponent},
+  {path: `${PageType.Id}`, component: BigBodyComponent},
   {
-    path: 'items/:items',
+    path: `${PageType.Items}/:${PageType.Items}`,
     loadComponent: () =>
       import('./components/list-recipes/list-recipes.component').then(
         (mod) => mod.ListRecipesComponent)
   },
   {
-    path: 'category/:category',
+    path: `${PageType.Category}/:${PageType.Category}`,
     loadComponent: () =>
       import('./components/list-recipes/list-recipes.component').then(
         (mod) => mod.ListRecipesComponent)
   },
   {
-    path: 'area/:area',
+    path: `${PageType.Area}/:${PageType.Area}`,
     loadComponent: () =>
       import('./components/list-recipes/list-recipes.component').then(
         (mod) => mod.ListRecipesComponent)
   },
   {
-    path: 'ingredient/:ingredient',
+    path: `${PageType.Ingredient}/:${PageType.Ingredient}`,
     loadComponent: () =>
       import('./components/list-recipes/list-recipes.component').then(
         (mod) => mod.ListRecipesComponent)
   },
   {
-    path: 'favorites',
+    path: `${PageType.Favorites}`,
     loadComponent: () =>
       import('./components/list-recipes/list-recipes.component').then(
         (mod) => mod.ListRecipesComponent)
   },
   {
-    path: 'categories',
+    path: `${PageType.Categories}`,
     loadComponent: () =>
       import('./components/categories/categories.component').then(
         (mod) => mod.CategoriesComponent)
   },
   {
-    path: 'areas',
+    path: `${PageType.Areas}`,
     loadComponent: () =>
-      import('./components/areas/areas.component').then(
-        (mod) => mod.AreasComponent)
+      import('./components/categories/categories.component').then(
+        (mod) => mod.CategoriesComponent)
   },
   {
-    path: 'ingredients',
+    path: `${PageType.Ingredients}`,
     loadComponent: () =>
-      import('./components/ingredients/ingredients.component').then(
-        (mod) => mod.IngredientsComponent)
+      import('./components/categories/categories.component').then(
+        (mod) => mod.CategoriesComponent)
   },
-  {path: 'item/:id', component: BigBodyComponent},
+  {path: `${PageType.Item}/:${PageType.Id}`, component: BigBodyComponent},
   {path: '**', component: BodyComponent},
 ];

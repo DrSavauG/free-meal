@@ -9,7 +9,7 @@ import {
   StrIngredient,
   StrIngredients,
   Product,
-  Products, StrArea, StrAreas, StrCategories, StrCategory, LabelData
+  Products, StrAreas, StrCategories, LabelData
 } from "../models/mock-products";
 import { environment } from "../../environments/environment";
 
@@ -96,6 +96,12 @@ export class HttpService {
       map((response) => response.meals.map(arr=>({
         label:arr.strCategory
       })))
+    );
+  }
+  public getRawListAllIngredients(): Observable<StrIngredient[]> {
+    const searchUrl: string = `${this.apiListAllIngredients}`;
+    return this.http.get<StrIngredients>(searchUrl).pipe(
+      map((response) => response.meals)
     );
   }
   public getListAllAreas(): Observable<LabelData[]> {

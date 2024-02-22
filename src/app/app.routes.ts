@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-import { PageType } from "./enums/enums";
+import { PageType } from "./constants/enums";
 import { BodyComponent } from "./components/body/body.component";
 import { BigBodyComponent } from "./components/big-body/big-body.component";
 
@@ -58,5 +58,5 @@ export const routes: Routes = [
         (mod) => mod.CategoriesComponent)
   },
   {path: `${PageType.Item}/:${PageType.Id}`, component: BigBodyComponent},
-  {path: '**', component: BodyComponent},
+  // {path: '**', component: BodyComponent},
 ];

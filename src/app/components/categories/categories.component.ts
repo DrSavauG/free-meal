@@ -7,7 +7,7 @@ import { Observable } from "rxjs";
 import { HttpService } from "../../services/products.service";
 
 import { LabelData } from "../../models/mock-products";
-import { PageType } from "../../enums/enums";
+import { PageType } from "../../constants/enums";
 import { FilterPipe } from "../../pipes/filter.pipe";
 
 @Component({
@@ -18,10 +18,22 @@ import { FilterPipe } from "../../pipes/filter.pipe";
   styleUrl: './categories.component.scss'
 })
 export class CategoriesComponent implements OnInit {
-  public categories = ['categories', 'areas', 'ingredients'];
   public activePage: string | null = null;
   public labelDataArray$: Observable<LabelData[]> | null = null;
   public filterLetter: string | null = null;
+  protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients];
+
+  private readonly pageTypeToMethodMap: Map<PageType, Observable<LabelData[]>> = new Map([
+    [PageType.Areas, this.httpService.getListAllAreas()],
+    [PageType.Categories, this.httpService.getListAllCategories()],
+    [PageType.Ingredients, this.httpService.getListAllIngredients()]
+  ]);
+
+  private readonly activePageToCategory = new Map([
+    [PageType.Areas, PageType.Area],
+    [PageType.Categories, PageType.Category],
+    [PageType.Ingredients, PageType.Ingredient],
+  ]);
 
   constructor(private httpService: HttpService,
               private router: Router,
@@ -31,33 +43,12 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.url.subscribe(segments => {
-      switch (segments[0].path) {
-        case PageType.Areas:
-          this.loadStrAreas();
-          break;
-        case PageType.Categories:
-          this.loadStrCategories();
-          break;
-        case PageType.Ingredients:
-          this.loadStrIngredients();
-          break;
+      const pageType: PageType = segments[0].path as PageType;
+      if(pageType) {
+        this.activePage = pageType;
+        this.labelDataArray$ = this.pageTypeToMethodMap.get(pageType) ?? null;
       }
     });
-  }
-
-  private loadStrCategories() {
-    this.activePage = PageType.Category;
-    this.labelDataArray$ = this.httpService.getListAllCategories();
-  }
-
-  private loadStrAreas() {
-    this.activePage = PageType.Area;
-    this.labelDataArray$ = this.httpService.getListAllAreas();
-  }
-
-  private loadStrIngredients() {
-    this.activePage = PageType.Ingredient;
-    this.labelDataArray$ = this.httpService.getListAllIngredients();
   }
 
   protected goToCategory(category: string) {
@@ -65,7 +56,12 @@ export class CategoriesComponent implements OnInit {
   }
 
   protected searchByCategory(category: string): void {
-    this.router.navigate([`/${this.activePage}`, category]);
+    if(this.activePage) {
+      const pageType = this.activePageToCategory.get(this.activePage as PageType) ?? null;
+      if(pageType) {
+        this.router.navigate([`/${pageType}`, category]);
+      }
+    }
   }
 
   protected filterByLetter(event: Event): void {

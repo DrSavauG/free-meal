@@ -5,7 +5,7 @@ import { map, Observable } from "rxjs";
 
 import {
   Category,
-  Categoryes,
+  Categories,
   StrIngredient,
   StrIngredients,
   Product,
@@ -62,28 +62,27 @@ export class HttpService {
 
   public getByCategory(category: string): Observable<Category[]> {
     const searchUrl: string = `${this.apiSearchByCategory}${category}`;
-    return this.http.get<Categoryes>(searchUrl).pipe(
+    return this.http.get<Categories>(searchUrl).pipe(
       map((response) => response.meals)
     );
   }
 
   public getByArea(category: string): Observable<Category[]> {
     const searchUrl: string = `${this.apiSearchByArea}${category}`;
-    return this.http.get<Categoryes>(searchUrl).pipe(
+    return this.http.get<Categories>(searchUrl).pipe(
       map((response) => response.meals)
     );
   }
 
   public getByIngredient(ingredient: string): Observable<Category[]> {
     const searchUrl: string = `${this.apiSearchByIngredient}${ingredient}`;
-    return this.http.get<Categoryes>(searchUrl).pipe(
+    return this.http.get<Categories>(searchUrl).pipe(
       map((response) => response.meals)
     );
   }
 
   public getListAllIngredients(): Observable<LabelData[]> {
-    const searchUrl: string = `${this.apiListAllIngredients}`;
-    return this.http.get<StrIngredients>(searchUrl).pipe(
+    return this.http.get<StrIngredients>(this.apiListAllIngredients).pipe(
       map((response) => response.meals.map(arr=>({
         label:arr.strIngredient
       })))
@@ -91,22 +90,19 @@ export class HttpService {
   }
 
   public getListAllCategories(): Observable<LabelData[]> {
-    const searchUrl: string = `${this.apiListAllCategories}`;
-    return this.http.get<StrCategories>(searchUrl).pipe(
+    return this.http.get<StrCategories>(this.apiListAllCategories).pipe(
       map((response) => response.meals.map(arr=>({
         label:arr.strCategory
       })))
     );
   }
   public getRawListAllIngredients(): Observable<StrIngredient[]> {
-    const searchUrl: string = `${this.apiListAllIngredients}`;
-    return this.http.get<StrIngredients>(searchUrl).pipe(
+    return this.http.get<StrIngredients>(this.apiListAllIngredients).pipe(
       map((response) => response.meals)
     );
   }
   public getListAllAreas(): Observable<LabelData[]> {
-    const searchUrl: string = `${this.apiListAllAreas}`;
-    return this.http.get<StrAreas>(searchUrl).pipe(
+    return this.http.get<StrAreas>(this.apiListAllAreas).pipe(
       map((response) => response.meals.map(arr=>({
         label:arr.strArea
       })))

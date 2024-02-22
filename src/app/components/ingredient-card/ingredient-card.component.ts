@@ -9,6 +9,7 @@ import { HttpService } from "../../services/products.service";
 
 import { StrIngredient } from "../../models/mock-products";
 import { environment } from "../../../environments/environment";
+import { PageType } from "../../constants/enums";
 
 @Component({
   selector: 'app-ingredient-card',
@@ -37,10 +38,10 @@ export class IngredientCardComponent implements OnInit {
   }
 
   private loadIngredients(): void {
-    this.nameIngredient = this.route.snapshot.params['ingredient'];
+    this.nameIngredient = this.route.snapshot.params[PageType.Ingredient];
     if(this.nameIngredient) {
       this.ingredientArray$ = this.httpService.getRawListAllIngredients();
-      this.getIngredient(this.nameIngredient);
+      this.ingredients$ = this.getIngredient(this.nameIngredient);
     }
   }
 
@@ -48,18 +49,19 @@ export class IngredientCardComponent implements OnInit {
     this.imageHandlingService.handleImageError(event);
   }
 
-  private getIngredient(name: string): void {
+  private getIngredient(name: string): Observable<StrIngredient[]> | null {
     if(this.ingredientArray$) {
       const capitalizeName = this.capitalizeFirstLetter(name);
-      this.ingredients$ = this.ingredientArray$.pipe(
+      return this.ingredientArray$.pipe(
         map(ingredients => ingredients.filter(
           ingredient => ingredient["strIngredient"] === capitalizeName)),
       );
     }
+    return null;
   }
 
   private capitalizeFirstLetter(str: string): string {
-    return str.charAt(0).toUpperCase() + str.slice(1);
+    return str.replace(/^\w/, (match) => match.toUpperCase());
   }
 
 

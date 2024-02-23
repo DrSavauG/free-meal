@@ -21,7 +21,7 @@ export class CategoriesComponent implements OnInit {
   public activePage: string | null = null;
   public labelDataArray$: Observable<LabelData[]> | null = null;
   public filterLetter: string | null = null;
-  protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients];
+  protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients] as const;
 
   private readonly pageTypeToMethodMap: Map<PageType, Observable<LabelData[]>> = new Map([
     [PageType.Areas, this.httpService.getListAllAreas()],

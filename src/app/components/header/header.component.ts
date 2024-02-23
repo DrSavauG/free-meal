@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterLink, Router } from "@angular/router";
+import { PageType } from "../../constants/enums";
 
 @Component({
   selector: 'header-component',
@@ -28,14 +29,14 @@ export class HeaderComponent {
 
   protected searchByLetter(event: Event): void {
     const {value} = event.target as HTMLInputElement;
-    this.router.navigate(['/items', value]);
+    this.router.navigate([`/${PageType.Items}`, value]);
   }
 
   protected goToFavorites() {
-    this.router.navigate(['/favorites']);
+    this.router.navigate([`/${PageType.Favorites}`]);
   }
   protected goToCategories() {
-    this.router.navigate(['/categories']);
+    this.router.navigate([`/${PageType.Categories}`]);
   }
 }
 

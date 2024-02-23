@@ -10,6 +10,7 @@ import { Product } from "../../models/mock-products";
 import { ProductCardComponent } from "../product-card/product-card.component";
 import { ProductSmallComponent } from "../product-small/product-small.component";
 import { ItemDetailsComponent } from "../item-details/item-details.component";
+import { PageType } from "../../constants/enums";
 
 @Component({
   selector: 'app-big-body',
@@ -31,10 +32,10 @@ export class BigBodyComponent implements OnInit {
   }
 
   private loadProducts(): void {
-    const idMeal: string = this.route.snapshot.params['id'];
+    const idMeal: string = this.route.snapshot.params[PageType.Id];
 
     if(idMeal) {
-      this.productsArray$ = this.httpService.getSearchData(idMeal);
+      this.productsArray$ = this.httpService.getItemById(idMeal);
     }
   }
 }

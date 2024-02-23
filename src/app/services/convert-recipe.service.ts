@@ -7,7 +7,7 @@ import { ProductDataKeys } from "../constants/constants";
   providedIn: 'root'
 })
 export class ConvertRecipeService {
-  private readonly namesKeysIngredient = {ingredients: "strIngredient", measures: "strMeasure"};
+  private readonly namesKeysIngredient = {strIngredient: "strIngredient", strMeasure: "strMeasure"} as const;
 
   constructor() {
   }
@@ -21,8 +21,8 @@ export class ConvertRecipeService {
           return obj;
         }, {} as ProductIngredient);
 
-      const ingredients = this.getData(productIngredient, this.namesKeysIngredient.ingredients);
-      const measures = this.getData(productIngredient, this.namesKeysIngredient.measures);
+      const ingredients = this.getValuesByKey(productIngredient, this.namesKeysIngredient.strIngredient);
+      const measures = this.getValuesByKey(productIngredient, this.namesKeysIngredient.strMeasure);
 
       return {ingredients, measures};
     }
@@ -31,7 +31,7 @@ export class ConvertRecipeService {
 
   private isExcludedKey = (key: string): key is keyof ProductData => ProductDataKeys.includes(key as keyof ProductData);
 
-  private getData(productIngredient: ProductIngredient, nameKey: string): string[] {
+  private getValuesByKey(productIngredient: ProductIngredient, nameKey: string): string[] {
     return Object.keys(productIngredient)
       .filter(key => key.includes(nameKey))
       .map(key => productIngredient[key as keyof ProductIngredient])

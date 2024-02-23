@@ -6,6 +6,7 @@ import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { Product } from "../../models/mock-products";
 import { FavoritesService } from "../../services/favorites.service";
+import { PageType } from "../../constants/enums";
 
 @Component({
   selector: 'product-card',
@@ -29,20 +30,20 @@ export class ProductCardComponent {
     this.imageHandlingService.handleImageError(event);
   }
 
-  protected searchByCategory(category: string): void {
-    this.router.navigate(['/category', category]);
+  protected searchByCategory(): void {
+    this.router.navigate([`/${PageType.Category}`, this.product?.strCategory]);
   }
 
-  protected searchByArea(area: string): void {
-    this.router.navigate(['/area', area]);
+  protected searchByArea(): void {
+    this.router.navigate([`/${PageType.Area}`, this.product?.strArea]);
   }
 
-  protected toggleFavorite(product: Product): void {
-
-    this.favoritesService.getAllFavorites();
-    const isFavoriteId = this.favoritesService.getFavoriteById(product.idMeal);
-    isFavoriteId ?
-      this.favoritesService.deleteFavorite(product.idMeal) :
-      this.favoritesService.setFavorite(product);
+  protected toggleFavorite(): void {
+    if(this.product) {
+      const isFavoriteId = this.favoritesService.getFavoriteById(this.product.idMeal);
+      isFavoriteId ?
+        this.favoritesService.deleteFavorite(this.product.idMeal) :
+        this.favoritesService.setFavorite(this.product);
+    } else throw new Error('this.product === null');
   }
 }

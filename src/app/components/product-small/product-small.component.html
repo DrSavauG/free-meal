@@ -1,7 +1,7 @@
 <div class="products-list-container">
   @if (product) {
-    <h2>{{ product.strMeal | truncate }}</h2>
-    <a [routerLink]="['/item', product.idMeal]">
+    <h2>{{ product.strMeal }}</h2>
+    <a [routerLink]="['/'+PageType.Item, product.idMeal]">
       <img ngSrc="{{product.strMealThumb}}"
            [alt]="product.strMeal" class="big-picture"
            (error)="handleImageError($event)"
@@ -12,8 +12,8 @@
     </a>
     @if (isProduct(product)) {
       <div class="description-wrapper">
-        <button class="description" (click)="searchByCategory(product.strCategory)">{{ product.strCategory }}</button>
-        <button class="description" (click)="searchByArea(product.strArea)">{{ product.strArea }}</button>
+        <button class="description" (click)="searchByCategory()">{{ product.strCategory }}</button>
+        <button class="description" (click)="searchByArea()">{{ product.strArea }}</button>
       </div>
     }
   }

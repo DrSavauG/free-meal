@@ -26,6 +26,7 @@ export class IngredientCardComponent implements OnInit {
   public readonly urlImageIngredient: string = environment.urlImageIngredient;
   protected nameIngredient: string | null = null;
   private ingredientArray$: Observable<StrIngredient[]> | null = null;
+  private readonly keyOfStrIngredient: keyof StrIngredient = "strIngredient";
 
   constructor(private imageHandlingService: ImageHandlingService,
               private route: ActivatedRoute,
@@ -54,7 +55,7 @@ export class IngredientCardComponent implements OnInit {
       const capitalizeName = this.capitalizeFirstLetter(name);
       return this.ingredientArray$.pipe(
         map(ingredients => ingredients.filter(
-          ingredient => ingredient["strIngredient"] === capitalizeName)),
+          ingredient => ingredient[this.keyOfStrIngredient] === capitalizeName)),
       );
     }
     return null;
@@ -63,6 +64,5 @@ export class IngredientCardComponent implements OnInit {
   private capitalizeFirstLetter(str: string): string {
     return str.replace(/^\w/, (match) => match.toUpperCase());
   }
-
 
 }

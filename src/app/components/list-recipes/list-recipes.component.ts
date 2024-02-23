@@ -25,6 +25,7 @@ export class ListRecipesComponent implements OnInit {
   public productsArray$: Observable<Category[]> | null = null;
   public pageCategory: string | null = null;
   public findCategory: string | null = null;
+
   protected isLoadIngredient: boolean = false;
 
   private readonly pageTypeToMethodMap: Map<PageType, (arg: string) => Observable<Category[]>> = new Map([

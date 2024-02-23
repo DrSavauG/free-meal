@@ -15,3 +15,6 @@ export const ProductDataKeys: readonly(keyof ProductData)[] = [
   'strCreativeCommonsConfirmed',
   'dateModified'
 ] as const;
+
+export const abcString: string = 'abcdefghijklmnopqrstuvwxyz';
+

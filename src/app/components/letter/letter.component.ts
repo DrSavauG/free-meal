@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from "@angular/router";
 
+import { PageType } from "../../constants/enums";
+
 @Component({
   selector: 'app-letter',
   standalone: true,
@@ -12,4 +14,5 @@ import { RouterLink } from "@angular/router";
 })
 export class LetterComponent {
   letter: string | null = null;
+  protected readonly PageType = PageType;
 }

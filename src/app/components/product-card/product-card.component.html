@@ -1,3 +1,8 @@
+@if (displayMessage) {
+  <div class="notification" [ngClass]="{'fadeOut': displayFadeOut, 'fadeIn': !displayFadeOut}">
+    {{ message }}
+  </div>
+}
 <div class="product-card-wrapper">
   @if (product) {
     <h2>{{ product.strMeal }}</h2>

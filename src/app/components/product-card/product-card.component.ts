@@ -1,12 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Router } from "@angular/router";
+
+import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { Product } from "../../models/mock-products";
+import { FavoritesService } from "../../services/favorites.service";
 
 @Component({
   selector: 'product-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,13 +18,30 @@ import { Product } from "../../models/mock-products";
 })
 
 export class ProductCardComponent {
-  private placeholderImage: string = '../../../assets/images/404 3.png';
   product: Product | null = null;
 
-  public handleImageError(event: Event): void {
-    if(event.target instanceof HTMLImageElement) {
-      event.target.src = this.placeholderImage;
-    }
+  constructor(private imageHandlingService: ImageHandlingService,
+              private router: Router,
+              private favoritesService: FavoritesService) {
   }
 
+  public handleImageError(event: Event): void {
+    this.imageHandlingService.handleImageError(event);
+  }
+
+  protected searchByCategory(category: string): void {
+    this.router.navigate(['/category', category]);
+  }
+
+  protected searchByArea(area: string): void {
+    this.router.navigate(['/area', area]);
+  }
+
+  protected toggleFavorite(product: Product): void {
+
+    this.favoritesService.getAllFavorites() ;
+    this.favoritesService.getFavoriteById(product.idMeal) ?
+      this.favoritesService.deleteFavorite(product.idMeal) :
+      this.favoritesService.setFavorite(product);
+  }
 }

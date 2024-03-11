@@ -1,15 +1,18 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Router, RouterLink } from "@angular/router";
+
+import { Observable } from "rxjs";
+
+import { HttpService } from "../../services/products.service";
+import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { Product } from "../../models/mock-products";
-import { RouterLink } from "@angular/router";
-import { Observable } from "rxjs";
-import { HttpService } from "../../services/products.service";
 
 @Component({
   selector: 'app-product-random',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, NgOptimizedImage],
   templateUrl: './product-random.component.html',
   styleUrl: './product-random.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,9 +20,11 @@ import { HttpService } from "../../services/products.service";
 
 export class ProductRandomComponent implements OnInit {
   public productsArray$: Observable<Product[]> | null = null;
-  public placeholderImage: string = '../../../assets/images/404 3.png';
 
-  constructor(private httpService: HttpService) {
+  constructor(private httpService: HttpService,
+              private imageHandlingService: ImageHandlingService,
+              private router: Router,
+  ) {
   }
 
   public ngOnInit(): void {
@@ -31,8 +36,14 @@ export class ProductRandomComponent implements OnInit {
   }
 
   public handleImageError(event: Event): void {
-    if(event.target instanceof HTMLImageElement) {
-      event.target.src = this.placeholderImage;
-    }
+    this.imageHandlingService.handleImageError(event);
+  }
+
+  protected searchByCategory(category: string): void {
+    this.router.navigate(['/category', category]);
+  }
+
+  protected searchByArea(area: string): void {
+    this.router.navigate(['/area', area]);
   }
 }

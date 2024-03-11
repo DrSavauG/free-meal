@@ -1,0 +1,16 @@
+<div class="ingredient-card-wrapper">
+  @for (ingredient of ingredients$ |async; track ingredient.idIngredient) {
+    <h2>{{ ingredient.strIngredient }}</h2>
+    <img ngSrc="{{urlImageIngredient}}{{ingredient.strIngredient}}.png"
+         [alt]="ingredient.strIngredient"
+         class="big-picture"
+         width="500"
+         height="500"
+         (error)="handleImageError($event)"
+         priority>
+    <div class="description-wrapper">
+      <h3>Description</h3>
+      <p>{{ ingredient.strDescription }}</p>
+    </div>
+  }
+</div>

@@ -1,22 +1,41 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input } from '@angular/core';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Router, RouterLink } from "@angular/router";
 
-import { Product } from "../../models/mock-products";
+import { ImageHandlingService } from "../../services/image-handling.service";
+
+import { Category, Product } from "../../models/mock-products";
+import { TruncatePipe } from "../../pipes/truncate.pipe";
 
 @Component({
   selector: 'app-product-small',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage, RouterLink, TruncatePipe],
   templateUrl: './product-small.component.html',
   styleUrl: './product-small.component.scss',
-  inputs:[ "product"],
 })
+
 export class ProductSmallComponent {
-  product: Product | null = null;
-  private placeholderImage: string = '../../../assets/images/404 3.png';
-  public handleImageError(event: Event): void {
-    if(event.target instanceof HTMLImageElement) {
-      event.target.src = this.placeholderImage;
-    }
+  @Input() product: Product | Category | null = null;
+
+  constructor(private imageHandlingService: ImageHandlingService,
+              private router: Router) {
   }
+
+  public handleImageError(event: Event): void {
+    this.imageHandlingService.handleImageError(event);
+  }
+
+  protected searchByCategory(category: string): void {
+    this.router.navigate(['/category', category]);
+  }
+
+  protected searchByArea(area: string): void {
+    this.router.navigate(['/area', area]);
+  }
+
+  protected isProduct(entity: Category | Product): entity is Product {
+    return 'strCategory' in entity;
+  }
+
 }

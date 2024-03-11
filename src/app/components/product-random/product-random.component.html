@@ -1,15 +1,18 @@
 @for (product of productsArray$ | async; track product.idMeal) {
   <div class="product-container-big">
     <h2>{{ product.strMeal }}</h2>
-    <a [routerLink]="['/item', product?.idMeal]">
-      <img [src]="product.strMealThumb" [alt]="product.strMeal" class="big-picture"
-           (error)="handleImageError($event)">
+    <a [routerLink]="['/item', product.idMeal]">
+      <img ngSrc="{{product.strMealThumb}}" [alt]="product.strMeal" class="big-picture"
+           (error)="handleImageError($event)"
+           width="500"
+           height="500"
+           priority>
     </a>
 
     <div class="description-wrapper">
-      <button class="description">{{ product.strCategory }}</button>
-      <button class="description">{{ product.strArea }}</button>
-      <a class="description" [routerLink]="['/item', product?.idMeal]">Show details</a>
+      <button class="description" (click)="searchByCategory(product.strCategory)">{{ product.strCategory }}</button>
+      <button class="description" (click)="searchByArea(product.strArea)">{{ product.strArea }}</button>
+      <a class="description" [routerLink]="['/item', product.idMeal]">Show details</a>
       <button class="description" (click)="loadProducts()">Next</button>
     </div>
   </div>

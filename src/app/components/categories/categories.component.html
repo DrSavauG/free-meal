@@ -1,0 +1,19 @@
+<div class="category-component-wrapper">
+  <div class="category-component-header">
+    @for (category of categories; track category) {
+      <div (click)="goToCategory(category)">{{ category }}</div>
+    }
+  </div>
+  <section class="category-input">
+    <input id="search-input" class="form-control" type="text"
+           placeholder="Filter"
+           (input)="filterByLetter($event)"
+    >
+  </section>
+  <div class="category-component-body">
+    @for (product of labelDataArray$ | filter:filterLetter | async; track product.label) {
+      <div (click)="searchByCategory(product.label)">{{ product.label }}</div>
+    }
+  </div>
+
+</div>

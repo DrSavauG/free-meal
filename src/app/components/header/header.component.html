@@ -1,18 +1,18 @@
 <div class="header-component-wrapper">
   <div class="header-container">
-    <a (click)="toMainPageAndReload()">
+    <a (click)="toMainPage()">
       <div class="header-navbar-left">
         <h1>{{ header | titlecase }}</h1>
       </div>
     </a>
     <section class="header-input">
       <input id="search-input" class="form-control" type="text"
-             [formControl]="searchControl"
              placeholder="Ex: chicken, banana, meat..."
              (input)="searchByLetter($event)"
       >
     </section>
-<!--    <button type="button" class="button" (click)="onSearch()">Search</button>-->
+    <button type="button" class="button" (click)="goToFavorites()">Favorites</button>
+    <button type="button" class="button" (click)="goToCategories()">Categories</button>
   </div>
 </div>
 

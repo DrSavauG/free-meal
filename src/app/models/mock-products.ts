@@ -2,16 +2,36 @@ export interface Products {
   meals: Product[]
 }
 
-export interface Product {
-  idMeal: string,
+export interface Product extends ProductData, ProductIngredient {
+}
+
+export interface Category {
+  idMeal: string
   strMeal: string,
+  strMealThumb: string,
+}
+
+export interface Categoryes {
+  meals: Category[]
+}
+
+export interface ProductData extends Category {
   strDrinkAlternate: null | string,
   strCategory: string,
   strArea: string,
   strInstructions: string,
-  strMealThumb: string,
   strTags: null,
   strYoutube: string,
+  strSource: string,
+  strImageSource: null,
+  strCreativeCommonsConfirmed: null,
+  dateModified: null
+}
+
+export interface ProductIngredient extends Ingredient, Measure {
+}
+
+export interface Ingredient {
   strIngredient1: string,
   strIngredient2: string,
   strIngredient3: string,
@@ -32,6 +52,9 @@ export interface Product {
   strIngredient18: string,
   strIngredient19: string,
   strIngredient20: string,
+}
+
+export interface Measure {
   strMeasure1: string,
   strMeasure2: string,
   strMeasure3: string,
@@ -51,9 +74,41 @@ export interface Product {
   strMeasure17: string,
   strMeasure18: string,
   strMeasure19: string,
-  strMeasure20: string,
-  strSource: string,
-  strImageSource: null,
-  strCreativeCommonsConfirmed: null,
-  dateModified: null
+  strMeasure20: string
+}
+
+export interface ProductRecipe {
+  ingredients: string[];
+  measures: string[];
+}
+
+export interface StrIngredient {
+  idIngredient: string,
+  strIngredient: string,
+  strDescription: string | null,
+  strType: string | null
+}
+
+export interface StrIngredients {
+  meals: StrIngredient[]
+}
+
+export interface StrCategories {
+  meals: StrCategory[]
+}
+
+export interface StrCategory {
+  strCategory: string;
+}
+
+export interface StrAreas {
+  meals: StrArea[]
+}
+
+export interface StrArea {
+  strArea: string
+}
+
+export interface LabelData {
+  label: string
 }

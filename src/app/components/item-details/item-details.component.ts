@@ -5,8 +5,8 @@ import { ConvertRecipeService } from "../../services/convert-recipe.service";
 import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { environment } from "../../../environments/environment";
-import { Product } from "../../models/mock-products";
-import { IngredientsInterface } from "../../models/ingredient.interface";
+import { Product, ProductRecipe } from "../../models/mock-products";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-item-details',
@@ -17,27 +17,25 @@ import { IngredientsInterface } from "../../models/ingredient.interface";
 })
 export class ItemDetailsComponent implements OnInit {
   @Input() product: Product | null = null;
-  public ingredients: IngredientsInterface | null = null;
-  private readonly urlImageIngredient: string = environment.urlImageIngredient;
+  public productRecipe: ProductRecipe | null = null;
+  public readonly urlImageIngredient: string = environment.urlImageIngredient;
 
   constructor(private convertRecipeService: ConvertRecipeService,
               private imageHandlingService: ImageHandlingService,
+              private router: Router
   ) {
   }
 
   ngOnInit(): void {
-    this.ingredients = this.convertRecipeService.createArrOfIngredients(this.product, this.urlImageIngredient);
+    this.productRecipe = this.convertRecipeService.createArrOfIngredients(this.product);
   }
 
   public handleImageError(event: Event): void {
     this.imageHandlingService.handleImageError(event);
   }
 
-  public get getWidth(): number {
-    return 100;
+  protected searchByingredient(ingredient: string): void {
+    this.router.navigate(['/ingredient', ingredient]);
   }
 
-  public get getHeight(): number {
-    return 100;
-  }
 }

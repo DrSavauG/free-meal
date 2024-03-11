@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router, RouterLink } from "@angular/router";
 
-import { Observable } from "rxjs";
 
 import { HttpService } from "../../services/products.service";
 import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { Product } from "../../models/mock-products";
+import { PageType } from "../../constants/enums";
 
 @Component({
   selector: 'app-product-random',
@@ -15,11 +15,11 @@ import { Product } from "../../models/mock-products";
   imports: [CommonModule, RouterLink, NgOptimizedImage],
   templateUrl: './product-random.component.html',
   styleUrl: './product-random.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class ProductRandomComponent implements OnInit {
-  public productsArray$: Observable<Product[]> | null = null;
+  public product: Product | null = null;
+  protected readonly PageType = PageType;
 
   constructor(private httpService: HttpService,
               private imageHandlingService: ImageHandlingService,
@@ -28,22 +28,26 @@ export class ProductRandomComponent implements OnInit {
   }
 
   public ngOnInit(): void {
-    this.loadProducts();
+    this.loadProduct();
   }
 
-  public loadProducts(): void {
-    this.productsArray$ = this.httpService.getRandomData();
+  public loadProduct(): void {
+    this.httpService.getRandomItem().subscribe(
+      product => this.product = product
+    );
   }
 
   public handleImageError(event: Event): void {
     this.imageHandlingService.handleImageError(event);
   }
 
-  protected searchByCategory(category: string): void {
-    this.router.navigate(['/category', category]);
+  protected searchByCategory(): void {
+    this.router.navigate([`/${PageType.Category}`, this.product?.strCategory]);
   }
 
-  protected searchByArea(area: string): void {
-    this.router.navigate(['/area', area]);
+  protected searchByArea(): void {
+    this.router.navigate([`/${PageType.Area}`, this.product?.strArea]);
   }
+
+
 }

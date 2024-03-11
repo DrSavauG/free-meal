@@ -5,18 +5,19 @@ import { Router, RouterLink } from "@angular/router";
 import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { Category, Product } from "../../models/mock-products";
-import { TruncatePipe } from "../../pipes/truncate.pipe";
+import { PageType } from "../../constants/enums";
 
 @Component({
   selector: 'app-product-small',
   standalone: true,
-  imports: [CommonModule, NgOptimizedImage, RouterLink, TruncatePipe],
+  imports: [CommonModule, NgOptimizedImage, RouterLink],
   templateUrl: './product-small.component.html',
   styleUrl: './product-small.component.scss',
 })
 
 export class ProductSmallComponent {
   @Input() product: Product | Category | null = null;
+  private readonly strCategory: keyof Product = 'strCategory' as const;
 
   constructor(private imageHandlingService: ImageHandlingService,
               private router: Router) {
@@ -26,16 +27,21 @@ export class ProductSmallComponent {
     this.imageHandlingService.handleImageError(event);
   }
 
-  protected searchByCategory(category: string): void {
-    this.router.navigate(['/category', category]);
+  protected searchByCategory(): void {
+    if(this.product && this.isProduct(this.product)) {
+      this.router.navigate([`/${PageType.Category}`, this.product.strCategory]);
+    }
   }
 
-  protected searchByArea(area: string): void {
-    this.router.navigate(['/area', area]);
+  protected searchByArea(): void {
+    if(this.product && this.isProduct(this.product)) {
+      this.router.navigate([`/${PageType.Area}`, this.product.strArea]);
+    }
   }
 
   protected isProduct(entity: Category | Product): entity is Product {
-    return 'strCategory' in entity;
+    return this.strCategory in entity;
   }
 
+  protected readonly PageType = PageType;
 }

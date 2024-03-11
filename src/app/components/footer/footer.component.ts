@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from "@angular/router";
 
 import { LetterComponent } from "../letter/letter.component";
+import { abcString } from "../../constants/constants";
 
 @Component({
   selector: 'footer-component',
@@ -13,6 +14,5 @@ import { LetterComponent } from "../letter/letter.component";
 })
 
 export class FooterComponent {
-  private abcString: string = 'abcdefghijklmnopqrstuvwxyz';
-  public abc: string[] = this.abcString.split('');
+  public abc: string[] = abcString.split('');
 }

@@ -7,6 +7,7 @@ import { ImageHandlingService } from "../../services/image-handling.service";
 import { environment } from "../../../environments/environment";
 import { Product, ProductRecipe } from "../../models/mock-products";
 import { Router } from "@angular/router";
+import { PageType } from "../../constants/enums";
 
 @Component({
   selector: 'app-item-details',
@@ -34,8 +35,8 @@ export class ItemDetailsComponent implements OnInit {
     this.imageHandlingService.handleImageError(event);
   }
 
-  protected searchByingredient(ingredient: string): void {
-    this.router.navigate(['/ingredient', ingredient]);
+  protected searchByIngredient(ingredient: string): void {
+    this.router.navigate([`/${PageType.Ingredient}`, ingredient]);
   }
 
 }

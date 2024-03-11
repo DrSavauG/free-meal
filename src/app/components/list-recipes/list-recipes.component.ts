@@ -8,11 +8,10 @@ import { HttpService } from "../../services/products.service";
 import { FavoritesService } from "../../services/favorites.service";
 
 import { Category, Product } from "../../models/mock-products";
-import { PageType } from "../../enums/enums";
+import { PageType } from "../../constants/enums";
 import { ProductSmallComponent } from "../product-small/product-small.component";
 import { ProductCardComponent } from "../product-card/product-card.component";
 import { IngredientCardComponent } from "../ingredient-card/ingredient-card.component";
-
 
 @Component({
   selector: 'list-recipes',
@@ -23,8 +22,22 @@ import { IngredientCardComponent } from "../ingredient-card/ingredient-card.comp
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListRecipesComponent implements OnInit {
-  public productsArray$: Observable<Category[] | Product[]> | null = null;
+  public productsArray$: Observable<Category[]> | null = null;
+  public pageCategory: string | null = null;
+  public findCategory: string | null = null;
+
   protected isLoadIngredient: boolean = false;
+
+  private readonly pageTypeToMethodMap: Map<PageType, (arg: string) => Observable<Category[]>> = new Map([
+    [PageType.Area, (pageCategory: string) => this.httpService.getByArea(pageCategory)],
+    [PageType.Category, (pageCategory: string) => this.httpService.getByCategory(pageCategory)],
+    [PageType.Favorites, () => of(this.favoritesService.getAllFavorites())],
+    [PageType.Items, () => this.loadItems()],
+    [PageType.Ingredient, (pageCategory: string) => {
+      this.isLoadIngredient = true;
+      return this.httpService.getByIngredient(pageCategory);
+    }],
+  ]);
 
   constructor(private httpService: HttpService,
               private route: ActivatedRoute,
@@ -34,62 +47,26 @@ export class ListRecipesComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.url.subscribe(segments => {
-      switch (segments[0].path) {
-        case PageType.Area:
-          this.loadAreas();
-          break;
-        case PageType.Category:
-          this.loadCategories();
-          break;
-        case PageType.Ingredient: {
-          this.isLoadIngredient = true;
-          this.loadIngredient();
-        }
-          break;
-        case PageType.Items:
-          this.loadItems();
-          break;
-        case PageType.Favorites:
-          this.loadFavoritesItems();
-          break;
+      this.pageCategory = segments[0]?.path;
+      this.findCategory = segments[1]?.path;
+      if(this.pageTypeToMethodMap.has(<PageType>this.pageCategory)) {
+        this.productsArray$ = this.pageTypeToMethodMap.get(<PageType>this.pageCategory)!(this.findCategory);
       }
     });
   }
 
-  public loadCategories(): void {
-    this.productsArray$ = this.route.params.pipe(
-      map((params) => params[PageType.Category]),
-      switchMap((category) => this.httpService.getByCategory(category)));
-  }
-
-  public loadAreas(): void {
-    this.productsArray$ = this.route.params.pipe(
-      map((params) => params[PageType.Area]),
-      switchMap((area) => this.httpService.getByArea(area)));
-  }
-
-  public loadIngredient(): void {
-    this.productsArray$ = this.route.params.pipe(
-      map((params) => params[PageType.Ingredient]),
-      switchMap((ingredient) => this.httpService.getByIngredient(ingredient)));
-  }
-
-  public loadItems(): void {
-    this.productsArray$ = this.route.params.pipe(
+  private loadItems(): Observable<Product[]> {
+    return this.route.params.pipe(
       map((params) => params[PageType.Items]),
-      switchMap((items) => {
-        if(items.length > 1) {
-          return this.httpService.getSearchByName(items);
-        } else if(items.length == 1) {
-          return this.httpService.searchByLetter(items);
+      switchMap((searchItems) => {
+        if(searchItems.length > 1) {
+          return this.httpService.getSearchByName(searchItems);
+        } else if(searchItems.length == 1) {
+          return this.httpService.searchByLetter(searchItems);
         } else {
           return [];
         }
       })
     );
-  }
-
-  private loadFavoritesItems() {
-    this.productsArray$ = of(this.favoritesService.getAllFavorites());
   }
 }

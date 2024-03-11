@@ -11,7 +11,7 @@
       <tbody>
       <tr *ngFor="let ingredient of productRecipe.ingredients; let i = index">
         <td>
-          <a (click)="searchByingredient(ingredient)">
+          <a (click)="searchByIngredient(ingredient)">
             <img ngSrc="{{urlImageIngredient}}{{ ingredient }}-Small.png"
                  [alt]="ingredient"
                  width="100"

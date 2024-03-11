@@ -9,9 +9,9 @@
          (error)="handleImageError($event)"
          priority>
     <div class="description-wrapper">
-      <button class="description" (click)="searchByCategory(product.strCategory)">{{ product.strCategory }}</button>
-      <button class="description" (click)="searchByArea(product.strArea)">{{ product.strArea }}</button>
-      <button (click)="toggleFavorite(product)">Favorite</button>
+      <button class="description" (click)="searchByCategory()">{{ product.strCategory }}</button>
+      <button class="description" (click)="searchByArea()">{{ product.strArea }}</button>
+      <button (click)="toggleFavorite()">Favorite</button>
     </div>
   }
 </div>

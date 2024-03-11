@@ -6,6 +6,7 @@ import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { environment } from "../../../environments/environment";
 import { Product, ProductRecipe } from "../../models/mock-products";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-item-details',
@@ -21,6 +22,7 @@ export class ItemDetailsComponent implements OnInit {
 
   constructor(private convertRecipeService: ConvertRecipeService,
               private imageHandlingService: ImageHandlingService,
+              private router: Router
   ) {
   }
 
@@ -30,6 +32,10 @@ export class ItemDetailsComponent implements OnInit {
 
   public handleImageError(event: Event): void {
     this.imageHandlingService.handleImageError(event);
+  }
+
+  protected searchByingredient(ingredient: string): void {
+    this.router.navigate(['/ingredient', ingredient]);
   }
 
 }

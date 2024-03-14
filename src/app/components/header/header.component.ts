@@ -1,35 +1,42 @@
 import { Component } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
-import { FormControl, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
-import { HttpService } from "../../services/products.service";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { RouterLink, Router } from "@angular/router";
+import { PageType } from "../../constants/enums";
 
 @Component({
   selector: 'header-component',
   templateUrl: './header.component.html',
-  styleUrl: './header.component.css',
+  styleUrl: './header.component.scss',
   standalone: true,
   imports: [
     TitleCasePipe,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    RouterLink,
   ],
 })
 
-
 export class HeaderComponent {
-  constructor(
-    private httpService: HttpService
-  ) {}
+  constructor(private router: Router) {
+  }
 
-  header: string = 'free meal';
-  searchControl = new FormControl<string>('', [Validators.required, Validators.minLength(1)]);
-    onSearch() {
-      const searchUserInput = this.searchControl.value;
-      if(searchUserInput) {
-          this.httpService.getSearchData(searchUserInput).subscribe((items) => {
-              console.log(items);
-          });
-      }
-    }
+  public header: string = 'free meal';
+
+  protected toMainPage() {
+    this.router.navigate(['/']);
+  }
+
+  protected searchByLetter(event: Event): void {
+    const {value} = event.target as HTMLInputElement;
+    this.router.navigate([`/${PageType.Items}`, value]);
+  }
+
+  protected goToFavorites() {
+    this.router.navigate([`/${PageType.Favorites}`]);
+  }
+  protected goToCategories() {
+    this.router.navigate([`/${PageType.Categories}`]);
+  }
 }
 

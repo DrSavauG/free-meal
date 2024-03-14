@@ -1,0 +1,8 @@
+@if (isLoadIngredient) {
+  <app-ingredient-card></app-ingredient-card>
+}
+<div class="body-component-wrapper">
+  @for (product of productsArray$ | async; track product.idMeal) {
+    <app-product-small [product]="product"></app-product-small>
+  }
+</div>

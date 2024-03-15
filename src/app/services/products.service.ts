@@ -110,6 +110,3 @@ export class HttpService {
   }
 
 }
-
-export class ProductsService {
-}

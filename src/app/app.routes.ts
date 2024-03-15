@@ -57,6 +57,6 @@ export const routes: Routes = [
       import('./components/categories/categories.component').then(
         (mod) => mod.CategoriesComponent)
   },
-  {path: `${PageType.Item}/:${PageType.Id}`, component: BigBodyComponent},
-  {path: '**', component: BodyComponent},
+  {path: `${PageType.Item}/:${PageType.Id}`, component: BigBodyComponent}
+  // {path: '**', component: BodyComponent},
 ];

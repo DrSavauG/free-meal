@@ -2,7 +2,9 @@ import { Component } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterLink, Router } from "@angular/router";
+
 import { PageType } from "../../constants/enums";
+import { TITLE } from "../../constants/constants";
 
 @Component({
   selector: 'header-component',
@@ -21,7 +23,7 @@ export class HeaderComponent {
   constructor(private router: Router) {
   }
 
-  public header: string = 'free meal';
+  public header: string = TITLE;
 
   protected toMainPage() {
     this.router.navigate(['/']);
@@ -35,6 +37,7 @@ export class HeaderComponent {
   protected goToFavorites() {
     this.router.navigate([`/${PageType.Favorites}`]);
   }
+
   protected goToCategories() {
     this.router.navigate([`/${PageType.Categories}`]);
   }

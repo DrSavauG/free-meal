@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { CommonModule, NgOptimizedImage, Location } from '@angular/common';
 import { Router, RouterLink } from "@angular/router";
 
 
@@ -24,7 +24,23 @@ export class ProductRandomComponent implements OnInit {
   constructor(private httpService: HttpService,
               private imageHandlingService: ImageHandlingService,
               private router: Router,
+              private location: Location
   ) {
+  }
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if(event.key === 'Enter') {
+      if(this.product) {
+        this.router.navigateByUrl('/' + PageType.Item + '/' + this.product.idMeal);
+      }
+    }
+
+    if(event.key === 'Escape') {
+      this.location.back();
+    }
+    console.log('event.key', event.key);
+
   }
 
   public ngOnInit(): void {
@@ -48,6 +64,5 @@ export class ProductRandomComponent implements OnInit {
   protected searchByArea(): void {
     this.router.navigate([`/${PageType.Area}`, this.product?.strArea]);
   }
-
 
 }

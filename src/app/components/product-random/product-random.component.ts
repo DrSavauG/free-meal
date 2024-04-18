@@ -6,9 +6,12 @@ import { Store } from "@ngrx/store";
 import { HttpService } from "../../services/products.service";
 import { ImageHandlingService } from "../../services/image-handling.service";
 
-import { Product } from "../../models/mock-products";
+import { Product, Products, StrIngredient } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
 import { getProductRandom } from "../../../store/actions/products.actions";
+import { selectProduct } from "../../../store/selectors/products.selectors";
+import { Observable } from "rxjs";
+import { ProductState } from "../../../store/reducers/products.reducers";
 
 @Component({
   selector: 'app-product-random',
@@ -20,13 +23,16 @@ import { getProductRandom } from "../../../store/actions/products.actions";
 
 export class ProductRandomComponent implements OnInit {
   public product: Product | null = null;
+  public products$: ProductState | null = null;
+  // public ingredients$: Observable<StrIngredient[]> | null = null;
+  //
   protected readonly PageType = PageType;
 
   constructor(private httpService: HttpService,
               private imageHandlingService: ImageHandlingService,
               private router: Router,
               private location: Location,
-              protected store:Store,
+              protected store: Store,
   ) {
   }
 
@@ -51,8 +57,10 @@ export class ProductRandomComponent implements OnInit {
 
   public loadProduct(): void {
     this.store.dispatch(getProductRandom());
-    this.httpService.getRandomItem().subscribe(
-      product => this.product = product
+
+    this.store.select(selectProduct).subscribe(stateProductData => {
+        this.product = stateProductData;
+      }
     );
   }
 

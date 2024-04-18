@@ -1,15 +1,15 @@
-import { Product, Products } from "../../app/models/mock-products";
+import { Product } from "../../app/models/mock-products";
 import { Action, createReducer, on } from "@ngrx/store";
 import { getProductRandom, getProductRandomFailure, getProductRandomSuccess } from "../actions/products.actions";
 
 export interface ProductState {
-  meals: Products[],
-  selectId: Product | null
+  // meals: Products[],
+  data: Product | null,
 }
 
-export const initialProductsState: ProductState={//todo поменять id:{meals:[{idMeal:'',}]}
-  meals: [],
-  selectId:null
+export const initialProductsState: ProductState = {//todo поменять id:{meals:[{idMeal:'',}]}
+  // meals: [],
+  data: null
 };
 
 export const getRandomProduct = createReducer(
@@ -20,23 +20,27 @@ export const getRandomProduct = createReducer(
       ...state,
       loading: true,
       loaded: false,
-      data: null
+      data: null,
+      err: null,
+
     })
   ),
-  on(getProductRandomSuccess, (state, { product }) => ({
+  on(getProductRandomSuccess, (state, {product}) => ({
     ...state,
     loading: false,
     loaded: true,
-    data: product
+    data: product,
+    err: null,
   })),
-  on(getProductRandomFailure, (state) => ({
+  on(getProductRandomFailure, (state, err) => ({
     ...state,
     loading: false,
     loaded: false,
-    data: null
+    data: null,
+    error: err
   }))
 );
 
-export function productsReducers(state = initialProductsState,action:Action):ProductState{
-  return getRandomProduct(state,action);
+export function productsReducers(state = initialProductsState, action: Action): ProductState {
+  return getRandomProduct(state, action);
 }

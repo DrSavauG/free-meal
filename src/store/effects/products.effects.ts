@@ -13,10 +13,10 @@ export class ProductsEffects {
   getRandomProduct$ = createEffect(() =>
     this.actions$.pipe(
       ofType(ProductActions.getProductRandom),
-      mergeMap(() =>
-        this.httpService.getRandomItem().pipe(
-          map(product => ProductActions.getProductRandomSuccess({product})),
-          catchError(error => of(ProductActions.getProductRandomFailure({error})))
+      mergeMap(() => this.httpService.getRandomItem()
+        .pipe(
+          map(product => ProductActions.getProductRandomSuccess({ product })),
+          catchError(error => of(ProductActions.getProductRandomFailure({ error })))
         )
       )
     )
@@ -28,3 +28,15 @@ export class ProductsEffects {
   ) {
   }
 }
+
+
+
+// this.actions$.pipe(
+//   ofType(ProductActions.getProductRandom),
+//   mergeMap(() =>
+//     this.httpService.getRandomItem().pipe(
+//       map(product => ProductActions.getProductRandomSuccess({product})),
+//       catchError(error => of(ProductActions.getProductRandomFailure({error})))
+//     )
+//   )
+// )

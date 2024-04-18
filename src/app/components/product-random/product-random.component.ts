@@ -1,13 +1,14 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage, Location } from '@angular/common';
 import { Router, RouterLink } from "@angular/router";
-
+import { Store } from "@ngrx/store";
 
 import { HttpService } from "../../services/products.service";
 import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { Product } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
+import { getProductRandom } from "../../../store/actions/products.actions";
 
 @Component({
   selector: 'app-product-random',
@@ -24,7 +25,8 @@ export class ProductRandomComponent implements OnInit {
   constructor(private httpService: HttpService,
               private imageHandlingService: ImageHandlingService,
               private router: Router,
-              private location: Location
+              private location: Location,
+              protected store:Store,
   ) {
   }
 
@@ -48,6 +50,7 @@ export class ProductRandomComponent implements OnInit {
   }
 
   public loadProduct(): void {
+    this.store.dispatch(getProductRandom());
     this.httpService.getRandomItem().subscribe(
       product => this.product = product
     );
@@ -64,5 +67,4 @@ export class ProductRandomComponent implements OnInit {
   protected searchByArea(): void {
     this.router.navigate([`/${PageType.Area}`, this.product?.strArea]);
   }
-
 }

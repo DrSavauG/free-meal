@@ -1,5 +1,6 @@
 <div class="body-component-wrapper">
-  @for (product of productsArray$ | async; track product.idMeal) {
+<!--  @for (product of productsArray$ | async; track product.idMeal) {-->
+  @if (product) {
     <product-card [product]="product"></product-card>
     <app-item-details [product]="product"></app-item-details>
   }

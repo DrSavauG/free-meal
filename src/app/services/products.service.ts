@@ -35,14 +35,15 @@ export class HttpService {
 
   public getRandomItem(): Observable<Product> {
     return this.http.get<Products>(this.apiUrlRandom).pipe(
+      // map((response) => response.meals[0])
       map((response) => response.meals[0])
     );
   }
 
-  public getItemById(idMeals: string): Observable<Product[]> {
+  public getItemById(idMeals: string): Observable<Product> {
     const getUrl: string = `${this.apiItemIdUrl}${idMeals}`;
     return this.http.get<Products>(getUrl).pipe(
-      map((response) => response.meals)
+      map((response) => response.meals[0])//add [0]
     );
   }
 

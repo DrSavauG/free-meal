@@ -3,24 +3,38 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 
 import { catchError, map, mergeMap, of } from "rxjs";
 
-import * as ProductActions from "../actions/products.actions";
+import * as fromProductActions from "../actions/products.actions";
 import { HttpService } from "../../app/services/products.service";
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class ProductsEffects {
   getRandomProduct$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(ProductActions.getProductRandom),
+      ofType(fromProductActions.loadProductRandom),
       mergeMap(() => this.httpService.getRandomItem()
         .pipe(
-          map(product => ProductActions.getProductRandomSuccess({ product })),
-          catchError(error => of(ProductActions.getProductRandomFailure({ error })))
+          map(product => fromProductActions.loadProductRandomSuccess({ product })),
+          catchError(error => of(fromProductActions.loadProductRandomFailure({ error })))
         )
       )
     )
   );
+
+  getProductById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromProductActions.loadProductById),
+      mergeMap(action => this.httpService.getItemById(action.id)
+        .pipe(
+          map(product => fromProductActions.loadProductByIdSuccess({ product })),
+          catchError(error => of(fromProductActions.loadProductByIdFailure({ error })))
+        )
+      )
+    )
+  );
+
 
   constructor(
     private actions$: Actions,
@@ -32,11 +46,11 @@ export class ProductsEffects {
 
 
 // this.actions$.pipe(
-//   ofType(ProductActions.getProductRandom),
+//   ofType(fromProductActions.loadProductRandom),
 //   mergeMap(() =>
 //     this.httpService.getRandomItem().pipe(
-//       map(product => ProductActions.getProductRandomSuccess({product})),
-//       catchError(error => of(ProductActions.getProductRandomFailure({error})))
+//       map(product => fromProductActions.loadProductRandomSuccess({product})),
+//       catchError(error => of(fromProductActions.loadProductRandomFailure({error})))
 //     )
 //   )
 // )

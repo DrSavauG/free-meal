@@ -3,21 +3,42 @@ import { createAction, props } from "@ngrx/store";
 import { Product } from "../../app/models/mock-products";
 
 export enum PRODUCTS_ACTIONS {
-  GET_PRODUCT_RANDOM = '[PRODUCTS] GET PRODUCT RANDOM',
-  GET_PRODUCT_RANDOM_SUCCESS = '[PRODUCTS] GET PRODUCT SUCCESS',
-  GET_PRODUCT_RANDOM_FAILURE = '[PRODUCTS] GET PRODUCT FAILURE',
+  LOAD_PRODUCT_RANDOM = '[PRODUCTS] Load product random',
+  LOAD_PRODUCT_RANDOM_SUCCESS = '[PRODUCTS] Load product random success',
+  LOAD_PRODUCT_RANDOM_FAILURE = '[PRODUCTS] Load product random failure',
+//Product by id
+  LOAD_PRODUCT_BY_ID= '[PRODUCTS] Load product by ID',
+  LOAD_PRODUCT_BY_ID_SUCCESS = '[PRODUCTS] Load product by ID success',
+  LOAD_PRODUCT_BY_ID_FAILURE = '[PRODUCTS] Load product by ID failure',
+
 }
 
-export const getProductRandom = createAction(
-  PRODUCTS_ACTIONS.GET_PRODUCT_RANDOM);
+//Product Random
+export const loadProductRandom = createAction(
+  PRODUCTS_ACTIONS.LOAD_PRODUCT_RANDOM);
 
-export const getProductRandomSuccess = createAction(
-  PRODUCTS_ACTIONS.GET_PRODUCT_RANDOM_SUCCESS,
+export const loadProductRandomSuccess = createAction(
+  PRODUCTS_ACTIONS.LOAD_PRODUCT_RANDOM_SUCCESS,
   props<{ product: Product }>()
 );
 
-export const getProductRandomFailure = createAction(
-  PRODUCTS_ACTIONS.GET_PRODUCT_RANDOM_FAILURE,
+export const loadProductRandomFailure = createAction(
+  PRODUCTS_ACTIONS.LOAD_PRODUCT_RANDOM_FAILURE,
   props<{ error: Error }>()
 );
 
+//Product by id
+export const loadProductById = createAction(
+  PRODUCTS_ACTIONS.LOAD_PRODUCT_BY_ID,
+  props<{ id: string }>()
+);
+
+export const loadProductByIdSuccess = createAction(
+  PRODUCTS_ACTIONS.LOAD_PRODUCT_BY_ID_SUCCESS,
+  props<{ product: Product }>()
+);
+
+export const loadProductByIdFailure = createAction(
+  PRODUCTS_ACTIONS.LOAD_PRODUCT_BY_ID_FAILURE,
+  props<{ error: Error }>()
+);

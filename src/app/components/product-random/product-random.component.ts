@@ -8,7 +8,7 @@ import { ImageHandlingService } from "../../services/image-handling.service";
 
 import { Product, Products, StrIngredient } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
-import { getProductRandom } from "../../../store/actions/products.actions";
+import { loadProductRandom } from "../../../store/actions/products.actions";
 import { selectProduct } from "../../../store/selectors/products.selectors";
 import { Observable } from "rxjs";
 import { ProductState } from "../../../store/reducers/products.reducers";
@@ -23,9 +23,6 @@ import { ProductState } from "../../../store/reducers/products.reducers";
 
 export class ProductRandomComponent implements OnInit {
   public product: Product | null = null;
-  public products$: ProductState | null = null;
-  // public ingredients$: Observable<StrIngredient[]> | null = null;
-  //
   protected readonly PageType = PageType;
 
   constructor(private httpService: HttpService,
@@ -56,8 +53,7 @@ export class ProductRandomComponent implements OnInit {
   }
 
   public loadProduct(): void {
-    this.store.dispatch(getProductRandom());
-
+    this.store.dispatch(loadProductRandom());
     this.store.select(selectProduct).subscribe(stateProductData => {
         this.product = stateProductData;
       }

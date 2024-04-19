@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
+import { Store } from "@ngrx/store";
+
 
 import { Observable } from "rxjs";
 
@@ -11,6 +13,9 @@ import { ProductCardComponent } from "../product-card/product-card.component";
 import { ProductSmallComponent } from "../product-small/product-small.component";
 import { ItemDetailsComponent } from "../item-details/item-details.component";
 import { PageType } from "../../constants/enums";
+import * as fromProductsActions from "../../../store/actions/products.actions";
+import { selectProduct } from "../../../store/selectors/products.selectors";
+
 
 
 @Component({
@@ -24,8 +29,12 @@ import { PageType } from "../../constants/enums";
 
 export class BigBodyComponent implements OnInit {
   public productsArray$: Observable<Product[]> | null = null;
+  public product: Product | null = null;
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute) {
+
+  constructor(private httpService: HttpService,
+              private route: ActivatedRoute,
+              protected store: Store) {
   }
 
   public ngOnInit(): void {
@@ -35,7 +44,15 @@ export class BigBodyComponent implements OnInit {
   private loadProducts(): void {
     const idMeal: string = this.route.snapshot.params[PageType.Id];
     if(idMeal) {
-      this.productsArray$ = this.httpService.getItemById(idMeal);
+      //todo add get from state/cash
+    //todo проверить есть ли
+    //   this.productsArray$ = this.httpService.getItemById(idMeal);
+    this.store.dispatch(fromProductsActions.loadProductById({id:idMeal}));
+      this.store.select(selectProduct).subscribe(stateProductData => {
+          this.product = stateProductData;
+        }
+      );
+
     }
   }
 }

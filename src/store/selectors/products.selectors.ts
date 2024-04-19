@@ -7,5 +7,5 @@ export const productFeatureState = createFeatureSelector<ProductState>('products
 
 export const selectProduct = createSelector(
   productFeatureState,
-  state => state.data///todo meals[0]
+  state => state.data///todo или meals[0]
 );

@@ -1,13 +1,13 @@
 import { ActionReducerMap } from "@ngrx/store";
 
-import * as fromProductsData from './reducers/products.reducers';
+import * as fromProductsReducers from './reducers/products.reducers';
 
 export interface AppState{
-  products: fromProductsData.ProductState
+  products: fromProductsReducers.ProductState
 }
 
 export const appReducers :ActionReducerMap<AppState>={
-  products: fromProductsData.productsReducers
+  products: fromProductsReducers.productsReducers
 };
 
 

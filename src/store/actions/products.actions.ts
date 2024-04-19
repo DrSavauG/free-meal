@@ -2,7 +2,7 @@ import { createAction, props } from "@ngrx/store";
 
 import { Product } from "../../app/models/mock-products";
 
-export enum PRODUCTS_ACTIONS {
+export enum PRODUCTS_ACTIONS {//todo !1111 add listall actions
   LOAD_PRODUCT_RANDOM = '[PRODUCTS] Load product random',
   LOAD_PRODUCT_RANDOM_SUCCESS = '[PRODUCTS] Load product random success',
   LOAD_PRODUCT_RANDOM_FAILURE = '[PRODUCTS] Load product random failure',

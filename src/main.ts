@@ -12,18 +12,18 @@ import { ProductsEffects } from "./store/effects/products.effects";
 import * as fromReducers from './store/reducers/products.reducers';
 import { appReducers } from "./store/products.state";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
-import { getRandomProduct } from "./store/reducers/products.reducers";
+import { getProduct } from "./store/reducers/products.reducers";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideStore({
-      products: fromReducers.getRandomProduct
+      products: fromReducers.getProduct
     }),
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideEffects(ProductsEffects),
-    provideStore(appReducers),//getRandomProduct || appReducers
+    provideStore(appReducers),//getProduct || appReducers
     provideStoreDevtools({ maxAge: 25, logOnly: false }),
   ]
 };

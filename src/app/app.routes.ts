@@ -14,6 +14,7 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./components/list-recipes/list-recipes.component').then(
         (mod) => mod.ListRecipesComponent)
+    //todoo cсделать как page? в отдельной dir
   },
   {
     path: `${PageType.Category}/:${PageType.Category}`,

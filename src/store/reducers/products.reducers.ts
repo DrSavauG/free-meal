@@ -21,10 +21,10 @@ export const initialProductsState: ProductState = {
 
 };
 
-export const getRandomProduct = createReducer(
+export const getProduct = createReducer(
   initialProductsState,
 
-  on(fromProductsActions.loadProductRandom,
+  on(fromProductsActions.loadProductRandom,fromProductsActions.loadProductById,
     (state) => ({
       ...state,
       loading: true,
@@ -33,43 +33,14 @@ export const getRandomProduct = createReducer(
       err: null,
     })
   ),
-  on(fromProductsActions.loadProductRandomSuccess, (state, {product}) => ({
+  on(fromProductsActions.loadProductRandomSuccess,fromProductsActions.loadProductByIdSuccess, (state, {product}) => ({
     ...state,
     loading: false,
     loaded: true,
     data: product,
     err: null,
   })),
-  on(fromProductsActions.loadProductRandomFailure, (state, err) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    data: null,
-    error: err
-  }))
-);
-
-///todo gповторяемость,???
-export const getProductByID = createReducer(
-  initialProductsState,
-
-  on(fromProductsActions.loadProductById,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
-      data: null,
-      err: null,
-    })
-  ),
-  on(fromProductsActions.loadProductByIdSuccess, (state, {product}) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    data: product,
-    err: null,
-  })),
-  on(fromProductsActions.loadProductByIdFailure, (state, err) => ({
+  on(fromProductsActions.loadProductRandomFailure, fromProductsActions.loadProductByIdFailure,(state, err) => ({
     ...state,
     loading: false,
     loaded: false,
@@ -79,5 +50,5 @@ export const getProductByID = createReducer(
 );
 
 export function productsReducers(state = initialProductsState, action: Action): ProductState {
-  return getRandomProduct(state, action);
+  return getProduct(state, action);
 }

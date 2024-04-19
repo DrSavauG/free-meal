@@ -8,7 +8,7 @@
 // import { provideEffects } from "@ngrx/effects";
 // import { ProductsEffects } from "../store/effects/products.effects";
 //
-// import { getRandomProduct } from "../store/reducers/products.reducers";
+// import { getProduct } from "../store/reducers/products.reducers";
 //
 // export const appConfig: ApplicationConfig = {
 //   providers: [

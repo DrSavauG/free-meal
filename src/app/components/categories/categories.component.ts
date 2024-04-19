@@ -9,6 +9,8 @@ import { HttpService } from "../../services/products.service";
 import { LabelData } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
 import { FilterPipe } from "../../pipes/filter.pipe";
+import * as fromProductsActions from "../../../store/actions/products.actions";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'app-categories',
@@ -25,6 +27,7 @@ export class CategoriesComponent implements OnInit {
 
   private readonly pageTypeToMethodMap: Map<PageType, Observable<LabelData[]>> = new Map([
     [PageType.Areas, this.httpService.getListAllAreas()],
+    // [PageType.Areas, this.loadListAllAreas()],/
     [PageType.Categories, this.httpService.getListAllCategories()],
     [PageType.Ingredients, this.httpService.getListAllIngredients()]
   ]);
@@ -38,6 +41,7 @@ export class CategoriesComponent implements OnInit {
   constructor(private httpService: HttpService,
               private router: Router,
               private route: ActivatedRoute,
+              protected store: Store
   ) {
   }
 
@@ -67,5 +71,13 @@ export class CategoriesComponent implements OnInit {
   protected filterByLetter(event: Event): void {
     const {value} = event.target as HTMLInputElement;
     this.filterLetter = value;
+  }
+
+  private loadListAllAreas() {
+    this.httpService.getListAllAreas();
+    // this.store.dispatch(fromProductsActions.loadProductById({id:idMeal}));
+    return undefined;
+this.httpService.getListAllAreas();//todo add listall actions
+
   }
 }

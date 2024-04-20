@@ -9,3 +9,7 @@ export const selectProduct = createSelector(
   productFeatureState,
   state => state.data///todo или meals[0]
 );
+export const selectlists = createSelector(
+  productFeatureState,
+  state => state.category///todo или meals[0]
+);

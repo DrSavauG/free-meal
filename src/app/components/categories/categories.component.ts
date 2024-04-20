@@ -10,7 +10,9 @@ import { LabelData } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
 import { FilterPipe } from "../../pipes/filter.pipe";
 import * as fromProductsActions from "../../../store/actions/products.actions";
+import * as fromListActions from "../../../store/actions/lists.actions";
 import { Store } from "@ngrx/store";
+import { selectlists } from "../../../store/selectors/products.selectors";
 
 @Component({
   selector: 'app-categories',
@@ -26,8 +28,8 @@ export class CategoriesComponent implements OnInit {
   protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients] as const;
 
   private readonly pageTypeToMethodMap: Map<PageType, Observable<LabelData[]>> = new Map([
-    [PageType.Areas, this.httpService.getListAllAreas()],
-    // [PageType.Areas, this.loadListAllAreas()],/
+    // [PageType.Areas, this.httpService.getListAllAreas()],
+    [PageType.Areas, this.loadListAllAreas()],//
     [PageType.Categories, this.httpService.getListAllCategories()],
     [PageType.Ingredients, this.httpService.getListAllIngredients()]
   ]);
@@ -74,9 +76,9 @@ export class CategoriesComponent implements OnInit {
   }
 
   private loadListAllAreas() {
-    this.httpService.getListAllAreas();
-    // this.store.dispatch(fromProductsActions.loadProductById({id:idMeal}));
-    return undefined;
+    this.store.dispatch(fromListActions.loadAreas());
+    this.store.select(selectlists);
+    // return undefined;
 this.httpService.getListAllAreas();//todo add listall actions
 
   }

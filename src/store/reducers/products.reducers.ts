@@ -1,4 +1,4 @@
-import { Product } from "../../app/models/mock-products";
+import { Category, Product } from "../../app/models/mock-products";
 import { Action, createReducer, on } from "@ngrx/store";
 import * as fromProductsActions from "../actions/products.actions";
 
@@ -7,8 +7,8 @@ export interface ProductState {
   loading: boolean,
   loaded: boolean,
   cash : Product[]|null,
-  err: null | Error
-
+  err: null | Error,
+  category: Category[]|null,
 }
 
 export const initialProductsState: ProductState = {
@@ -17,7 +17,8 @@ export const initialProductsState: ProductState = {
   loading: false,
   loaded: true,
   err: null,
-  cash : null,//todo add reducer
+  cash : null,//todo add reducer,
+  category:null
 
 };
 
@@ -29,8 +30,6 @@ export const getProduct = createReducer(
       ...state,
       loading: true,
       loaded: false,
-      data: null,
-      err: null,
     })
   ),
   on(fromProductsActions.loadProductRandomSuccess,fromProductsActions.loadProductByIdSuccess, (state, {product}) => ({
@@ -38,13 +37,11 @@ export const getProduct = createReducer(
     loading: false,
     loaded: true,
     data: product,
-    err: null,
   })),
   on(fromProductsActions.loadProductRandomFailure, fromProductsActions.loadProductByIdFailure,(state, err) => ({
     ...state,
     loading: false,
     loaded: false,
-    data: null,
     error: err
   }))
 );

@@ -24,6 +24,8 @@ import { ProductState } from "../../../store/reducers/products.reducers";
 export class ProductRandomComponent implements OnInit {
   public product: Product | null = null;
   protected readonly PageType = PageType;
+////////
+  protected product$: Observable<Product| null> =  this.store.select(selectProduct);
 
   constructor(private httpService: HttpService,
               private imageHandlingService: ImageHandlingService,
@@ -54,10 +56,13 @@ export class ProductRandomComponent implements OnInit {
 
   public loadProduct(): void {
     this.store.dispatch(loadProductRandom());
-    this.store.select(selectProduct).subscribe(stateProductData => {
-        this.product = stateProductData;
-      }
-    );
+
+    // this.product$ = this.store.select(selectProduct);
+
+    // this.store.select(selectProduct).subscribe(stateProductData => {
+    //     this.product = stateProductData;
+    //   }
+    // );
   }
 
   public handleImageError(event: Event): void {

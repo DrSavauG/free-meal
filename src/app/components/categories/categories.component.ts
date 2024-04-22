@@ -28,8 +28,8 @@ export class CategoriesComponent implements OnInit {
   protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients] as const;
 
   private readonly pageTypeToMethodMap: Map<PageType, Observable<LabelData[]>> = new Map([
-    // [PageType.Areas, this.httpService.getListAllAreas()],
-    [PageType.Areas, this.loadListAllAreas()],//
+    [PageType.Areas, this.httpService.getListAllAreas()],
+    // [PageType.Areas, this.loadListAllAreas()],//
     [PageType.Categories, this.httpService.getListAllCategories()],
     [PageType.Ingredients, this.httpService.getListAllIngredients()]
   ]);

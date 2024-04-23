@@ -12,6 +12,7 @@ export interface AppState {
   areas: LabelData[] | null,
   categories: LabelData[] | null,
   ingredients: LabelData[] | null,
+  list:Category[]|null
 }
 
 export const initialProductsState: AppState = {
@@ -24,6 +25,7 @@ export const initialProductsState: AppState = {
   areas: null,
   categories: null,
   ingredients: null,
+  list:null
 
 };
 
@@ -115,6 +117,9 @@ export const getProduct = createReducer(
       loaded: false,
       error: error
     })),
+
+  ////////////list of
+
 
 );
 

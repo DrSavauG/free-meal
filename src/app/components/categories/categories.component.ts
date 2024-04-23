@@ -28,8 +28,8 @@ import {
 export class CategoriesComponent implements OnInit {
   public activePage: string | null = null;
   public filterLetter: string | null = null;
-  // public labelDataArray$: Observable<LabelData[] |null> | null = null;
-  protected labelDataArray$: Observable<LabelData[]> | null = null;
+  public labelDataArray$: Observable<LabelData[] |null> | null = null;
+  // protected labelDataArray$: Observable<LabelData[]> | null = null;
   protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients] as const;
   private readonly pageTypeToMethodMap: Map<PageType, Observable<LabelData[] | null>> = new Map([
     [PageType.Areas, this.loadListAllAreas()],//
@@ -56,8 +56,8 @@ export class CategoriesComponent implements OnInit {
       if(pageType) {
         this.activePage = pageType;
         if(this.pageTypeToMethodMap.has(pageType)){
-          // @ts-expect-error //todo подправить ттип
           this.labelDataArray$ = this.pageTypeToMethodMap.get(pageType) ?? null;
+          // todo подправить ттип
         }
       }
     });

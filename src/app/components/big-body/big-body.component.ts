@@ -27,11 +27,7 @@ import { selectProduct } from "../../../store/selectors/products.selectors";
 })
 
 export class BigBodyComponent implements OnInit {
-  // public product$: Observable<Product[]> | null = null;
-  // public product: Product | null = null;
   protected product$: Observable<Product | null> = this.store.select(selectProduct);
-
-
 
   constructor(private httpService: HttpService,
               private route: ActivatedRoute,

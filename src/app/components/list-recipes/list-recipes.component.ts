@@ -12,6 +12,10 @@ import { PageType } from "../../constants/enums";
 import { ProductSmallComponent } from "../product-small/product-small.component";
 import { ProductCardComponent } from "../product-card/product-card.component";
 import { IngredientCardComponent } from "../ingredient-card/ingredient-card.component";
+import { Store } from "@ngrx/store";
+import * as fromListActions from "../../../store/actions/lists.actions";
+import { selectListOfCategories } from "../../../store/selectors/products.selectors";
+
 
 @Component({
   selector: 'list-recipes',
@@ -31,17 +35,15 @@ export class ListRecipesComponent implements OnInit {
   private readonly pageTypeToMethodMap: Map<PageType, (arg: string) => Observable<Category[]>> = new Map([
     [PageType.Area, (pageCategory: string) => this.loadListByArea(pageCategory)],
     [PageType.Category, (pageCategory: string) => this.loadListByCategory(pageCategory)],
+    [PageType.Ingredient, (pageCategory: string) => this.loadListByIngredient(pageCategory)],
     [PageType.Favorites, () => of(this.favoritesService.getAllFavorites())],
     [PageType.Items, () => this.loadItems()],
-    [PageType.Ingredient, (pageCategory: string) => {
-      this.isLoadIngredient = true;
-      return this.httpService.getByIngredient(pageCategory);
-    }],
   ]);
 
   constructor(private httpService: HttpService,
               private route: ActivatedRoute,
               private favoritesService: FavoritesService,
+              private store:Store,
   ) {
   }
 
@@ -72,9 +74,20 @@ export class ListRecipesComponent implements OnInit {
 
   private loadListByArea(pageCategory: string) {
     return this.httpService.getByArea(pageCategory);
+    // this.store.dispatch(fromListActions.loadListByArea({category:pageCategory}))
+    // return this.store.select(selectListOfCategories)
   }
 
   private loadListByCategory(pageCategory: string) {
     return this.httpService.getByCategory(pageCategory);
+    // this.store.dispatch(fromListActions.loadListByArea({category:pageCategory}))
+    // return this.store.select(selectListOfCategories)
+  }
+
+  private loadListByIngredient(pageCategory: string) {
+    this.isLoadIngredient = true;
+    return this.httpService.getByIngredient(pageCategory);
+    // this.store.dispatch(fromListActions.loadListByArea({category:pageCategory}))
+    // return this.store.select(selectListOfCategories)
   }
 }

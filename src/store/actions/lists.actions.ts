@@ -61,7 +61,7 @@ export const loadIngredientsFailure = createAction(
   props<{ error: Error }>()
 );
 
-///////////////
+///////////////list--------------------
 export const loadListByArea = createAction(
   LIST_ACTIONS.LOAD_LIST_BY_AREA,
   props<{ category: string }>()

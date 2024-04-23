@@ -31,7 +31,8 @@ export class ListRecipesComponent implements OnInit {
   public findCategory: string | null = null;
 
   protected isLoadIngredient: boolean = false;
-
+//todo типы
+  // @ts-ignore
   private readonly pageTypeToMethodMap: Map<PageType, (arg: string) => Observable<Category[]>> = new Map([
     [PageType.Area, (pageCategory: string) => this.loadListByArea(pageCategory)],
     [PageType.Category, (pageCategory: string) => this.loadListByCategory(pageCategory)],
@@ -62,8 +63,10 @@ export class ListRecipesComponent implements OnInit {
       map((params) => params[PageType.Items]),
       switchMap((searchItems) => {
         if(searchItems.length > 1) {
+          // return this.httpService.getSearchByName(searchItems);//todo добавить
           return this.httpService.getSearchByName(searchItems);
         } else if(searchItems.length == 1) {
+          // return this.httpService.searchByLetter(searchItems);//todo добавить
           return this.httpService.searchByLetter(searchItems);
         } else {
           return [];
@@ -73,21 +76,18 @@ export class ListRecipesComponent implements OnInit {
   }
 
   private loadListByArea(pageCategory: string) {
-    return this.httpService.getByArea(pageCategory);
-    // this.store.dispatch(fromListActions.loadListByArea({category:pageCategory}))
-    // return this.store.select(selectListOfCategories)
+    this.store.dispatch(fromListActions.loadListByArea({category:pageCategory}));
+    return this.store.select(selectListOfCategories);
   }
 
   private loadListByCategory(pageCategory: string) {
-    return this.httpService.getByCategory(pageCategory);
-    // this.store.dispatch(fromListActions.loadListByArea({category:pageCategory}))
-    // return this.store.select(selectListOfCategories)
+    this.store.dispatch(fromListActions.loadListByCategory({category:pageCategory}));
+    return this.store.select(selectListOfCategories);
   }
 
   private loadListByIngredient(pageCategory: string) {
     this.isLoadIngredient = true;
-    return this.httpService.getByIngredient(pageCategory);
-    // this.store.dispatch(fromListActions.loadListByArea({category:pageCategory}))
-    // return this.store.select(selectListOfCategories)
+    this.store.dispatch(fromListActions.loadListByIngredient({category:pageCategory}));
+    return this.store.select(selectListOfCategories);
   }
 }

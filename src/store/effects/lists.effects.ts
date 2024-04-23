@@ -3,6 +3,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { HttpService } from "../../app/services/products.service";
 import * as fromListsActions from "../actions/lists.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
+import * as fromProductActions from "../actions/products.actions";
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +49,44 @@ export class ListsEffects {
       )
     )
   );
+
+  /////////list
+  // return this.httpService.getByArea(pageCategory);
+  loadListByArea$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromListsActions.loadListByArea),
+      mergeMap(action => this.httpService.getByArea(action.category)
+        .pipe(
+          map(list => fromListsActions.loadListByAreaSuccess({list})),
+          catchError(error => of(fromListsActions.loadListByAreaFailure({error})))
+        )
+      )
+    )
+  );//todo по имение http
+  // return this.httpService.getByCategory(pageCategory);
+    loadListByCategory$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromListsActions.loadListByCategory),
+      mergeMap(action => this.httpService.getByCategory(action.category)
+        .pipe(
+          map(list => fromListsActions.loadListByCategorySuccess({list})),
+          catchError(error => of(fromListsActions.loadListByCategoryFailure({error})))
+        )
+      )
+    )
+  );
+  // return this.httpService.getByIngredient(pageCategory);
+    loadListByIngredient$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromListsActions.loadListByIngredient),
+      mergeMap(action => this.httpService.getByIngredient(action.category)
+        .pipe(
+          map(list => fromListsActions.loadListByIngredientSuccess({list})),
+          catchError(error => of(fromListsActions.loadListByIngredientFailure({error})))
+        )
+      )
+    )
+  );
+
+
 }

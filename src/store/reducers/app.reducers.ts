@@ -118,7 +118,74 @@ export const getProduct = createReducer(
       error: error
     })),
 
-  ////////////list of
+  ////////////list of-------------------------------------===========
+  //todo fails b fetch сгруппировать =одно и тоже
+  on(fromListsActions.loadListByArea,
+    (state) => ({
+      ...state,
+      loading: true,
+      loaded: false,
+    })),
+  on(fromListsActions.loadListByAreaSuccess,
+    (state, {list}) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      list: list,
+    })),
+  on(fromListsActions.loadListByAreaFailure,
+    (state, {error}) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error: error
+    })),
+  // .....
+  //todo fails b fetch сгруппировать =одно и тоже
+  on(fromListsActions.loadListByCategory,
+    (state) => ({
+      ...state,
+      loading: true,
+      loaded: false,
+    })),
+  on(fromListsActions.loadListByCategorySuccess,
+    (state, {list}) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      list: list,
+    })),
+  on(fromListsActions.loadListByCategoryFailure,
+    (state, {error}) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error: error
+    })),
+  // .....
+  //todo fails b fetch сгруппировать =одно и тоже
+  on(fromListsActions.loadListByIngredient,
+    (state) => ({
+      ...state,
+      loading: true,
+      loaded: false,
+    })),
+  on(fromListsActions.loadListByIngredientSuccess,
+    (state, {list}) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      list: list,
+    })),
+  on(fromListsActions.loadListByIngredientFailure,
+    (state, {error}) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error: error
+    })),
+  // .....
+
 
 
 );

@@ -23,12 +23,14 @@ import { selectProduct } from "../../../store/selectors/products.selectors";
   imports: [CommonModule, ProductCardComponent, ProductSmallComponent, ItemDetailsComponent],
   templateUrl: './big-body.component.html',
   styleUrl: './big-body.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush, //todo пока убрал а то не обновляет
+  changeDetection: ChangeDetectionStrategy.OnPush, //todo пока убрал а то не обновляет
 })
 
 export class BigBodyComponent implements OnInit {
-  public productsArray$: Observable<Product[]> | null = null;
-  public product: Product | null = null;
+  // public product$: Observable<Product[]> | null = null;
+  // public product: Product | null = null;
+  protected product$: Observable<Product | null> = this.store.select(selectProduct);
+
 
 
   constructor(private httpService: HttpService,
@@ -44,14 +46,8 @@ export class BigBodyComponent implements OnInit {
   private loadProducts(): void {
     const idMeal: string = this.route.snapshot.params[PageType.Id];
     if(idMeal) {
-      //todo add get from state/cash
-      //todo проверить есть ли
-      //   this.productsArray$ = this.httpService.getItemById(idMeal);
+      //todo add get from state/cash проверить есть ли уже
       this.store.dispatch(fromProductsActions.loadProductById({id: idMeal}));
-      this.store.select(selectProduct).subscribe(stateProductData => {
-          this.product = stateProductData;
-        }
-      );
     }
   }
 }

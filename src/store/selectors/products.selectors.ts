@@ -1,15 +1,23 @@
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 
-import { ProductState } from '../reducers/products.reducers';
+import { AppState } from '../reducers/app.reducers';
 
-export const productFeatureState = createFeatureSelector<ProductState>('products');
+export const productFeatureState = createFeatureSelector<AppState>('products');//todo гафигачить lists && letters
 
 export const selectProduct = createSelector(
   productFeatureState,
   state => state.data///todo или meals[0]
 );
-export const selectlists = createSelector(
+export const selectAreas = createSelector(
   productFeatureState,
-  state => state.category///todo или meals[0]
+  state => state.areas///todo или meals[0]
+);
+export const selectCategories = createSelector(
+  productFeatureState,
+  state => state.categories///todo или meals[0]
+);
+export const selectIngredients = createSelector(
+  productFeatureState,
+  state => state.ingredients///todo или meals[0]
 );

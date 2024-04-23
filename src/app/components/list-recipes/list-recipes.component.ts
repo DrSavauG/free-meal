@@ -29,8 +29,8 @@ export class ListRecipesComponent implements OnInit {
   protected isLoadIngredient: boolean = false;
 
   private readonly pageTypeToMethodMap: Map<PageType, (arg: string) => Observable<Category[]>> = new Map([
-    [PageType.Area, (pageCategory: string) => this.httpService.getByArea(pageCategory)],
-    [PageType.Category, (pageCategory: string) => this.httpService.getByCategory(pageCategory)],
+    [PageType.Area, (pageCategory: string) => this.loadListByArea(pageCategory)],
+    [PageType.Category, (pageCategory: string) => this.loadListByCategory(pageCategory)],
     [PageType.Favorites, () => of(this.favoritesService.getAllFavorites())],
     [PageType.Items, () => this.loadItems()],
     [PageType.Ingredient, (pageCategory: string) => {
@@ -68,5 +68,13 @@ export class ListRecipesComponent implements OnInit {
         }
       })
     );
+  }
+
+  private loadListByArea(pageCategory: string) {
+    return this.httpService.getByArea(pageCategory);
+  }
+
+  private loadListByCategory(pageCategory: string) {
+    return this.httpService.getByCategory(pageCategory);
   }
 }

@@ -102,11 +102,12 @@ export class HttpService {
       map((response) => response.meals)
     );
   }
-  public getListAllAreas(): Observable<LabelData[]> {
+  public getListAllAreas(): Observable<LabelData[]> {//
     return this.http.get<StrAreas>(this.apiListAllAreas).pipe(
       map((response) => response.meals.map(arr=>({
         label:arr.strArea
-      })))
+      })
+      ))
     );
   }
 

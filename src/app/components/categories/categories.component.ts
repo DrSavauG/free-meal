@@ -1,37 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from "@angular/router";
+import { Store } from "@ngrx/store";
 
 import { Observable } from "rxjs";
 
 import { HttpService } from "../../services/products.service";
-
 import { LabelData } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
 import { FilterPipe } from "../../pipes/filter.pipe";
-import * as fromProductsActions from "../../../store/actions/products.actions";
 import * as fromListActions from "../../../store/actions/lists.actions";
-import { Store } from "@ngrx/store";
-import { selectlists } from "../../../store/selectors/products.selectors";
+import {
+  selectAreas,
+  selectCategories,
+  selectIngredients,
+} from "../../../store/selectors/products.selectors";
 
 @Component({
   selector: 'app-categories',
   standalone: true,
   imports: [CommonModule, FilterPipe],
   templateUrl: './categories.component.html',
-  styleUrl: './categories.component.scss'
+  styleUrl: './categories.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  //todo при загрузке страницы сразу все акшены загружаются
 })
 export class CategoriesComponent implements OnInit {
   public activePage: string | null = null;
-  public labelDataArray$: Observable<LabelData[]> | null = null;
   public filterLetter: string | null = null;
+  // public labelDataArray$: Observable<LabelData[] |null> | null = null;
+  protected labelDataArray$: Observable<LabelData[]> | null = null;
   protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients] as const;
-
-  private readonly pageTypeToMethodMap: Map<PageType, Observable<LabelData[]>> = new Map([
-    [PageType.Areas, this.httpService.getListAllAreas()],
-    // [PageType.Areas, this.loadListAllAreas()],//
-    [PageType.Categories, this.httpService.getListAllCategories()],
-    [PageType.Ingredients, this.httpService.getListAllIngredients()]
+  private readonly pageTypeToMethodMap: Map<PageType, Observable<LabelData[] | null>> = new Map([
+    [PageType.Areas, this.loadListAllAreas()],//
+    [PageType.Categories, this.loadListAllCategories()],
+    [PageType.Ingredients, this.loadListAllIngredients()]
   ]);
 
   private readonly activePageToCategory = new Map([
@@ -52,7 +55,10 @@ export class CategoriesComponent implements OnInit {
       const pageType: PageType = segments[0].path as PageType;
       if(pageType) {
         this.activePage = pageType;
-        this.labelDataArray$ = this.pageTypeToMethodMap.get(pageType) ?? null;
+        if(this.pageTypeToMethodMap.has(pageType)){
+          // @ts-expect-error //todo подправить ттип
+          this.labelDataArray$ = this.pageTypeToMethodMap.get(pageType) ?? null;
+        }
       }
     });
   }
@@ -77,9 +83,14 @@ export class CategoriesComponent implements OnInit {
 
   private loadListAllAreas() {
     this.store.dispatch(fromListActions.loadAreas());
-    this.store.select(selectlists);
-    // return undefined;
-this.httpService.getListAllAreas();//todo add listall actions
-
+    return this.store.select(selectAreas);
+  }
+  private loadListAllCategories() {
+    this.store.dispatch(fromListActions.loadCategory());
+    return this.store.select(selectCategories);
+  }
+  private loadListAllIngredients() {
+    this.store.dispatch(fromListActions.loadIngredients());
+    return this.store.select(selectIngredients);
   }
 }

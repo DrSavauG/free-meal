@@ -3,15 +3,14 @@ import { CommonModule, NgOptimizedImage, Location } from '@angular/common';
 import { Router, RouterLink } from "@angular/router";
 import { Store } from "@ngrx/store";
 
+import { Observable, Subscription } from "rxjs";
+
 import { HttpService } from "../../services/products.service";
 import { ImageHandlingService } from "../../services/image-handling.service";
-
-import { Product, Products, StrIngredient } from "../../models/mock-products";
+import { Product } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
 import { loadProductRandom } from "../../../store/actions/products.actions";
 import { selectProduct } from "../../../store/selectors/products.selectors";
-import { Observable, Subscription } from "rxjs";
-import { ProductState } from "../../../store/reducers/products.reducers";
 
 @Component({
   selector: 'app-product-random',
@@ -25,8 +24,6 @@ export class ProductRandomComponent implements OnInit, OnDestroy {
   public product: Product | null = null;
   protected readonly PageType = PageType;
   private productSubscription: Subscription | null = null;
-  // private productSubscription: Subscription|null = null;
-////////
   protected product$: Observable<Product | null> = this.store.select(selectProduct);
 
   constructor(private httpService: HttpService,

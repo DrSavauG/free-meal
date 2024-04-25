@@ -3,7 +3,6 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { HttpService } from "../../app/services/products.service";
 import * as fromListsActions from "../actions/lists.actions";
 import { catchError, map, mergeMap, of, tap } from "rxjs";
-import * as fromProductActions from "../actions/products.actions";
 
 @Injectable({
   providedIn: 'root'

@@ -23,18 +23,18 @@ import {
   templateUrl: './categories.component.html',
   styleUrl: './categories.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  //todo при загрузке страницы сразу все акшены загружаются
+  //todo bug при загрузке страницы сразу все акшены загружаются
 })
 export class CategoriesComponent implements OnInit {
   public activePage: string | null = null;
   public filterLetter: string | null = null;
-  // public labelDataArray$: Observable<LabelData[] |null> | null = null;
-  protected labelDataArray$: Observable<LabelData[]> | null = null;
+  // public labelDataArray$: Observable<LabelData[] | null> | null = null;
+  protected labelDataArray$: Observable<LabelData[]> | null = null; // todo подправить ттип
   protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients] as const;
-  private readonly pageTypeToMethodMap: Map<PageType, Observable<LabelData[] | null>> = new Map([
-    [PageType.Areas, this.loadListAllAreas()],//
-    [PageType.Categories, this.loadListAllCategories()],
-    [PageType.Ingredients, this.loadListAllIngredients()]
+  private readonly pageTypeToMethodMap: Map<PageType, () => Observable<LabelData[] | null>> = new Map([
+    [PageType.Areas, this.loadListAllAreas.bind(this)],//
+    [PageType.Categories, this.loadListAllCategories.bind(this)],
+    [PageType.Ingredients, this.loadListAllIngredients.bind(this)]
   ]);
 
   private readonly activePageToCategory = new Map([
@@ -55,10 +55,12 @@ export class CategoriesComponent implements OnInit {
       const pageType: PageType = segments[0].path as PageType;
       if(pageType) {
         this.activePage = pageType;
-        if(this.pageTypeToMethodMap.has(pageType)){
-          // todo подправить ттип
+        const loadDataFunction = this.pageTypeToMethodMap.get(pageType);
+        if(loadDataFunction) {
           // @ts-expect-error
-          this.labelDataArray$ = this.pageTypeToMethodMap.get(pageType) ?? null;
+          this.labelDataArray$ = loadDataFunction();
+        } else {
+          this.labelDataArray$ = null;
         }
       }
     });
@@ -86,10 +88,12 @@ export class CategoriesComponent implements OnInit {
     this.store.dispatch(fromListActions.loadAreas());
     return this.store.select(selectAreas);
   }
+
   private loadListAllCategories() {
     this.store.dispatch(fromListActions.loadCategory());
     return this.store.select(selectCategories);
   }
+
   private loadListAllIngredients() {
     this.store.dispatch(fromListActions.loadIngredients());
     return this.store.select(selectIngredients);

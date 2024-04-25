@@ -15,8 +15,6 @@ import { IngredientCardComponent } from "../ingredient-card/ingredient-card.comp
 import { Store } from "@ngrx/store";
 import * as fromListActions from "../../../store/actions/lists.actions";
 import { selectListOfCategories, selectListOfMeals } from "../../../store/selectors/products.selectors";
-import { loadMealsByName } from "../../../store/actions/lists.actions";
-
 
 @Component({
   selector: 'list-recipes',
@@ -39,10 +37,10 @@ export class ListRecipesComponent implements OnInit {
     [PageType.Category, (pageCategory: string) => this.loadListByCategory(pageCategory)],
     [PageType.Ingredient, (pageCategory: string) => this.loadListByIngredient(pageCategory)],
     [PageType.Favorites, () => of(this.favoritesService.getAllFavorites())],
-    [PageType.Items, () => this.loadItems()],
+    [PageType.Items, () => this.loadItemsByLetters()],
   ]);
 
-  constructor(private httpService: HttpService,
+  constructor(private httpService: HttpService,//todo delete
               private route: ActivatedRoute,
               private favoritesService: FavoritesService,
               private store:Store,
@@ -59,7 +57,7 @@ export class ListRecipesComponent implements OnInit {
     });
   }
 
-  private loadItems(): Observable<Product[]|null> {
+  private loadItemsByLetters(): Observable<Product[]|null> {
 
     return this.route.params.pipe(
       map((params) => params[PageType.Items]),

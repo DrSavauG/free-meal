@@ -29,6 +29,12 @@ export class ListRecipesComponent implements OnInit {
   public pageCategory: string | null = null;
   public findCategory: string | null = null;
 
+  //todo layouts - для страниц
+  // в папке layouts:
+  //  - main - главная страница
+  // - list - список рецептов
+  // - description - подробности о рецепте
+
   protected isLoadIngredient: boolean = false;
 //todo типы
   // @ts-ignore

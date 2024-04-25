@@ -47,7 +47,7 @@ export class HttpService {
     );
   }
 
-  public searchByLetter(letter: string): Observable<Product[]> {
+  public getSearchByLetter(letter: string): Observable<Product[]> {
     const searchLetterUrl: string = `${this.apiItemsLetterUrl}${letter}`;
     return this.http.get<Products>(searchLetterUrl).pipe(
       map((response) => response.meals)

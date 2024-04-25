@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { HttpService } from "../../app/services/products.service";
 import * as fromListsActions from "../actions/lists.actions";
-import { catchError, map, mergeMap, of } from "rxjs";
+import { catchError, map, mergeMap, of, tap } from "rxjs";
 import * as fromProductActions from "../actions/products.actions";
 
 @Injectable({
@@ -87,6 +87,33 @@ export class ListsEffects {
       )
     )
   );
+  // return this.httpService.getSearchByName(searchItems);//todo добавить
+  loadMealsByName$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromListsActions.loadMealsByName),
+      tap((action) => console.log('Action letter:', action,action.name)),  // Logging the letter from the action
+
+      mergeMap(action => this.httpService.getSearchByName(action.name)
+        .pipe(
+          map(meals => fromListsActions.loadMealsByNameSuccess({meals})),
+          catchError(error => of(fromListsActions.loadMealsByNameFailure({error})))
+        )
+      )
+    )
+  );
+  // return this.httpService.getSearchByLetter(searchItems);
+  loadMealsByLetter$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromListsActions.loadMealsByLetter),
+      mergeMap(({letter}) => this.httpService.getSearchByLetter(letter)
+        .pipe(
+          map(meals => fromListsActions.loadMealsByLetterSuccess({meals})),
+          catchError(error => of(fromListsActions.loadMealsByLetterFailure({error})))
+        )
+      )
+    )
+  );
+
 
 
 }

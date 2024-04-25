@@ -14,7 +14,8 @@ import { ProductCardComponent } from "../product-card/product-card.component";
 import { IngredientCardComponent } from "../ingredient-card/ingredient-card.component";
 import { Store } from "@ngrx/store";
 import * as fromListActions from "../../../store/actions/lists.actions";
-import { selectListOfCategories } from "../../../store/selectors/products.selectors";
+import { selectListOfCategories, selectListOfMeals } from "../../../store/selectors/products.selectors";
+import { loadMealsByName } from "../../../store/actions/lists.actions";
 
 
 @Component({
@@ -58,16 +59,24 @@ export class ListRecipesComponent implements OnInit {
     });
   }
 
-  private loadItems(): Observable<Product[]> {
+  private loadItems(): Observable<Product[]|null> {
+
     return this.route.params.pipe(
       map((params) => params[PageType.Items]),
       switchMap((searchItems) => {
         if(searchItems.length > 1) {
           // return this.httpService.getSearchByName(searchItems);//todo добавить
-          return this.httpService.getSearchByName(searchItems);
+          this.store.dispatch(fromListActions.loadMealsByName({name:searchItems}));
+          return this.store.select(selectListOfMeals);
         } else if(searchItems.length == 1) {
-          // return this.httpService.searchByLetter(searchItems);//todo добавить
-          return this.httpService.searchByLetter(searchItems);
+          // selector+
+          // action 3enum+
+          // action 3 function+
+          //reduce+
+          // effect+
+          this.store.dispatch(fromListActions.loadMealsByLetter({letter: searchItems}));
+          return this.store.select(selectListOfMeals);
+          // return this.httpService.getSearchByLetter(searchItems)
         } else {
           return [];
         }

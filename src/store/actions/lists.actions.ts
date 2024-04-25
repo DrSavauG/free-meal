@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Category, LabelData } from "../../app/models/mock-products";
+import { Category, LabelData, Product } from "../../app/models/mock-products";
 import { PRODUCTS_ACTIONS } from "./products.actions";
 
 export enum LIST_ACTIONS {
@@ -26,6 +26,15 @@ export enum LIST_ACTIONS {
   LOAD_LIST_BY_INGREDIENT = '[INGREDIENT] Load List By Ingredient',
   LOAD_LIST_BY_INGREDIENT_SUCCESS = '[INGREDIENT] Load List By Ingredient Success',
   LOAD_LIST_BY_INGREDIENT_FAILURE = '[INGREDIENT] Load List By Ingredient Failure',
+  //
+  LOAD_MEALS_BY_NAME = '[MEALS] Load Meals By Name',
+  LOAD_MEALS_BY_NAME_SUCCESS = '[MEALS] Load Meals By Name Success',
+  LOAD_MEALS_BY_NAME_FAILURE = '[MEALS] Load Meals By Name Failure',
+  //
+  // LOAD_MEALS_BY_LETTER
+  LOAD_MEALS_BY_LETTER = '[MEALS] Load Meals By Letter',
+  LOAD_MEALS_BY_LETTER_SUCCESS = '[MEALS] Load Meals By Letter Success',
+  LOAD_MEALS_BY_LETTER_FAILURE = '[MEALS] Load Meals By Letter Failure',
 }
 export const loadAreas = createAction(
   LIST_ACTIONS.LOAD_AREAS);
@@ -100,5 +109,31 @@ export const loadListByIngredientSuccess = createAction(
 );
 export const loadListByIngredientFailure = createAction(
   LIST_ACTIONS.LOAD_LIST_BY_INGREDIENT_FAILURE,
+  props<{ error: Error }>()
+);
+////
+export const loadMealsByName = createAction(
+  LIST_ACTIONS.LOAD_MEALS_BY_NAME,
+  props<{ name: string }>()
+);
+export const loadMealsByNameSuccess = createAction(
+  LIST_ACTIONS.LOAD_MEALS_BY_NAME_SUCCESS,
+  props<{meals: Product[] }>()///todo переписать
+);
+export const loadMealsByNameFailure = createAction(
+  LIST_ACTIONS.LOAD_MEALS_BY_NAME_FAILURE,
+  props<{ error: Error }>()
+);
+// return this.httpService.getSearchByLetter(searchItems);
+export const loadMealsByLetter = createAction(
+  LIST_ACTIONS.LOAD_MEALS_BY_LETTER,
+  props<{ letter: string }>()
+);
+export const loadMealsByLetterSuccess = createAction(
+  LIST_ACTIONS.LOAD_MEALS_BY_LETTER_SUCCESS,
+  props<{meals: Product[] }>()///todo переписать
+);
+export const loadMealsByLetterFailure = createAction(
+  LIST_ACTIONS.LOAD_MEALS_BY_LETTER_FAILURE,
   props<{ error: Error }>()
 );

@@ -12,11 +12,11 @@ export interface AppState {
   areas: LabelData[] | null,
   categories: LabelData[] | null,
   ingredients: LabelData[] | null,
-  list:Category[]|null
+  list:Category[]|null,
+  meals:Product[]|null,
 }
 
 export const initialProductsState: AppState = {
-  // meals: [],
   data: null,
   loading: false,
   loaded: true,
@@ -25,7 +25,8 @@ export const initialProductsState: AppState = {
   areas: null,
   categories: null,
   ingredients: null,
-  list:null
+  list:null,
+  meals:null,
 
 };
 
@@ -64,14 +65,14 @@ export const getProduct = createReducer(
       ...state,
       loading: false,
       loaded: true,
-      areas: areas,
+      areas,
     })),
   on(fromListsActions.loadAreaFailure,
     (state, {error}) => ({
       ...state,
       loading: false,
       loaded: false,
-      error: error
+      error
     })),
   //////
 
@@ -178,6 +179,56 @@ export const getProduct = createReducer(
       list: list,
     })),
   on(fromListsActions.loadListByIngredientFailure,
+    (state, {error}) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error: error
+    })),
+  // .....
+  //todo fails b fetch сгруппировать =одно и тоже
+  on(fromListsActions.loadMealsByName,
+    fromListsActions.loadMealsByLetter,
+    (state) => ({
+      ...state,
+      loading: true,
+      loaded: false,
+    })),
+  on(fromListsActions.loadMealsByNameSuccess,
+    // fromListsActions.loadMealsByLetterSuccess,
+    (state, {meals}) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      meals: meals,
+    })),
+  on(fromListsActions.loadMealsByNameFailure,
+    // fromListsActions.loadMealsByLetterFailure,
+    (state, {error}) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error: error
+    })),
+  // .....
+ //todo fails b fetch сгруппировать =одно и тоже
+  on(
+    fromListsActions.loadMealsByLetter,
+    (state) => ({
+      ...state,
+      loading: true,
+      loaded: false,
+    })),
+  on(
+    fromListsActions.loadMealsByLetterSuccess,
+    (state, {meals}) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      meals: meals,
+    })),
+  on(
+    fromListsActions.loadMealsByLetterFailure,
     (state, {error}) => ({
       ...state,
       loading: false,

@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 
-import { Observable } from "rxjs";
+import { Observable, Subject, takeUntil } from "rxjs";
 
 import { LabelData } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
@@ -20,12 +20,14 @@ import * as fromProductsSelectors from "../../../store/selectors/products.select
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class CategoriesComponent implements OnInit {
+export class CategoriesComponent implements OnInit, OnDestroy {
   protected filterLetter: string | null = null;
   protected labelDataArray$: Observable<LabelData[] | null> | null = null;
   protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients] as const;
 
+  private destroy$ = new Subject<void>();
   private activePage: string | null = null;
+
   private readonly pageTypeToMethodMap: Map<PageType, () => Observable<LabelData[] | null>> = new Map([
     [PageType.Areas, this.loadAreas.bind(this)],//
     [PageType.Categories, this.loadCategories.bind(this)],
@@ -45,27 +47,32 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.url.subscribe(segments => {
+    this.route.url.pipe(takeUntil(this.destroy$)).subscribe(segments => {
       const pageType: PageType = segments[0].path as PageType;
-      if(pageType) {
-        this.activePage = pageType;
-        const loadDataFunction = this.pageTypeToMethodMap.get(pageType);
-        if(loadDataFunction) {
-          this.labelDataArray$ = loadDataFunction() ?? null;
-        }
-      }
+      this.handlePageTypeChange(pageType);
     });
   }
 
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   protected goToCategory(category: string) {
-    this.router.navigate([`/${category}`]);
+    this.router.navigate([`/${category}`])
+      .catch(error => {
+        console.error('Navigation error:', category, '=>', error);
+      });
   }
 
   protected searchByCategory(category: string): void {
     if(this.activePage) {
       const pageType = this.activePageToCategory.get(this.activePage as PageType) ?? null;
       if(pageType) {
-        this.router.navigate([`/${pageType}`, category]);
+        this.router.navigate([`/${pageType}`, category])
+          .catch(error => {
+            console.error('Navigation error:', pageType, category, '=>', error);
+          });
       }
     }
   }
@@ -73,6 +80,13 @@ export class CategoriesComponent implements OnInit {
   protected filterByLetter(event: Event): void {
     const {value} = event.target as HTMLInputElement;
     this.filterLetter = value;
+  }
+
+  private handlePageTypeChange(pageType: PageType): void {
+    const loadDataFunction = this.pageTypeToMethodMap.get(pageType);
+    if(loadDataFunction) {
+      this.labelDataArray$ = loadDataFunction() ?? null;
+    }
   }
 
   private loadAreas() {

@@ -14,7 +14,7 @@
   </section>
   <div class="category-component-body">
     @if (labelDataArray$) {
-      @for (product of labelDataArray$ | filter:filterLetter | async; track product.label) {
+      @for (product of labelDataArray$ | async | filter:filterLetter; track product.label) {
         <div (click)="searchByCategory(product.label)">{{ product.label }}</div>
       }
     }

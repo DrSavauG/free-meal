@@ -66,15 +66,20 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   protected searchByCategory(category: string): void {
-    if(this.activePage) {
-      const pageType = this.activePageToCategory.get(this.activePage as PageType) ?? null;
-      if(pageType) {
-        this.router.navigate([`/${pageType}`, category])
-          .catch(error => {
-            console.error('Navigation error:', pageType, category, '=>', error);
-          });
-      }
+    if(!this.activePage) {
+      console.warn('Attempted to navigate without an active page.');
+      return;
     }
+
+    const pageType = this.activePageToCategory.get(this.activePage as PageType) ?? null;
+    if(!pageType) {
+      console.error('Invalid active page for navigation:', this.activePage);
+      return;
+    }
+    this.router.navigate([`/${pageType}`, category])
+      .catch(error => {
+        console.error('Navigation error:', pageType, category, '=>', error);
+      });
   }
 
   protected filterByLetter(event: Event): void {
@@ -83,9 +88,16 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   }
 
   private handlePageTypeChange(pageType: PageType): void {
+    if(!pageType) {
+      console.error(`Недопустимый или отсутствующий PageType: ${pageType}`);
+      return;
+    }
+    this.activePage = pageType;
     const loadDataFunction = this.pageTypeToMethodMap.get(pageType);
     if(loadDataFunction) {
       this.labelDataArray$ = loadDataFunction() ?? null;
+    } else {
+      console.error(`loadDataFunction не найдена для PageType: ${pageType}`);
     }
   }
 

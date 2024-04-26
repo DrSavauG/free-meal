@@ -9,9 +9,9 @@ import { FavoritesService } from "../../services/favorites.service";
 
 import { Category, Product } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
-import { ProductSmallComponent } from "../product-small/product-small.component";
-import { ProductCardComponent } from "../product-card/product-card.component";
-import { IngredientCardComponent } from "../ingredient-card/ingredient-card.component";
+import { ProductSmallComponent } from "../../components/product-small/product-small.component";
+import { ProductCardComponent } from "../../components/product-card/product-card.component";
+import { IngredientCardComponent } from "../../components/ingredient-card/ingredient-card.component";
 import { Store } from "@ngrx/store";
 import * as fromListActions from "../../../store/actions/lists.actions";
 import { selectListOfCategories, selectListOfMeals } from "../../../store/selectors/products.selectors";
@@ -28,12 +28,6 @@ export class ListRecipesComponent implements OnInit {
   public productsArray$: Observable<Category[]> | null = null;
   public pageCategory: string | null = null;
   public findCategory: string | null = null;
-
-  //todo layouts - для страниц
-  // в папке layouts:
-  //  - main - главная страница
-  // - list - список рецептов
-  // - description - подробности о рецепте
 
   protected isLoadIngredient: boolean = false;
 //todo типы

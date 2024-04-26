@@ -1,10 +1,8 @@
 <div class="body-component-wrapper">
-  <pre>big body compomemt</pre>
-<!--  @for (product of productsArray$ | async; track product.idMeal) {-->
-
-  <!--@if (product) {-->
   @if (product$ | async; as product) {
     <product-card [product]="product"></product-card>
     <app-item-details [product]="product"></app-item-details>
+  }@else {
+    <pre>no info</pre>
   }
 </div>

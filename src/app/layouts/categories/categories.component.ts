@@ -1,15 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from "@angular/router";
 import { Store } from "@ngrx/store";
 
-import { Observable, Subject, takeUntil } from "rxjs";
+import { Observable } from "rxjs";
 
 import { LabelData } from "../../models/mock-products";
 import { PageType } from "../../constants/enums";
 import { FilterPipe } from "../../pipes/filter.pipe";
 import * as fromListActions from "../../../store/actions/lists.actions";
 import * as fromProductsSelectors from "../../../store/selectors/products.selectors";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-categories',
@@ -20,12 +21,11 @@ import * as fromProductsSelectors from "../../../store/selectors/products.select
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
-export class CategoriesComponent implements OnInit, OnDestroy {
+export class CategoriesComponent implements OnInit {
   protected filterLetter: string | null = null;
   protected labelDataArray$: Observable<LabelData[] | null> | null = null;
   protected readonly categories = [PageType.Categories, PageType.Areas, PageType.Ingredients] as const;
 
-  private destroy$ = new Subject<void>();
   private activePage: string | null = null;
 
   private readonly pageTypeToMethodMap: Map<PageType, () => Observable<LabelData[] | null>> = new Map([
@@ -42,20 +42,13 @@ export class CategoriesComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router,
               private route: ActivatedRoute,
-              protected store: Store
+              protected store: Store,
+              private destroy$: DestroyRef
   ) {
   }
 
   ngOnInit(): void {
-    this.route.url.pipe(takeUntil(this.destroy$)).subscribe(segments => {
-      const pageType: PageType = segments[0].path as PageType;
-      this.handlePageTypeChange(pageType);
-    });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+    this.loadProduct();
   }
 
   protected goToCategory(category: string) {
@@ -114,5 +107,12 @@ export class CategoriesComponent implements OnInit, OnDestroy {
   private loadIngredients() {
     this.store.dispatch(fromListActions.loadIngredients());
     return this.store.select(fromProductsSelectors.selectIngredients);
+  }
+
+  private loadProduct() {
+    this.route.url.pipe(takeUntilDestroyed(this.destroy$)).subscribe(segments => {
+      const pageType: PageType = segments[0].path as PageType;
+      this.handlePageTypeChange(pageType);
+    });
   }
 }

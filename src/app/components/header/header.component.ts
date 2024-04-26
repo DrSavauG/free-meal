@@ -26,20 +26,24 @@ export class HeaderComponent {
   public header: string = TITLE;
 
   protected toMainPage() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/'])
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected searchByLetter(event: Event): void {
     const {value} = event.target as HTMLInputElement;
-    this.router.navigate([`/${PageType.Items}`, value]);
+    this.router.navigate([`/${PageType.Items}`, value])
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected goToFavorites() {
-    this.router.navigate([`/${PageType.Favorites}`]);
+    this.router.navigate([`/${PageType.Favorites}`])
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected goToCategories() {
-    this.router.navigate([`/${PageType.Categories}`]);
+    this.router.navigate([`/${PageType.Categories}`])
+      .catch(error => console.error('Navigation error:', error));
   }
 }
 

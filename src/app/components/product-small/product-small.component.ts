@@ -29,13 +29,15 @@ export class ProductSmallComponent {
 
   protected searchByCategory(): void {
     if(this.product && this.isProduct(this.product)) {
-      this.router.navigate([`/${PageType.Category}`, this.product.strCategory]);
+      this.router.navigate([`/${PageType.Category}`, this.product.strCategory])
+        .catch(error => console.error('Navigation error:', error));
     }
   }
 
   protected searchByArea(): void {
     if(this.product && this.isProduct(this.product)) {
-      this.router.navigate([`/${PageType.Area}`, this.product.strArea]);
+      this.router.navigate([`/${PageType.Area}`, this.product.strArea])
+        .catch(error => console.error('Navigation error:', error));
     }
   }
 

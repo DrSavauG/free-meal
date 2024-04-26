@@ -40,11 +40,13 @@ export class ProductCardComponent {
   }
 
   protected searchByCategory(): void {
-    this.router.navigate([`/${PageType.Category}`, this.product?.strCategory]);
+    this.router.navigate([`/${PageType.Category}`, this.product?.strCategory])
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected searchByArea(): void {
-    this.router.navigate([`/${PageType.Area}`, this.product?.strArea]);
+    this.router.navigate([`/${PageType.Area}`, this.product?.strArea])
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected toggleFavorite(): void {

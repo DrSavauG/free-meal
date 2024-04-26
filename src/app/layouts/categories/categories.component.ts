@@ -53,26 +53,13 @@ export class CategoriesComponent implements OnInit {
 
   protected goToCategory(category: string) {
     this.router.navigate([`/${category}`])
-      .catch(error => {
-        console.error('Navigation error:', category, '=>', error);
-      });
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected searchByCategory(category: string): void {
-    if(!this.activePage) {
-      console.warn('Attempted to navigate without an active page.');
-      return;
-    }
-
     const pageType = this.activePageToCategory.get(this.activePage as PageType) ?? null;
-    if(!pageType) {
-      console.error('Invalid active page for navigation:', this.activePage);
-      return;
-    }
     this.router.navigate([`/${pageType}`, category])
-      .catch(error => {
-        console.error('Navigation error:', pageType, category, '=>', error);
-      });
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected filterByLetter(event: Event): void {

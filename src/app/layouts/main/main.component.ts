@@ -47,9 +47,7 @@ export class MainComponent implements OnInit {
 
   private navigateToDescription() {
     this.router.navigateByUrl('/' + PageType.Item + '/' + this.product?.idMeal)
-      .catch(error => {
-        console.error('Navigation error:', PageType.Item, this.product?.idMeal, '=>', error);
-      });
+      .catch(error => console.error('Navigation error:', error));
   }
 
   public ngOnInit(): void {
@@ -59,7 +57,7 @@ export class MainComponent implements OnInit {
   public loadProduct(): void {
     this.store.dispatch(loadProductRandom());
     this.product$.pipe(takeUntilDestroyed(this.destroy$)).subscribe(product => {
-      //subscription нужно для работы router.navigate
+      //subscription нужно для работы router.navigate чтобы вызывалосизнутри компонента
       this.product = product;
     });
   }
@@ -70,15 +68,11 @@ export class MainComponent implements OnInit {
 
   protected searchByCategory(): void {
     this.router.navigate([`/${PageType.Category}`, this.product?.strCategory])
-      .catch(error => {
-        console.error('Navigation error:', PageType.Category, this.product?.strCategory, '=>', error);
-      });
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected searchByArea(): void {
     this.router.navigate([`/${PageType.Area}`, this.product?.strArea])
-      .catch(error => {
-        console.error('Navigation error:', PageType.Area, this.product?.strArea, '=>', error);
-      });
+      .catch(error => console.error('Navigation error:', error));
   }
 }

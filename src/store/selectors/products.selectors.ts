@@ -4,6 +4,7 @@ import { createSelector } from '@ngrx/store';
 import { AppState } from '../reducers/app.reducers';
 
 export const productFeatureState = createFeatureSelector<AppState>('products');//todo гафигачить lists && letters
+export const ingredientsFeatureState = createFeatureSelector<AppState>('ingredients');
 
 export const selectProduct = createSelector(
   productFeatureState,
@@ -36,4 +37,18 @@ export const selectListOfMeals = createSelector(
 export const selectRawIngredients = createSelector(
   productFeatureState,
   state => state.rawIngredients
+);
+//todo mv to ingredients
+// export const selectIngredientsByName = (name: string) => {
+//   createSelector(ingredientsFeatureState, (state) => {
+//     const capitalizeName = name.replace(/^\w/, (c) => c.toUpperCase());
+//     return state.rawIngredients.filter((ingredient) => ingredient.strIngredient === capitalizeName);
+//   });
+// };
+export const selectIngredientsByName = createSelector(
+  productFeatureState,
+  (state: AppState, props: { name: string }) => {
+    const capitalizeName = props.name.replace(/^\w/, (c) => c.toUpperCase());
+    return state.rawIngredients.filter(ingredient => ingredient.strIngredient === capitalizeName);
+  }
 );

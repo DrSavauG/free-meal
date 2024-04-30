@@ -1,6 +1,5 @@
 import { createAction, props } from "@ngrx/store";
 import { Category, LabelData, Product, StrIngredient } from "../../app/models/mock-products";
-import { PRODUCTS_ACTIONS } from "./products.actions";
 
 export enum LIST_ACTIONS {
   LOAD_AREAS = '[LIST] Load Areas',
@@ -40,10 +39,6 @@ export enum LIST_ACTIONS {
   LOAD_RAW_INGREDIENTS_SUCCESS = '[INGREDIENTS] Load Raw Ingredients Ingredient Success',
   LOAD_RAW_INGREDIENTS_FAILURE = '[INGREDIENTS] Load Raw Ingredients Ingredient Failure',
   // ////
-  FILTER_INGREDIENT = '[INGREDIENT] Filter Ingredient By Name',
-  FILTER_INGREDIENT_SUCCESS = '[INGREDIENT] Filter Ingredient By Name Success',
-  FILTER_INGREDIENT_FAILURE = '[INGREDIENT] Filter Ingredient By Name Failure',
-  //
 }
 export const loadAreas = createAction(
   LIST_ACTIONS.LOAD_AREAS);
@@ -90,18 +85,6 @@ export const loadRawIngredientsSuccess = createAction(
 );
 export const loadRawIngredientsFailure = createAction(
   LIST_ACTIONS.LOAD_RAW_INGREDIENTS_FAILURE,
-  props<{ error: Error }>()
-);
-// \\
-export const filterIngredientByName = createAction(
-  LIST_ACTIONS.FILTER_INGREDIENT,
-  props<{ nameIngredient: string }>());
-export const filterIngredientByNameSuccess = createAction(
-  LIST_ACTIONS.FILTER_INGREDIENT_SUCCESS,
-  props<{ rawIngredients: StrIngredient[] }>()//todo переделать под [0]
-);
-export const filterIngredientByNameFailure = createAction(
-  LIST_ACTIONS.FILTER_INGREDIENT_FAILURE,
   props<{ error: Error }>()
 );
 

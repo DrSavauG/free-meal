@@ -3,7 +3,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { ActivatedRoute } from "@angular/router";
 import { Store } from "@ngrx/store";
 
-import { map, Observable } from "rxjs";
+import { Observable } from "rxjs";
 
 import { ImageHandlingService } from "../../services/image-handling.service";
 import { HttpService } from "../../services/products.service";
@@ -11,8 +11,8 @@ import { HttpService } from "../../services/products.service";
 import { StrIngredient } from "../../models/mock-products";
 import { environment } from "../../../environments/environment";
 import { PageType } from "../../constants/enums";
-import { filterIngredientByName, loadRawIngredients } from "../../../store/actions/lists.actions";
-import { selectRawIngredients } from "../../../store/selectors/products.selectors";
+import { loadRawIngredients } from "../../../store/actions/lists.actions";
+import { selectIngredientsByName } from "../../../store/selectors/products.selectors";
 
 @Component({
   selector: 'app-ingredient-card',
@@ -28,7 +28,7 @@ export class IngredientCardComponent implements OnInit {
   public ingredient$: Observable<StrIngredient[]> | null = null;
   public readonly urlImageIngredient: string = environment.urlImageIngredient;
   private nameIngredient: string | null = null;
-  private ingredientArray$: Observable<StrIngredient[] | null> = this.store.select(selectRawIngredients);
+  // private ingredientArray$: Observable<StrIngredient[] | null> = this.store.select(selectRawIngredients);
   // protected ingredientArray$: Observable<StrIngredient[]> |null = null;
   private readonly keyOfStrIngredient: keyof StrIngredient = "strIngredient";
 
@@ -47,10 +47,7 @@ export class IngredientCardComponent implements OnInit {
     this.nameIngredient = this.route.snapshot.params[PageType.Ingredient];
     if(this.nameIngredient) {
       this.store.dispatch(loadRawIngredients());
-      this.ingredientArray$ = this.store.select(selectRawIngredients);
-      this.store.dispatch(filterIngredientByName({nameIngredient:this.nameIngredient}));
-      // this.ingredient$ = this.store.select(selectRawIngredients);
-      this.ingredient$ = this.getIngredient(this.nameIngredient);
+      this.ingredient$ = this.store.select(selectIngredientsByName, {name: this.nameIngredient});
     }
   }
 
@@ -58,19 +55,19 @@ export class IngredientCardComponent implements OnInit {
     this.imageHandlingService.handleImageError(event);
   }
 
-  private getIngredient(name: string): Observable<StrIngredient[]> | null {
-    if(this.ingredientArray$) {
-      const capitalizeName = this.capitalizeFirstLetter(name);
-      return this.ingredientArray$.pipe(
-        map(ingredients =>ingredients ? ingredients.filter(//TS18047: ingredients is possibly null
-          ingredient => ingredient[this.keyOfStrIngredient] === capitalizeName): []),
-      );
-    }
-    return null;
-  }
+  // private getIngredient(name: string): Observable<StrIngredient[]> | null {
+  //   if(this.ingredientArray$) {
+  //     const capitalizeName = this.capitalizeFirstLetter(name);
+  //     return this.ingredientArray$.pipe(
+  //       map(ingredients => ingredients ? ingredients.filter(//TS18047: ingredients is possibly null
+  //         ingredient => ingredient[this.keyOfStrIngredient] === capitalizeName) : []),
+  //     );
+  //   }
+  //   return null;
+  // }
 
-  private capitalizeFirstLetter(str: string): string {
-    return str.replace(/^\w/, (match) => match.toUpperCase());
-  }
+  // private capitalizeFirstLetter(str: string): string {
+  //   return str.replace(/^\w/, (match) => match.toUpperCase());
+  // }
 
 }

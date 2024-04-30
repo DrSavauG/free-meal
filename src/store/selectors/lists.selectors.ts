@@ -1,9 +1,9 @@
 // import { createFeatureSelector } from '@ngrx/store';
 // import { createSelector } from '@ngrx/store';
 //
-// import { AppState } from '../reducers/products.reducers';
+// import { ProductState } from '../reducers/products.reducers';
 //
-// export const listFeatureState = createFeatureSelector<AppState>('products');
+// export const listFeatureState = createFeatureSelector<ProductState>('products');
 //
 // export const selectProduct = createSelector(
 //   productFeatureState,

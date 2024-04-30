@@ -1,10 +1,11 @@
 import { createFeatureSelector } from '@ngrx/store';
 import { createSelector } from '@ngrx/store';
 
-import { AppState } from '../reducers/app.reducers';
 
-export const productFeatureState = createFeatureSelector<AppState>('products');//todo гафигачить lists && letters
-// export const ingredientsFeatureState = createFeatureSelector<AppState>('ingredients');
+import { ProductState } from "../state/products.state";
+
+export const productFeatureState = createFeatureSelector<ProductState>('products');//todo гафигачить lists && letters
+// export const ingredientsFeatureState = createFeatureSelector<ProductState>('ingredients');
 //todo mv to ingredients
 
 export const selectIngredientsByName = (nameIngredient: string) => {
@@ -12,7 +13,7 @@ export const selectIngredientsByName = (nameIngredient: string) => {
 
   return createSelector(
     productFeatureState,
-    (state: AppState) => state.rawIngredients
+    (state: ProductState) => state.rawIngredients
       .filter(ingredient => ingredient.strIngredient === capitalizeName)
   );
 };

@@ -1,41 +1,8 @@
-import { Category, LabelData, Product, StrIngredient } from "../../app/models/mock-products";
 import { Action, createReducer, on } from "@ngrx/store";
+
 import * as fromProductsActions from "../actions/products.actions";
 import * as fromListsActions from "../actions/lists.actions";
-
-export interface AppState {
-  data: Product | null,
-  loading: boolean,
-  loaded: boolean,
-  cash: Product[] | null,
-  err: null | Error,
-  areas: LabelData[] | null,
-  categories: LabelData[] | null,
-  ingredients: LabelData[] | null,
-  rawIngredients: StrIngredient[],
-  list: Category[] | null,
-  meals: Product[] | null,
-}
-
-export const initialProductsState: AppState = {
-  data: null,
-  loading: false,
-  loaded: true,
-  err: null,
-  cash: null,//todo add reducer,
-  areas: null,
-  categories: null,
-  ingredients: null,
-  list: null,
-  meals: null,
-  rawIngredients: [{
-    idIngredient: 'jjj',
-    strIngredient: 'string',
-    strDescription: null,
-    strType: null
-  }],
-
-};
+import { initialProductsState, ProductState } from "../state/products.state";
 
 export const getProduct = createReducer(
   initialProductsState,
@@ -265,10 +232,8 @@ export const getProduct = createReducer(
       error: error
     })),
   // .....
-
-
 );
 
-export function appReducers(state = initialProductsState, action: Action): AppState {
+export function productReducers(state = initialProductsState, action: Action): ProductState {
   return getProduct(state, action);
 }

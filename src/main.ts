@@ -9,22 +9,23 @@ import { provideEffects } from "@ngrx/effects";
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { ProductsEffects } from "./store/effects/products.effects";
-import * as fromReducers from './store/reducers/app.reducers';
-import { appReducers } from "./store/products.state";
+import * as fromReducers from './store/reducers/product.reducers';
+import { appReducers } from "./store/state/products.state";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
-import { getProduct } from "./store/reducers/app.reducers";
 import { ListsEffects } from "./store/effects/lists.effects";
+import { getProduct } from "./store/reducers/product.reducers";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideStore({
-      products: fromReducers.getProduct
+      products: getProduct,
+      // ingredients: getIngredients//todo
     }),
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),
     provideEffects(ProductsEffects,ListsEffects),
-    provideStore(appReducers),//getProduct || appReducers
+    provideStore(appReducers),//getProduct || productReducers
     provideStoreDevtools({ maxAge: 25, logOnly: false }),
   ]
 };

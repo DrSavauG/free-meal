@@ -4,7 +4,19 @@ import { createSelector } from '@ngrx/store';
 import { AppState } from '../reducers/app.reducers';
 
 export const productFeatureState = createFeatureSelector<AppState>('products');//todo гафигачить lists && letters
-export const ingredientsFeatureState = createFeatureSelector<AppState>('ingredients');
+// export const ingredientsFeatureState = createFeatureSelector<AppState>('ingredients');
+//todo mv to ingredients
+
+export const selectIngredientsByName = (nameIngredient: string) => {
+  const capitalizeName = nameIngredient.replace(/^\w/, (string) => string.toUpperCase());
+
+  return createSelector(
+    productFeatureState,
+    (state: AppState) => state.rawIngredients
+      .filter(ingredient => ingredient.strIngredient === capitalizeName)
+  );
+};
+
 
 export const selectProduct = createSelector(
   productFeatureState,
@@ -38,17 +50,4 @@ export const selectRawIngredients = createSelector(
   productFeatureState,
   state => state.rawIngredients
 );
-//todo mv to ingredients
-// export const selectIngredientsByName = (name: string) => {
-//   createSelector(ingredientsFeatureState, (state) => {
-//     const capitalizeName = name.replace(/^\w/, (c) => c.toUpperCase());
-//     return state.rawIngredients.filter((ingredient) => ingredient.strIngredient === capitalizeName);
-//   });
-// };
-export const selectIngredientsByName = createSelector(
-  productFeatureState,
-  (state: AppState, props: { name: string }) => {
-    const capitalizeName = props.name.replace(/^\w/, (c) => c.toUpperCase());
-    return state.rawIngredients.filter(ingredient => ingredient.strIngredient === capitalizeName);
-  }
-);
+

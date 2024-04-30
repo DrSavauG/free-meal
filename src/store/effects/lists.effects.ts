@@ -48,6 +48,17 @@ export class ListsEffects {
       )
     )
   );
+  loadRawIngredients$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromListsActions.loadRawIngredients),
+      mergeMap(() => this.httpService.getRawListAllIngredients()
+        .pipe(
+          map(rawIngredients => fromListsActions.loadRawIngredientsSuccess({rawIngredients})),
+          catchError(error => of(fromListsActions.loadRawIngredientsFailure({error})))
+        )
+      )
+    )
+  );
 
   /////////list
   // return this.httpService.getByArea(pageCategory);

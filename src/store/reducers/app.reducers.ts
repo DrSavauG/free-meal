@@ -1,4 +1,4 @@
-import { Category, LabelData, Product, StrAreas } from "../../app/models/mock-products";
+import { Category, LabelData, Product, StrIngredient } from "../../app/models/mock-products";
 import { Action, createReducer, on } from "@ngrx/store";
 import * as fromProductsActions from "../actions/products.actions";
 import * as fromListsActions from "../actions/lists.actions";
@@ -12,8 +12,9 @@ export interface AppState {
   areas: LabelData[] | null,
   categories: LabelData[] | null,
   ingredients: LabelData[] | null,
-  list:Category[]|null,
-  meals:Product[]|null,
+  rawIngredients: StrIngredient[],
+  list: Category[] | null,
+  meals: Product[] | null,
 }
 
 export const initialProductsState: AppState = {
@@ -25,8 +26,14 @@ export const initialProductsState: AppState = {
   areas: null,
   categories: null,
   ingredients: null,
-  list:null,
-  meals:null,
+  list: null,
+  meals: null,
+  rawIngredients: [{
+    idIngredient: 'jjj',
+    strIngredient: 'string',
+    strDescription: null,
+    strType: null
+  }],
 
 };
 
@@ -112,6 +119,28 @@ export const getProduct = createReducer(
       ingredients: ingredients,
     })),
   on(fromListsActions.loadIngredientsFailure,
+    (state, {error}) => ({
+      ...state,
+      loading: false,
+      loaded: false,
+      error: error
+    })),
+  //////
+
+  on(fromListsActions.loadRawIngredients,
+    (state) => ({
+      ...state,
+      loading: true,
+      loaded: false,
+    })),
+  on(fromListsActions.loadRawIngredientsSuccess,
+    (state, {rawIngredients}) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      rawIngredients: rawIngredients,
+    })),
+  on(fromListsActions.loadRawIngredientsFailure,
     (state, {error}) => ({
       ...state,
       loading: false,
@@ -211,7 +240,7 @@ export const getProduct = createReducer(
       error: error
     })),
   // .....
- //todo fails b fetch сгруппировать =одно и тоже
+  //todo fails b fetch сгруппировать =одно и тоже
   on(
     fromListsActions.loadMealsByLetter,
     (state) => ({
@@ -236,7 +265,6 @@ export const getProduct = createReducer(
       error: error
     })),
   // .....
-
 
 
 );

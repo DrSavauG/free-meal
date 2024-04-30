@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { Category, LabelData, Product } from "../../app/models/mock-products";
+import { Category, LabelData, Product, StrIngredient } from "../../app/models/mock-products";
 import { PRODUCTS_ACTIONS } from "./products.actions";
 
 export enum LIST_ACTIONS {
@@ -35,6 +35,15 @@ export enum LIST_ACTIONS {
   LOAD_MEALS_BY_LETTER = '[MEALS] Load Meals By Letter',
   LOAD_MEALS_BY_LETTER_SUCCESS = '[MEALS] Load Meals By Letter Success',
   LOAD_MEALS_BY_LETTER_FAILURE = '[MEALS] Load Meals By Letter Failure',
+  ////
+  LOAD_RAW_INGREDIENTS = '[INGREDIENTS] Load Raw Ingredients Ingredient',
+  LOAD_RAW_INGREDIENTS_SUCCESS = '[INGREDIENTS] Load Raw Ingredients Ingredient Success',
+  LOAD_RAW_INGREDIENTS_FAILURE = '[INGREDIENTS] Load Raw Ingredients Ingredient Failure',
+  // ////
+  FILTER_INGREDIENT = '[INGREDIENT] Filter Ingredient By Name',
+  FILTER_INGREDIENT_SUCCESS = '[INGREDIENT] Filter Ingredient By Name Success',
+  FILTER_INGREDIENT_FAILURE = '[INGREDIENT] Filter Ingredient By Name Failure',
+  //
 }
 export const loadAreas = createAction(
   LIST_ACTIONS.LOAD_AREAS);
@@ -67,6 +76,32 @@ export const loadIngredientsSuccess = createAction(
 );
 export const loadIngredientsFailure = createAction(
   LIST_ACTIONS.LOAD_INGREDIENTS_FAILURE,
+  props<{ error: Error }>()
+);
+
+
+//// raw
+
+export const loadRawIngredients = createAction(
+  LIST_ACTIONS.LOAD_RAW_INGREDIENTS);
+export const loadRawIngredientsSuccess = createAction(
+  LIST_ACTIONS.LOAD_RAW_INGREDIENTS_SUCCESS,
+  props<{ rawIngredients: StrIngredient[] }>()
+);
+export const loadRawIngredientsFailure = createAction(
+  LIST_ACTIONS.LOAD_RAW_INGREDIENTS_FAILURE,
+  props<{ error: Error }>()
+);
+// \\
+export const filterIngredientByName = createAction(
+  LIST_ACTIONS.FILTER_INGREDIENT,
+  props<{ nameIngredient: string }>());
+export const filterIngredientByNameSuccess = createAction(
+  LIST_ACTIONS.FILTER_INGREDIENT_SUCCESS,
+  props<{ rawIngredients: StrIngredient[] }>()//todo переделать под [0]
+);
+export const filterIngredientByNameFailure = createAction(
+  LIST_ACTIONS.FILTER_INGREDIENT_FAILURE,
   props<{ error: Error }>()
 );
 
@@ -137,3 +172,7 @@ export const loadMealsByLetterFailure = createAction(
   LIST_ACTIONS.LOAD_MEALS_BY_LETTER_FAILURE,
   props<{ error: Error }>()
 );
+
+
+// return this.httpService.getSearchByLetter(searchItems);//todo fo
+

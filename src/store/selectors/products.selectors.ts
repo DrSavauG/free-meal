@@ -32,12 +32,8 @@ export const selectListOfMeals = createSelector(
   productFeatureState,
   state => state.meals
 );
-// export const selectListOfCategory = createSelector(
-//   productFeatureState,
-//   state => state.categories///todo или meals[0]
-// );
-// export const selectListOfIngredient = createSelector(
-//   productFeatureState,
-//   state => state.ingredients///todo или meals[0]
-// );
-/////
+//todo reused?
+export const selectRawIngredients = createSelector(
+  productFeatureState,
+  state => state.rawIngredients
+);

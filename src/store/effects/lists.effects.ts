@@ -48,20 +48,7 @@ export class ListsEffects {
       )
     )
   );
-  loadRawIngredients$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(fromListsActions.loadRawIngredients),
-      mergeMap(() => this.httpService.getRawListAllIngredients()
-        .pipe(
-          map(rawIngredients => fromListsActions.loadRawIngredientsSuccess({rawIngredients})),
-          catchError(error => of(fromListsActions.loadRawIngredientsFailure({error})))
-        )
-      )
-    )
-  );
 
-  /////////list
-  // return this.httpService.getByArea(pageCategory);
   loadListByArea$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromListsActions.loadListByArea),
@@ -72,9 +59,9 @@ export class ListsEffects {
         )
       )
     )
-  );//todo по имение http
-  // return this.httpService.getByCategory(pageCategory);
-    loadListByCategory$ = createEffect(() =>
+  );
+
+  loadListByCategory$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromListsActions.loadListByCategory),
       mergeMap(action => this.httpService.getByCategory(action.category)
@@ -85,8 +72,8 @@ export class ListsEffects {
       )
     )
   );
-  // return this.httpService.getByIngredient(pageCategory);
-    loadListByIngredient$ = createEffect(() =>
+
+  loadListByIngredient$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromListsActions.loadListByIngredient),
       mergeMap(action => this.httpService.getByIngredient(action.category)
@@ -97,11 +84,11 @@ export class ListsEffects {
       )
     )
   );
-  // return this.httpService.getSearchByName(searchItems);//todo добавить
+
   loadMealsByName$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromListsActions.loadMealsByName),
-      tap((action) => console.log('Action letter:', action,action.name)),  // Logging the letter from the action
+      tap((action) => console.log('Action letter:', action, action.name)),  // Logging the letter from the action
 
       mergeMap(action => this.httpService.getSearchByName(action.name)
         .pipe(
@@ -111,7 +98,7 @@ export class ListsEffects {
       )
     )
   );
-  // return this.httpService.getSearchByLetter(searchItems);
+
   loadMealsByLetter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(fromListsActions.loadMealsByLetter),
@@ -123,7 +110,5 @@ export class ListsEffects {
       )
     )
   );
-
-
 
 }

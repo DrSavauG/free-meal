@@ -42,13 +42,3 @@ export class ProductsEffects {
   );
 }
 
-
-// this.actions$.pipe(
-//   ofType(fromProductActions.loadProductRandom),
-//   mergeMap(() =>
-//     this.httpService.getRandomItem().pipe(
-//       map(product => fromProductActions.loadProductRandomSuccess({product})),
-//       catchError(error => of(fromProductActions.loadProductRandomFailure({error})))
-//     )
-//   )
-// )

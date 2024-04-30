@@ -10,7 +10,7 @@ import { ImageHandlingService } from "../../services/image-handling.service";
 import { StrIngredient } from "../../models/mock-products";
 import { environment } from "../../../environments/environment";
 import { PageType } from "../../constants/enums";
-import { loadRawIngredients } from "../../../store/actions/lists.actions";
+import { loadRawIngredients } from "../../../store/actions/ingredients.actions";
 import { selectIngredientsByName } from "../../../store/selectors/products.selectors";
 
 @Component({
@@ -21,7 +21,6 @@ import { selectIngredientsByName } from "../../../store/selectors/products.selec
   styleUrl: './ingredient-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-
 
 export class IngredientCardComponent implements OnInit {
   protected ingredient$: Observable<StrIngredient[]> | null = null;

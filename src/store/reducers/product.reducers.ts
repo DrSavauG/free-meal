@@ -3,36 +3,22 @@ import { Action, createReducer, on } from "@ngrx/store";
 import * as fromProductsActions from "../actions/products.actions";
 import * as fromListsActions from "../actions/lists.actions";
 import { initialProductsState, ProductState } from "../state/products.state";
+import {
+  loadRawIngredients,
+  loadRawIngredientsFailure,
+  loadRawIngredientsSuccess
+} from "../actions/ingredients.actions";
 
 export const getProduct = createReducer(
   initialProductsState,
-
-  on(fromProductsActions.loadProductRandom, fromProductsActions.loadProductById,
-    (state) => ({
+  on(
+    fromProductsActions.loadProductRandomSuccess,
+    fromProductsActions.loadProductByIdSuccess,
+    (state, {product}) => ({
       ...state,
-      loading: true,
-      loaded: false,
-    })
-  ),
-  on(fromProductsActions.loadProductRandomSuccess, fromProductsActions.loadProductByIdSuccess, (state, {product}) => ({
-    ...state,
-    loading: false,
-    loaded: true,
-    data: product,
-  })),
-  on(fromProductsActions.loadProductRandomFailure, fromProductsActions.loadProductByIdFailure, (state, err) => ({
-    ...state,
-    loading: false,
-    loaded: false,
-    error: err
-  })),
-//////
-
-  on(fromListsActions.loadAreas,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
+      loading: false,
+      loaded: true,
+      data: product,
     })),
   on(fromListsActions.loadAreaSuccess,
     (state, {areas}) => ({
@@ -41,197 +27,83 @@ export const getProduct = createReducer(
       loaded: true,
       areas,
     })),
-  on(fromListsActions.loadAreaFailure,
-    (state, {error}) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error
-    })),
-  //////
-
-  on(fromListsActions.loadCategory,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
-    })),
   on(fromListsActions.loadCategorySuccess,
     (state, {categories}) => ({
       ...state,
       loading: false,
       loaded: true,
-      categories: categories,
-    })),
-  on(fromListsActions.loadCategoryFailure,
-    (state, {error}) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error: error
-    })),
-  //////
-
-  on(fromListsActions.loadIngredients,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
+      categories
     })),
   on(fromListsActions.loadIngredientsSuccess,
     (state, {ingredients}) => ({
       ...state,
       loading: false,
       loaded: true,
-      ingredients: ingredients,
+      ingredients
     })),
-  on(fromListsActions.loadIngredientsFailure,
-    (state, {error}) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error: error
-    })),
-  //////
-
-  on(fromListsActions.loadRawIngredients,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
-    })),
-  on(fromListsActions.loadRawIngredientsSuccess,
+  on(loadRawIngredientsSuccess,
     (state, {rawIngredients}) => ({
       ...state,
       loading: false,
       loaded: true,
-      rawIngredients: rawIngredients,
-    })),
-  on(fromListsActions.loadRawIngredientsFailure,
-    (state, {error}) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error: error
-    })),
-
-  ////////////list of-------------------------------------===========
-  //todo fails b fetch сгруппировать =одно и тоже
-  on(fromListsActions.loadListByArea,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
-    })),
-  on(fromListsActions.loadListByAreaSuccess,
-    (state, {list}) => ({
-      ...state,
-      loading: false,
-      loaded: true,
-      list: list,
-    })),
-  on(fromListsActions.loadListByAreaFailure,
-    (state, {error}) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error: error
-    })),
-  // .....
-  //todo fails b fetch сгруппировать =одно и тоже
-  on(fromListsActions.loadListByCategory,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
-    })),
-  on(fromListsActions.loadListByCategorySuccess,
-    (state, {list}) => ({
-      ...state,
-      loading: false,
-      loaded: true,
-      list: list,
-    })),
-  on(fromListsActions.loadListByCategoryFailure,
-    (state, {error}) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error: error
-    })),
-  // .....
-  //todo fails b fetch сгруппировать =одно и тоже
-  on(fromListsActions.loadListByIngredient,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
-    })),
-  on(fromListsActions.loadListByIngredientSuccess,
-    (state, {list}) => ({
-      ...state,
-      loading: false,
-      loaded: true,
-      list: list,
-    })),
-  on(fromListsActions.loadListByIngredientFailure,
-    (state, {error}) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error: error
-    })),
-  // .....
-  //todo fails b fetch сгруппировать =одно и тоже
-  on(fromListsActions.loadMealsByName,
-    fromListsActions.loadMealsByLetter,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
-    })),
-  on(fromListsActions.loadMealsByNameSuccess,
-    // fromListsActions.loadMealsByLetterSuccess,
-    (state, {meals}) => ({
-      ...state,
-      loading: false,
-      loaded: true,
-      meals: meals,
-    })),
-  on(fromListsActions.loadMealsByNameFailure,
-    // fromListsActions.loadMealsByLetterFailure,
-    (state, {error}) => ({
-      ...state,
-      loading: false,
-      loaded: false,
-      error: error
-    })),
-  // .....
-  //todo fails b fetch сгруппировать =одно и тоже
-  on(
-    fromListsActions.loadMealsByLetter,
-    (state) => ({
-      ...state,
-      loading: true,
-      loaded: false,
+      rawIngredients
     })),
   on(
+    fromListsActions.loadListByAreaSuccess,
+    fromListsActions.loadListByCategorySuccess,
+    fromListsActions.loadListByIngredientSuccess,
+    (state, {list}) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      list
+    })),
+  on(
+    fromListsActions.loadMealsByNameSuccess,
     fromListsActions.loadMealsByLetterSuccess,
     (state, {meals}) => ({
       ...state,
       loading: false,
       loaded: true,
-      meals: meals,
+      meals
     })),
   on(
+    fromProductsActions.loadProductRandomFailure,
+    fromProductsActions.loadProductByIdFailure,
+    fromListsActions.loadAreaFailure,
+    fromListsActions.loadCategoryFailure,
+    fromListsActions.loadIngredientsFailure,
+    loadRawIngredientsFailure,
+    fromListsActions.loadListByAreaFailure,
+    fromListsActions.loadListByCategoryFailure,
+    fromListsActions.loadListByIngredientFailure,
+    fromListsActions.loadMealsByNameFailure,
     fromListsActions.loadMealsByLetterFailure,
-    (state, {error}) => ({
+    (state, error) => ({
       ...state,
       loading: false,
       loaded: false,
-      error: error
+      error
     })),
-  // .....
+  on(
+    fromProductsActions.loadProductRandom,
+    fromProductsActions.loadProductById,
+    fromListsActions.loadAreas,
+    fromListsActions.loadCategory,
+    fromListsActions.loadIngredients,
+    loadRawIngredients,
+    fromListsActions.loadListByArea,
+    fromListsActions.loadListByCategory,
+    fromListsActions.loadListByIngredient,
+    fromListsActions.loadMealsByLetter,
+    fromListsActions.loadMealsByName,
+    fromListsActions.loadMealsByLetter,
+    (state) => ({
+      ...state,
+      loading: true,
+      loaded: false,
+    })
+  ),
 );
 
 export function productReducers(state = initialProductsState, action: Action): ProductState {

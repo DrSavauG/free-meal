@@ -3,7 +3,7 @@ import { createSelector } from '@ngrx/store';
 
 import { ProductState } from "../state/products.state";
 
-export const productFeatureState = createFeatureSelector<ProductState>('products');//todo гафигачить lists && letters
+export const productFeatureState = createFeatureSelector<ProductState>('products');
 //todo mv to ingredients
 export const selectIngredientsByName = (nameIngredient: string) => {
   const capitalizeName = nameIngredient.replace(/^\w/, (string) => string.toUpperCase());
@@ -16,21 +16,20 @@ export const selectIngredientsByName = (nameIngredient: string) => {
 
 export const selectProduct = createSelector(
   productFeatureState,
-  state => state.data///todo или meals[0]
+  state => state.data
 );
 export const selectAreas = createSelector(
   productFeatureState,
-  state => state.areas///todo или meals[0]
+  state => state.areas
 );
 export const selectCategories = createSelector(
   productFeatureState,
-  state => state.categories///todo или meals[0]
+  state => state.categories
 );
 export const selectIngredients = createSelector(
   productFeatureState,
-  state => state.ingredients///todo или meals[0]
+  state => state.ingredients
 );
-///////todo переписать featureselector
 export const selectListOfCategories = createSelector(
   productFeatureState,
   state => state.list
@@ -40,7 +39,6 @@ export const selectListOfMeals = createSelector(
   productFeatureState,
   state => state.meals
 );
-//todo reused?
 export const selectRawIngredients = createSelector(
   productFeatureState,
   state => state.rawIngredients

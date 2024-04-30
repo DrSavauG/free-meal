@@ -37,8 +37,8 @@ export const initialProductsState: ProductState = {
   list: null,
   meals: null,
   rawIngredients: [{
-    idIngredient: 'jjj',
-    strIngredient: 'string',
+    idIngredient: 'example',
+    strIngredient: 'example',
     strDescription: null,
     strType: null
   }],

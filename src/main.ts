@@ -4,8 +4,10 @@ import { provideRouter } from '@angular/router';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient, withFetch } from "@angular/common/http";
 import { ApplicationConfig } from "@angular/core";
+
 import { provideEffects } from "@ngrx/effects";
 import { provideStoreDevtools } from "@ngrx/store-devtools";
+
 import { AppComponent } from './app/app.component';
 import { routes } from './app/app.routes';
 import { ProductsEffects } from "./store/effects/products.effects";

@@ -62,6 +62,13 @@ export class CategoriesComponent implements OnInit {
       .catch(error => console.error('Navigation error:', error));
   }
 
+  private loadProduct() {
+    this.route.url.pipe(takeUntilDestroyed(this.destroy$)).subscribe(segments => {
+      const pageType: PageType = segments[0].path as PageType;
+      this.handlePageTypeChange(pageType);
+    });
+  }
+
   protected filterByLetter(event: Event): void {
     const {value} = event.target as HTMLInputElement;
     this.filterLetter = value;
@@ -96,10 +103,4 @@ export class CategoriesComponent implements OnInit {
     return this.store.select(fromProductsSelectors.selectIngredients);
   }
 
-  private loadProduct() {
-    this.route.url.pipe(takeUntilDestroyed(this.destroy$)).subscribe(segments => {
-      const pageType: PageType = segments[0].path as PageType;
-      this.handlePageTypeChange(pageType);
-    });
-  }
 }

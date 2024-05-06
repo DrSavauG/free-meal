@@ -39,14 +39,14 @@ export class HttpService {
     );
   }
 
-  public getItemById(idMeals: string): Observable<Product[]> {
+  public getItemById(idMeals: string): Observable<Product> {
     const getUrl: string = `${this.apiItemIdUrl}${idMeals}`;
     return this.http.get<Products>(getUrl).pipe(
-      map((response) => response.meals)
+      map((response) => response.meals[0])
     );
   }
 
-  public searchByLetter(letter: string): Observable<Product[]> {
+  public getSearchByLetter(letter: string): Observable<Product[]> {
     const searchLetterUrl: string = `${this.apiItemsLetterUrl}${letter}`;
     return this.http.get<Products>(searchLetterUrl).pipe(
       map((response) => response.meals)
@@ -83,33 +83,32 @@ export class HttpService {
 
   public getListAllIngredients(): Observable<LabelData[]> {
     return this.http.get<StrIngredients>(this.apiListAllIngredients).pipe(
-      map((response) => response.meals.map(arr=>({
-        label:arr.strIngredient
+      map((response) => response.meals.map(arr => ({
+        label: arr.strIngredient
       })))
     );
   }
 
   public getListAllCategories(): Observable<LabelData[]> {
     return this.http.get<StrCategories>(this.apiListAllCategories).pipe(
-      map((response) => response.meals.map(arr=>({
-        label:arr.strCategory
+      map((response) => response.meals.map(arr => ({
+        label: arr.strCategory
       })))
     );
   }
+
   public getRawListAllIngredients(): Observable<StrIngredient[]> {
     return this.http.get<StrIngredients>(this.apiListAllIngredients).pipe(
       map((response) => response.meals)
     );
   }
-  public getListAllAreas(): Observable<LabelData[]> {
+
+  public getListAllAreas(): Observable<LabelData[]> {//
     return this.http.get<StrAreas>(this.apiListAllAreas).pipe(
-      map((response) => response.meals.map(arr=>({
-        label:arr.strArea
+      map((response) => response.meals.map(arr => ({
+        label: arr.strArea
       })))
     );
   }
 
-}
-
-export class ProductsService {
 }

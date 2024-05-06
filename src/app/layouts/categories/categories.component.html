@@ -11,9 +11,12 @@
     >
   </section>
   <div class="category-component-body">
-    @for (product of labelDataArray$ | filter:filterLetter | async; track product.label) {
-      <div (click)="searchByCategory(product.label)">{{ product.label }}</div>
+    @if (labelDataArray$) {
+      @for (product of labelDataArray$ | async | filter:filterLetter; track product.label) {
+        <div (click)="searchByCategory(product.label)">{{ product.label }}</div>
+      }
+    }@else {
+      <pre>no data found</pre>
     }
   </div>
-
 </div>

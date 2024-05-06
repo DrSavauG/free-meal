@@ -36,7 +36,8 @@ export class ItemDetailsComponent implements OnInit {
   }
 
   protected searchByIngredient(ingredient: string): void {
-    this.router.navigate([`/${PageType.Ingredient}`, ingredient]);
+    this.router.navigate([`/${PageType.Ingredient}`, ingredient])
+      .catch(error => console.error('Navigation error:', error));
   }
 
 }

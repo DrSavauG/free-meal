@@ -2,7 +2,9 @@ import { Component } from "@angular/core";
 import { TitleCasePipe } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { RouterLink, Router } from "@angular/router";
+
 import { PageType } from "../../constants/enums";
+import { TITLE } from "../../constants/constants";
 
 @Component({
   selector: 'header-component',
@@ -21,22 +23,27 @@ export class HeaderComponent {
   constructor(private router: Router) {
   }
 
-  public header: string = 'free meal';
+  public header: string = TITLE;
 
   protected toMainPage() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/'])
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected searchByLetter(event: Event): void {
     const {value} = event.target as HTMLInputElement;
-    this.router.navigate([`/${PageType.Items}`, value]);
+    this.router.navigate([`/${PageType.Items}`, value])
+      .catch(error => console.error('Navigation error:', error));
   }
 
   protected goToFavorites() {
-    this.router.navigate([`/${PageType.Favorites}`]);
+    this.router.navigate([`/${PageType.Favorites}`])
+      .catch(error => console.error('Navigation error:', error));
   }
+
   protected goToCategories() {
-    this.router.navigate([`/${PageType.Categories}`]);
+    this.router.navigate([`/${PageType.Categories}`])
+      .catch(error => console.error('Navigation error:', error));
   }
 }
 

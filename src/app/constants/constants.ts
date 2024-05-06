@@ -17,4 +17,5 @@ export const ProductDataKeys: readonly(keyof ProductData)[] = [
 ] as const;
 
 export const abcString: string = 'abcdefghijklmnopqrstuvwxyz';
+export const TITLE: string = 'free meal';
 

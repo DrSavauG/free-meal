@@ -1,4 +1,5 @@
-@if (product) {
+@if (product$ | async; as product) {
+
   <div class="product-container-big">
     <h2>{{ product.strMeal }}</h2>
     <a [routerLink]="['/'+PageType.Item, product.idMeal]">

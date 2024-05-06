@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 
 import { HttpService } from "../../services/products.service";
-import { ProductRandomComponent } from "../product-random/product-random.component";
+import { MainComponent } from "../../layouts/main/main.component";
 
 @Component({
   selector: 'body-component',
@@ -11,7 +11,7 @@ import { ProductRandomComponent } from "../product-random/product-random.compone
   providers: [HttpService],
 
   imports: [
-    ProductRandomComponent
+    MainComponent
   ]
 })
 

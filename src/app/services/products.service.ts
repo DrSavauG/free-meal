@@ -35,7 +35,6 @@ export class HttpService {
 
   public getRandomItem(): Observable<Product> {
     return this.http.get<Products>(this.apiUrlRandom).pipe(
-      // map((response) => response.meals[0])
       map((response) => response.meals[0])
     );
   }
@@ -43,7 +42,7 @@ export class HttpService {
   public getItemById(idMeals: string): Observable<Product> {
     const getUrl: string = `${this.apiItemIdUrl}${idMeals}`;
     return this.http.get<Products>(getUrl).pipe(
-      map((response) => response.meals[0])//add [0]
+      map((response) => response.meals[0])
     );
   }
 
@@ -84,30 +83,31 @@ export class HttpService {
 
   public getListAllIngredients(): Observable<LabelData[]> {
     return this.http.get<StrIngredients>(this.apiListAllIngredients).pipe(
-      map((response) => response.meals.map(arr=>({
-        label:arr.strIngredient
+      map((response) => response.meals.map(arr => ({
+        label: arr.strIngredient
       })))
     );
   }
 
   public getListAllCategories(): Observable<LabelData[]> {
     return this.http.get<StrCategories>(this.apiListAllCategories).pipe(
-      map((response) => response.meals.map(arr=>({
-        label:arr.strCategory
+      map((response) => response.meals.map(arr => ({
+        label: arr.strCategory
       })))
     );
   }
+
   public getRawListAllIngredients(): Observable<StrIngredient[]> {
     return this.http.get<StrIngredients>(this.apiListAllIngredients).pipe(
       map((response) => response.meals)
     );
   }
+
   public getListAllAreas(): Observable<LabelData[]> {//
     return this.http.get<StrAreas>(this.apiListAllAreas).pipe(
-      map((response) => response.meals.map(arr=>({
-        label:arr.strArea
-      })
-      ))
+      map((response) => response.meals.map(arr => ({
+        label: arr.strArea
+      })))
     );
   }
 

@@ -37,6 +37,10 @@ export class IngredientCardComponent implements OnInit {
     this.loadIngredients();
   }
 
+  public handleImageError(event: Event): void {
+    this.imageHandlingService.handleImageError(event);
+  }
+
   private loadIngredients(): void {
     this.nameIngredient = this.route.snapshot.params[PageType.Ingredient];
     if(this.nameIngredient) {
@@ -45,7 +49,4 @@ export class IngredientCardComponent implements OnInit {
     }
   }
 
-  public handleImageError(event: Event): void {
-    this.imageHandlingService.handleImageError(event);
-  }
 }

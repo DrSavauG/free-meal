@@ -29,7 +29,7 @@ export class CategoriesComponent implements OnInit {
   private activePage: string | null = null;
 
   private readonly pageTypeToMethodMap: Map<PageType, () => Observable<LabelData[] | null>> = new Map([
-    [PageType.Areas, this.loadAreas.bind(this)],//
+    [PageType.Areas, this.loadAreas.bind(this)],
     [PageType.Categories, this.loadCategories.bind(this)],
     [PageType.Ingredients, this.loadIngredients.bind(this)]
   ]);

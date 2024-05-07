@@ -1,7 +1,6 @@
 export interface Products {
   meals: Product[]
 }
-
 export interface Product extends ProductData, ProductIngredient {
 }
 
@@ -112,3 +111,6 @@ export interface StrArea {
 export interface LabelData {
   label: string
 }
+
+export type CommonResults = Product | Product[] | Category[] | LabelData[] | StrIngredient[];
+export type CommonApiResponse = Products | Categories | StrIngredients | StrAreas | StrCategories;

@@ -12,12 +12,15 @@ import {
   Products, StrAreas, StrCategories, LabelData
 } from "../models/mock-products";
 import { environment } from "../../environments/environment";
+import { loadCategoryFailure } from "../../store/actions/lists.actions";
 
 @Injectable({
   providedIn: 'root'
 })
 export class HttpService {
-  private cache = new Map<string, Observable<Product>>();
+  private cache = new Map<string, Observable<Product|Product[]>>();
+  //ts-ignore
+  // private cache = new Map<string, Observable<any>>();
   private readonly apiItemIdUrl: string = environment.apiItemIdUrl;
   private readonly apiItemsLetterUrl: string = environment.apiItemsLetterUrl;
   private readonly apiUrlRandom: string = environment.apiUrlRandom;
@@ -39,37 +42,50 @@ export class HttpService {
     );
   }
 
-  public getItemById(idMeals: string): Observable<Product> {
-    const getUrl: string = `${this.apiItemIdUrl}${idMeals}`;
-
-    if (this.cache.has(idMeals)) {
-      console.log(`Fetching data from cache for ID: ${idMeals}`);
-      return this.cache.get(idMeals) as Observable<Product>;
-    }
-
-    console.log(`Making HTTP request for ID: ${idMeals}`);
-
-    if(!this.cache.has(idMeals)) {
-      const observable = this.http.get<Products>(getUrl).pipe(
-        map((response) => response.meals[0]),
+  private fetchCachedData<T extends Product | Product[]>(key: string, url: string, mapFn: (response: Products) => T): Observable<T> {
+    if (!this.cache.has(key)) {
+      console.log(`Making HTTP request for: ${key}`);
+      const observable = this.http.get<Products>(url).pipe(
+        map(mapFn),
         shareReplay(1),
         catchError(error => {
-          console.error(`Error fetching data for ID: ${idMeals}`, error);
-          this.cache.delete(idMeals);
-          return throwError(() => new Error('Error fetching item with id ' + idMeals));
+          return throwError(() => new Error(`Error:${error} id: ${key}`));
         })
       );
-      this.cache.set(idMeals, observable);
+      this.cache.set(key, observable);
+    } else {
+      console.log(`Fetching data from cache for: ${key}`);
     }
-    return this.cache.get(idMeals) as Observable<Product>;
+    return this.cache.get(key) as Observable<T>;
   }
-
+  public getItemById(idMeals: string): Observable<Product> {
+    const url = `${this.apiItemIdUrl}${idMeals}`;
+    return this.fetchCachedData<Product>(idMeals, url, response => response.meals[0]);
+  }
   public getSearchByLetter(letter: string): Observable<Product[]> {
-    const searchLetterUrl: string = `${this.apiItemsLetterUrl}${letter}`;
-    return this.http.get<Products>(searchLetterUrl).pipe(
-      map((response) => response.meals)
-    );
+    const url = `${this.apiItemsLetterUrl}${letter}`;
+    return this.fetchCachedData<Product[]>(letter, url, response => response.meals);
   }
+  // public getSearchByLetter(idMeals: string): Observable<Product[]> {
+  //   const getUrl: string = `${this.apiItemsLetterUrl}${idMeals}`;
+  //
+  //   if(!this.cache.has(idMeals)) {
+  //     console.log('fetching ',idMeals);
+  //     const observable = this.http.get<Products>(getUrl).pipe(
+  //       map((response) => response.meals),
+  //       shareReplay(1),
+  //       catchError(error => {
+  //         return throwError(() => new Error('Error:'+error+' id: ' + idMeals));
+  //       })
+  //     );
+  //     this.cache.set(idMeals, observable);
+  //   }else{
+  //     console.log('! cache ',idMeals);
+  //
+  //   }
+  //   return this.cache.get(idMeals) as Observable<Product[]>;
+  // }
+
 
   public getSearchByName(letter: string): Observable<Product[]> {
     const searchLetterUrl: string = `${this.apiSearchByNameUrl}${letter}`;
@@ -121,12 +137,14 @@ export class HttpService {
     );
   }
 
-  public getListAllAreas(): Observable<LabelData[]> {//
+  public getListAllAreas(): Observable<LabelData[]> {
     return this.http.get<StrAreas>(this.apiListAllAreas).pipe(
       map((response) => response.meals.map(arr => ({
         label: arr.strArea
       })))
     );
   }
+
+
 
 }

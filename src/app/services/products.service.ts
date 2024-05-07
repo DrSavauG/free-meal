@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 
-import { map, Observable } from "rxjs";
+import { catchError, map, Observable, shareReplay, throwError } from "rxjs";
 
 import {
   Category,
@@ -17,7 +17,7 @@ import { environment } from "../../environments/environment";
   providedIn: 'root'
 })
 export class HttpService {
-
+  private cache = new Map<string, Observable<Product>>();
   private readonly apiItemIdUrl: string = environment.apiItemIdUrl;
   private readonly apiItemsLetterUrl: string = environment.apiItemsLetterUrl;
   private readonly apiUrlRandom: string = environment.apiUrlRandom;
@@ -41,9 +41,27 @@ export class HttpService {
 
   public getItemById(idMeals: string): Observable<Product> {
     const getUrl: string = `${this.apiItemIdUrl}${idMeals}`;
-    return this.http.get<Products>(getUrl).pipe(
-      map((response) => response.meals[0])
-    );
+
+    if (this.cache.has(idMeals)) {
+      console.log(`Fetching data from cache for ID: ${idMeals}`);
+      return this.cache.get(idMeals) as Observable<Product>;
+    }
+
+    console.log(`Making HTTP request for ID: ${idMeals}`);
+
+    if(!this.cache.has(idMeals)) {
+      const observable = this.http.get<Products>(getUrl).pipe(
+        map((response) => response.meals[0]),
+        shareReplay(1),
+        catchError(error => {
+          console.error(`Error fetching data for ID: ${idMeals}`, error);
+          this.cache.delete(idMeals);
+          return throwError(() => new Error('Error fetching item with id ' + idMeals));
+        })
+      );
+      this.cache.set(idMeals, observable);
+    }
+    return this.cache.get(idMeals) as Observable<Product>;
   }
 
   public getSearchByLetter(letter: string): Observable<Product[]> {

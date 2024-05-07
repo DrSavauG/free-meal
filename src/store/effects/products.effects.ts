@@ -3,8 +3,9 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 
 import { catchError, map, mergeMap, of } from "rxjs";
 
-import * as fromProductActions from "../actions/products.actions";
 import { HttpService } from "../../app/services/products.service";
+
+import * as fromProductActions from "../actions/products.actions";
 
 @Injectable({
   providedIn: 'root'

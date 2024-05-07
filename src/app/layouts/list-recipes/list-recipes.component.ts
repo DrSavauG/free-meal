@@ -33,7 +33,7 @@ export class ListRecipesComponent implements OnInit {
     [PageType.Area, (pageCategory: string) => this.loadListByArea(pageCategory)],
     [PageType.Category, (pageCategory: string) => this.loadListByCategory(pageCategory)],
     [PageType.Ingredient, (pageCategory: string) => this.loadListByIngredient(pageCategory)],
-    [PageType.Favorites, () => of(this.favoritesService.getAllFavorites())],
+    [PageType.Favorites, () => of(this.favoritesService.getAllFavorites())],//todo add to store
     [PageType.Items, () => this.loadItemsByLetters()],
   ]);
 

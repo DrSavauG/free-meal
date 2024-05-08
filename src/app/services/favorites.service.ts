@@ -22,9 +22,6 @@ export class FavoritesService {
     localStorage.setItem(product.idMeal, JSON.stringify(product));
   }
 
-  public getAllFavorites(): Product[] {
-    return Object.values(localStorage).map(elString => JSON.parse(elString));
-  }
   public getAllFavorites$(): Observable<Product[]> {
     const allFavorites = Object.keys(localStorage)
       .filter(key => localStorage.getItem(key))

@@ -1,10 +1,10 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 
-import { FavoritesService } from "../../app/services/favorites.service";
-import* as fromFavoritesActions from "../../store/actions/favorites.actions";
 import { catchError, map, mergeMap, of } from "rxjs";
-import * as fromProductActions from "../actions/products.actions";
+
+import { FavoritesService } from "../../app/services/favorites.service";
+import * as fromFavoritesActions from "../../store/actions/favorites.actions";
 
 
 @Injectable({

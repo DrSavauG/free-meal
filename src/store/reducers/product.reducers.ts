@@ -2,12 +2,9 @@ import { Action, createReducer, on } from "@ngrx/store";
 
 import * as fromProductsActions from "../actions/products.actions";
 import * as fromListsActions from "../actions/lists.actions";
+import * as fromRawIngredientsActions from "../actions/ingredients.actions";
+import * as fromFavoritesActions from "../actions/favorites.actions";
 import { initialProductsState, ProductState } from "../state/products.state";
-import {
-  loadRawIngredients,
-  loadRawIngredientsFailure,
-  loadRawIngredientsSuccess
-} from "../actions/ingredients.actions";
 
 export const getProduct = createReducer(
   initialProductsState,
@@ -41,12 +38,19 @@ export const getProduct = createReducer(
       loaded: true,
       ingredients
     })),
-  on(loadRawIngredientsSuccess,
+  on(fromRawIngredientsActions.loadRawIngredientsSuccess,
     (state, {rawIngredients}) => ({
       ...state,
       loading: false,
       loaded: true,
       rawIngredients
+    })),
+  on(fromFavoritesActions.loadAllFavoritesSuccess,
+    (state, {favorites}) => ({
+      ...state,
+      loading: false,
+      loaded: true,
+      favorites
     })),
   on(
     fromListsActions.loadListByAreaSuccess,
@@ -73,12 +77,13 @@ export const getProduct = createReducer(
     fromListsActions.loadAreaFailure,
     fromListsActions.loadCategoryFailure,
     fromListsActions.loadIngredientsFailure,
-    loadRawIngredientsFailure,
+    fromRawIngredientsActions.loadRawIngredientsFailure,
     fromListsActions.loadListByAreaFailure,
     fromListsActions.loadListByCategoryFailure,
     fromListsActions.loadListByIngredientFailure,
     fromListsActions.loadMealsByNameFailure,
     fromListsActions.loadMealsByLetterFailure,
+    fromFavoritesActions.loadAllFavoritesFailure,
     (state, error) => ({
       ...state,
       loading: false,
@@ -91,13 +96,14 @@ export const getProduct = createReducer(
     fromListsActions.loadAreas,
     fromListsActions.loadCategory,
     fromListsActions.loadIngredients,
-    loadRawIngredients,
+    fromRawIngredientsActions.loadRawIngredients,
     fromListsActions.loadListByArea,
     fromListsActions.loadListByCategory,
     fromListsActions.loadListByIngredient,
     fromListsActions.loadMealsByLetter,
     fromListsActions.loadMealsByName,
     fromListsActions.loadMealsByLetter,
+    fromFavoritesActions.loadAllFavorites,
     (state) => ({
       ...state,
       loading: true,

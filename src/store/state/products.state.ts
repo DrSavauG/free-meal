@@ -15,6 +15,7 @@ export interface ProductState {
   rawIngredients: StrIngredient[],
   list: Category[] | null,
   meals: Product[] | null,
+  favorites:Product[] | null,
 }
 
 export interface AppState {
@@ -36,6 +37,7 @@ export const initialProductsState: ProductState = {
   ingredients: null,
   list: null,
   meals: null,
+  favorites: null,
   rawIngredients: [{
     idIngredient: 'example',
     strIngredient: 'example',

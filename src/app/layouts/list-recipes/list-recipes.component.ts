@@ -13,7 +13,12 @@ import { ProductSmallComponent } from "../../components/product-small/product-sm
 import { ProductCardComponent } from "../../components/product-card/product-card.component";
 import { IngredientCardComponent } from "../../components/ingredient-card/ingredient-card.component";
 import * as fromListActions from "../../../store/actions/lists.actions";
-import { selectListOfCategories, selectListOfMeals } from "../../../store/selectors/products.selectors";
+import {
+  selectAllFavorites,
+  selectListOfCategories,
+  selectListOfMeals
+} from "../../../store/selectors/products.selectors";
+import * as fromFavoritesActions from "../../../store/actions/favorites.actions";
 
 @Component({
   selector: 'list-recipes',
@@ -33,7 +38,7 @@ export class ListRecipesComponent implements OnInit {
     [PageType.Area, (pageCategory: string) => this.loadListByArea(pageCategory)],
     [PageType.Category, (pageCategory: string) => this.loadListByCategory(pageCategory)],
     [PageType.Ingredient, (pageCategory: string) => this.loadListByIngredient(pageCategory)],
-    [PageType.Favorites, () => of(this.favoritesService.getAllFavorites())],
+    [PageType.Favorites, () => this.loadListFavorites()],
     [PageType.Items, () => this.loadItemsByLetters()],
   ]);
 
@@ -89,6 +94,11 @@ export class ListRecipesComponent implements OnInit {
     this.isLoadIngredient = true;
     this.store.dispatch(fromListActions.loadListByIngredient({category: pageCategory}));
     return this.store.select(selectListOfCategories);
+  }
+
+  private loadListFavorites() {
+    this.store.dispatch(fromFavoritesActions.loadAllFavorites());
+    return this.store.select(selectAllFavorites);
   }
 
 }

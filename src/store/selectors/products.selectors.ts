@@ -44,3 +44,8 @@ export const selectRawIngredients = createSelector(
   state => state.rawIngredients
 );
 
+export const selectAllFavorites = createSelector(
+  productFeatureState,
+  state => state.favorites
+);
+

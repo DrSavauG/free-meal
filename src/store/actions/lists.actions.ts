@@ -14,26 +14,25 @@ export enum LIST_ACTIONS {
   LOAD_INGREDIENTS_SUCCESS = '[LIST] Load Ingredients Success',
   LOAD_INGREDIENTS_FAILURE = '[LIST] Load Ingredients Failure',
   //////////////////////
-  LOAD_LIST_BY_AREA = '[AREA] Load List By Area',
-  LOAD_LIST_BY_AREA_SUCCESS = '[AREA] Load List By Area Success',
-  LOAD_LIST_BY_AREA_FAILURE = '[AREA] Load List By Area Failure',
+  LOAD_LIST_BY_AREA = '[LIST] Load List By Area',
+  LOAD_LIST_BY_AREA_SUCCESS = '[LIST] Load List By Area Success',
+  LOAD_LIST_BY_AREA_FAILURE = '[LIST] Load List By Area Failure',
   //
-  LOAD_LIST_BY_CATEGORY = '[CATEGORY] Load List By Category',
-  LOAD_LIST_BY_CATEGORY_SUCCESS = '[CATEGORY] Load List By Category Success',
-  LOAD_LIST_BY_CATEGORY_FAILURE = '[CATEGORY] Load List By Category Failure',
+  LOAD_LIST_BY_CATEGORY = '[LIST] Load List By Category',
+  LOAD_LIST_BY_CATEGORY_SUCCESS = '[LIST] Load List By Category Success',
+  LOAD_LIST_BY_CATEGORY_FAILURE = '[LIST] Load List By Category Failure',
 //
-  LOAD_LIST_BY_INGREDIENT = '[INGREDIENT] Load List By Ingredient',
-  LOAD_LIST_BY_INGREDIENT_SUCCESS = '[INGREDIENT] Load List By Ingredient Success',
-  LOAD_LIST_BY_INGREDIENT_FAILURE = '[INGREDIENT] Load List By Ingredient Failure',
+  LOAD_LIST_BY_INGREDIENT = '[LIST] Load List By Ingredient',
+  LOAD_LIST_BY_INGREDIENT_SUCCESS = '[LIST] Load List By Ingredient Success',
+  LOAD_LIST_BY_INGREDIENT_FAILURE = '[LIST] Load List By Ingredient Failure',
   //
-  LOAD_MEALS_BY_NAME = '[MEALS] Load Meals By Name',
-  LOAD_MEALS_BY_NAME_SUCCESS = '[MEALS] Load Meals By Name Success',
-  LOAD_MEALS_BY_NAME_FAILURE = '[MEALS] Load Meals By Name Failure',
+  LOAD_MEALS_BY_NAME = '[LIST] Load Meals By Name',
+  LOAD_MEALS_BY_NAME_SUCCESS = '[LIST] Load Meals By Name Success',
+  LOAD_MEALS_BY_NAME_FAILURE = '[LIST] Load Meals By Name Failure',
   //
-  LOAD_MEALS_BY_LETTER = '[MEALS] Load Meals By Letter',
-  LOAD_MEALS_BY_LETTER_SUCCESS = '[MEALS] Load Meals By Letter Success',
-  LOAD_MEALS_BY_LETTER_FAILURE = '[MEALS] Load Meals By Letter Failure',
-  ////
+  LOAD_MEALS_BY_LETTER = '[LIST] Load Meals By Letter',
+  LOAD_MEALS_BY_LETTER_SUCCESS = '[LIST] Load Meals By Letter Success',
+  LOAD_MEALS_BY_LETTER_FAILURE = '[LIST] Load Meals By Letter Failure',
 }
 export const loadAreas = createAction(
   LIST_ACTIONS.LOAD_AREAS);
@@ -125,4 +124,3 @@ export const loadMealsByLetterFailure = createAction(
   LIST_ACTIONS.LOAD_MEALS_BY_LETTER_FAILURE,
   props<{ error: Error }>()
 );
-

@@ -14,13 +14,14 @@ import { ProductsEffects } from "./store/effects/products.effects";
 import { appReducers } from "./store/state/products.state";
 import { ListsEffects } from "./store/effects/lists.effects";
 import { IngredientsEffects } from "./store/effects/ingredients.effects";
+import { FavoritesEffects } from "./store/effects/favorites.effects";
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideClientHydration(),
     provideHttpClient(withFetch()),
-    provideEffects(ProductsEffects,ListsEffects,IngredientsEffects),
+    provideEffects(ProductsEffects,ListsEffects,IngredientsEffects,FavoritesEffects),
     provideStore(appReducers),
     provideStoreDevtools({ maxAge: 25, logOnly: false }),
   ]

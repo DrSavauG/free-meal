@@ -34,7 +34,7 @@ export const addToFavorites = createAction(
   );//todo id
 export const addToFavoritesSuccess = createAction(
   FAVORITES_ACTIONS.ADD_TO_FAVORITES_SUCCESS,
-  props<{ favorites: Product[] }>()
+  // props<{ favorites: Product[] }>()
 );
 export const addToFavoritesFailure = createAction(
   FAVORITES_ACTIONS.ADD_TO_FAVORITES_FAILURE,
@@ -42,11 +42,10 @@ export const addToFavoritesFailure = createAction(
 );
 export const deleteFromFavorites = createAction(
   FAVORITES_ACTIONS.DELETE_FROM_FAVORITES,
-  props<{ id: string }>
-  );//todo id
+  props<{id:string}>()
+  );
 export const deleteFromFavoritesSuccess = createAction(
   FAVORITES_ACTIONS.DELETE_FROM_FAVORITES_SUCCESS,
-  props<{ favorites: Product[] }>()
 );
 export const deleteFromFavoritesFailure = createAction(
   FAVORITES_ACTIONS.DELETE_FROM_FAVORITES_FAILURE,

@@ -28,4 +28,29 @@ export class FavoritesEffects {
       )
     )
   );
+  deleteFavorite$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromFavoritesActions.deleteFromFavorites),
+      mergeMap((action) =>
+        this.favoritesService.deleteFavorite$(action.id)
+          .pipe(
+            map(() => fromFavoritesActions.deleteFromFavoritesSuccess()),
+            catchError(error => of(fromFavoritesActions.deleteFromFavoritesFailure({error})))
+          )
+      )
+    )
+  );
+
+  setFavorite$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(fromFavoritesActions.addToFavorites),
+      mergeMap((action) =>
+        this.favoritesService.setFavorite$(action.product).pipe(
+          map(() => fromFavoritesActions.addToFavoritesSuccess()),
+          catchError(error => of(fromFavoritesActions.addToFavoritesFailure({ error })))
+        )
+      )
+    )
+  );
+
 }

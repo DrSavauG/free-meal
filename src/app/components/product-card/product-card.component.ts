@@ -7,6 +7,9 @@ import { ImageHandlingService } from "../../services/image-handling.service";
 import { Product } from "../../models/mock-products";
 import { FavoritesService } from "../../services/favorites.service";
 import { PageType } from "../../constants/enums";
+import * as fromFavoritesActions from "../../../store/actions/favorites.actions";
+import { selectAllFavorites } from "../../../store/selectors/products.selectors";
+import { Store } from "@ngrx/store";
 
 @Component({
   selector: 'product-card',
@@ -32,7 +35,9 @@ export class ProductCardComponent {
   constructor(private imageHandlingService: ImageHandlingService,
               private router: Router,
               private favoritesService: FavoritesService,
-              private cdr: ChangeDetectorRef) {
+              private cdr: ChangeDetectorRef,
+              private store: Store,
+              ) {
   }
 
   public handleImageError(event: Event): void {
@@ -84,12 +89,12 @@ export class ProductCardComponent {
   }
 
   private deleteFavorite(idMeal: string) {
-    this.favoritesService.deleteFavorite(idMeal);
+    this.store.dispatch(fromFavoritesActions.deleteFromFavorites({id: idMeal}));
     this.showMessage(`delete  ${this.product?.strMeal} from favorite`);
   }
 
   private setFavorite(product: Product) {
-    this.favoritesService.setFavorite(product);
+    this.store.dispatch(fromFavoritesActions.addToFavorites({product}));
     this.showMessage(`add ${this.product?.strMeal} to favorite`);
   }
 

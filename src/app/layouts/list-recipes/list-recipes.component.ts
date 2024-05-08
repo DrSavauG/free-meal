@@ -43,7 +43,6 @@ export class ListRecipesComponent implements OnInit {
   ]);
 
   constructor(private route: ActivatedRoute,
-              private favoritesService: FavoritesService,
               private store: Store,
   ) {
   }

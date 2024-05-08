@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 import { ConvertRecipeService } from "../../services/convert-recipe.service";
@@ -14,7 +14,8 @@ import { PageType } from "../../constants/enums";
   standalone: true,
   imports: [CommonModule, NgOptimizedImage],
   templateUrl: './item-details.component.html',
-  styleUrl: './item-details.component.scss'
+  styleUrl: './item-details.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemDetailsComponent implements OnInit {
   @Input() product: Product | null = null;

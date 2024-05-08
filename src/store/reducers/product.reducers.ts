@@ -15,7 +15,7 @@ export const getProduct = createReducer(
       ...state,
       loading: false,
       loaded: true,
-      data: product,
+      data:product,
     })),
   on(fromListsActions.loadAreaSuccess,
     (state, {areas}) => ({

@@ -1,4 +1,4 @@
-@if (product) {
+@if (product$ | async; as product) {
   <p>{{ product.strInstructions }}</p>
   @if (productRecipe) {
     <table>

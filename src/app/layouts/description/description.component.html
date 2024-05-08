@@ -1,8 +1,4 @@
 <div class="body-component-wrapper">
-  @if (product$ | async; as product) {
-    <product-card [product]="product"></product-card>
-    <app-item-details [product]="product"></app-item-details>
-  }@else {
-    <pre>no info</pre>
-  }
+  <product-card></product-card>
+  <app-item-details></app-item-details>
 </div>

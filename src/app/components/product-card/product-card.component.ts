@@ -1,15 +1,17 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, DestroyRef, OnInit } from '@angular/core';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router } from "@angular/router";
 
-import { ImageHandlingService } from "../../services/image-handling.service";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { Observable } from "rxjs";
+import { Store } from "@ngrx/store";
 
+import { ImageHandlingService } from "../../services/image-handling.service";
 import { Product } from "../../models/mock-products";
 import { FavoritesService } from "../../services/favorites.service";
 import { PageType } from "../../constants/enums";
 import * as fromFavoritesActions from "../../../store/actions/favorites.actions";
-import { selectAllFavorites } from "../../../store/selectors/products.selectors";
-import { Store } from "@ngrx/store";
+import { selectProduct } from "../../../store/selectors/products.selectors";
 
 @Component({
   selector: 'product-card',
@@ -18,10 +20,12 @@ import { Store } from "@ngrx/store";
   templateUrl: './product-card.component.html',
   styleUrl: './product-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  inputs: ['product']
 })
 
-export class ProductCardComponent {
+export class ProductCardComponent implements OnInit {
+
+  protected product$: Observable<Product | null> = this.store.select(selectProduct);
+
   public product: Product | null = null;
   public message: string | null = null;
   public displayFadeOut: boolean = false;
@@ -37,8 +41,13 @@ export class ProductCardComponent {
               private favoritesService: FavoritesService,
               private cdr: ChangeDetectorRef,
               private store: Store,
+              private destroy$: DestroyRef
               ) {
   }
+
+  ngOnInit(): void {
+    this.loadProduct();
+    }
 
   public handleImageError(event: Event): void {
     this.imageHandlingService.handleImageError(event);
@@ -98,4 +107,10 @@ export class ProductCardComponent {
     this.showMessage(`add ${this.product?.strMeal} to favorite`);
   }
 
+  private loadProduct() {
+    this.product$.pipe(takeUntilDestroyed(this.destroy$)).subscribe(product => {
+      //subscription нужно для работы router.navigate чтобы вызывалосизнутри компонента
+      this.product = product;
+    });
+  }
 }
